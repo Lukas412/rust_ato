@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<crate:definition xmlns:crate="http://www.ato.net/xmlns/file/crate"
+                  xmlns:action="http://www.ato.net/xmlns/action"
+                  xmlns:string="http://www.ato.net/xmlns/element/string"
+                  namespace="angular::project::create">
+
+  <action:reference namespace="angular::cli::init">
+    <argument name="flags">
+      <string:element>
+        <string:reference namespace="angular::cli::init::name">
+          <string:argument name="name">
+            <string:get_argument namespace="angular::project" name="name"/>
+          </string:argument>
+        </string:reference>
+        <string:reference namespace="angular::cli::init::production"/>
+      </string:element>
+    </argument>
+  </action:reference>
+</crate:definition>

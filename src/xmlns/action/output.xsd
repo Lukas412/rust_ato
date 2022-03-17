@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/action/output"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:element="http://www.ato.net/xmlns/element"
+           targetNamespace="http://www.ato.net/xmlns/action/output">
+
+  <xs:import namespace="http://www.ato.net/xmlns/element"
+             schemaLocation="../element.xsd"/>
+
+  <xs:element name="write" type="element:includes-element"/>
+</xs:schema>

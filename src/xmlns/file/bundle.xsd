@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/file/bundle"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:crate="http://www.ato.net/xmlns/file/crate"
+           xmlns:pack="http://www.ato.net/xmlns/file/pack"
+           targetNamespace="http://www.ato.net/xmlns/file/bundle">
+
+  <xs:import namespace="http://www.ato.net/xmlns/file/crate"
+             schemaLocation="crate.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/file/pack"
+             schemaLocation="pack.xsd"/>
+
+  <xs:element name="definition">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="packs" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="pack:reference" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="crates" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="crate:reference" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="reference">
+    <xs:complexType>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

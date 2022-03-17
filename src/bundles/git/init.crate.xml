@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<crate:definition xmlns:crate="http://www.ato.net/xmlns/file/crate"
+                  xmlns:action="http://www.ato.net/xmlns/action"
+                  xmlns:string="http://www.ato.net/xmlns/element/string"
+                  namespace="git::init">
+
+  <parameters>
+    <string:parameter name="flags" namespace="git::init::*"/>
+  </parameters>
+  <action:reference namespace="ato::command::invoke">
+    <argument name="command">
+      <string:value>git init</string:value>
+    </argument>
+    <argument name="flags">
+      <string:get_argument namespace="git::init" name="flags"/>
+    </argument>
+  </action:reference>
+</crate:definition>

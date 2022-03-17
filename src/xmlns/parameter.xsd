@@ -1,0 +1,10 @@
+<xs:schema xmlns="http://www.ato.net/xmlns/parameter"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           targetNamespace="http://www.ato.net/xmlns/parameter">
+
+  <xs:complexType name="type">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="namespace" type="namespace:wildcard-type-name"/>
+  </xs:complexType>
+</xs:schema>

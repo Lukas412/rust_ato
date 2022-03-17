@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/action/file"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:path="http://www.ato.net/xmlns/element/path"
+           xmlns:string="http://www.ato.net/xmlns/element/string"
+           targetNamespace="http://www.ato.net/xmlns/action/file">
+
+  <xs:import namespace="http://www.ato.net/xmlns/element/path"
+             schemaLocation="../element/path.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/string"
+             schemaLocation="../element/string.xsd"/>
+
+  <xs:element name="copy">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="from" type="path:includes-element"/>
+        <xs:element name="to" type="path:includes-element"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="new">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="path" type="path:includes-element"/>
+        <xs:element name="content" type="string:includes-element" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="remove" type="path:includes-element"/>
+</xs:schema>

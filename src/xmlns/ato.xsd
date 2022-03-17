@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/ato"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:action="http://www.ato.net/xmlns/action"
+           targetNamespace="http://www.ato.net/xmlns/ato">
+
+  <xs:element name="ato">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ato.dependencies">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="namespace" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="ref" type="namespace:type-name" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ato.actions" type="action:includes-action"/>
+      </xs:all>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

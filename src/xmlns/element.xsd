@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/element"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:boolean="http://www.ato.net/xmlns/element/boolean"
+           xmlns:number="http://www.ato.net/xmlns/element/number"
+           xmlns:string="http://www.ato.net/xmlns/element/string"
+           xmlns:path="http://www.ato.net/xmlns/element/path"
+           targetNamespace="http://www.ato.net/xmlns/element">
+
+  <xs:import namespace="http://www.ato.net/xmlns/namespace"
+             schemaLocation="namespace.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/boolean"
+             schemaLocation="element/boolean.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/number"
+             schemaLocation="element/number.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/string"
+             schemaLocation="element/string.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/path"
+             schemaLocation="element/path.xsd"/>
+
+  <xs:complexType name="includes-element">
+    <xs:group ref="includes-element"/>
+  </xs:complexType>
+  <xs:group name="includes-element">
+    <xs:choice>
+      <xs:group ref="boolean:includes-element"/>
+      <xs:group ref="number:includes-element"/>
+      <xs:group ref="path:includes-element"/>
+      <xs:group ref="string:includes-element"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:group name="parameter">
+    <xs:choice>
+      <xs:element ref="boolean:parameter"/>
+      <xs:element ref="number:parameter"/>
+      <xs:element ref="path:parameter"/>
+      <xs:element ref="string:parameter"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="argument">
+    <xs:choice>
+      <xs:element ref="boolean:argument"/>
+      <xs:element ref="number:argument"/>
+      <xs:element ref="path:argument"/>
+      <xs:element ref="string:argument"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="reference-type">
+    <xs:sequence>
+      <xs:group ref="argument" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/element/path"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:parameter="http://www.ato.net/xmlns/parameter"
+           xmlns:element="http://www.ato.net/xmlns/element"
+           xmlns:boolean="http://www.ato.net/xmlns/element/boolean"
+           xmlns:string="http://www.ato.net/xmlns/element/string"
+           targetNamespace="http://www.ato.net/xmlns/element/path">
+
+  <xs:import namespace="http://www.ato.net/xmlns/namespace"
+             schemaLocation="../namespace.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/parameter"
+             schemaLocation="../parameter.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element"
+             schemaLocation="../element.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/boolean"
+             schemaLocation="boolean.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element/string"
+             schemaLocation="string.xsd"/>
+
+  <xs:complexType name="includes-element">
+    <xs:group ref="includes-element"/>
+  </xs:complexType>
+  <xs:group name="includes-element">
+    <xs:choice>
+      <xs:element ref="value"/>
+      <xs:element ref="element"/>
+      <xs:element ref="reference"/>
+      <xs:element ref="get_argument"/>
+      <xs:element ref="if"/>
+      <xs:element ref="switch"/>
+      <xs:element ref="suffix"/>
+      <xs:element ref="from_string"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="value" type="value-type"/>
+  <xs:simpleType name="value-type">
+    <xs:restriction base="xs:anyURI"/>
+  </xs:simpleType>
+
+  <xs:element name="element" type="element-type"/>
+  <xs:complexType name="element-type">
+    <xs:sequence>
+      <xs:group ref="includes-element" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="value" type="value-type"/>
+  </xs:complexType>
+
+  <xs:element name="reference" type="element:reference-type"/>
+  <xs:element name="get_argument">
+    <xs:complexType>
+      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="if">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="value" type="boolean:includes-element"/>
+        <xs:element name="then" type="element-type"/>
+        <xs:element name="else" type="element-type" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="switch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="then" type="element-type" minOccurs="0"/>
+            </xs:all>
+            <xs:attribute name="value" type="string:value-type"/>
+            <xs:attribute name="then" type="value-type"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="default" type="element-type"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="suffix" type="string:includes-element"/>
+
+  <xs:element name="from_string" type="string:includes-element"/>
+
+  <xs:element name="parameter" type="parameter:type"/>
+  <xs:element name="argument">
+    <xs:complexType>
+      <xs:group ref="includes-element"/>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="value" type="value-type"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

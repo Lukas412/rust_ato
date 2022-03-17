@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/file/pack"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:element="http://www.ato.net/xmlns/element"
+           targetNamespace="http://www.ato.net/xmlns/file/pack">
+
+  <xs:import namespace="http://www.ato.net/xmlns/namespace"
+             schemaLocation="../namespace.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element"
+             schemaLocation="../element.xsd"/>
+
+  <xs:element name="definition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="parameters" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:group ref="element:parameter" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:group ref="element:includes-element"/>
+      </xs:sequence>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="reference">
+    <xs:complexType>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
