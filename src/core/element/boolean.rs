@@ -10,4 +10,7 @@ impl Element<bool> for BooleanElement {
   fn new(value: bool) -> BooleanElement {
     BooleanElement { value }
   }
+  fn get_value(&self) -> bool {
+    self.value
+  }
 }
