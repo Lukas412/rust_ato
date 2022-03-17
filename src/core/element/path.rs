@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use crate::core::element::Element;
 
 mod operation;
 
@@ -6,8 +7,8 @@ struct PathElement {
   value: PathBuf,
 }
 
-impl PathElement {
-  pub fn new(value: PathBuf) -> PathElement {
+impl Element<PathBuf> for PathElement {
+  fn new(value: PathBuf) -> PathElement {
     PathElement { value }
   }
 }

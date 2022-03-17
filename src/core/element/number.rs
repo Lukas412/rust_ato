@@ -1,4 +1,5 @@
 use rust_decimal::Decimal;
+use crate::core::element::Element;
 
 mod operation;
 
@@ -6,8 +7,8 @@ pub struct NumberElement {
   value: Decimal,
 }
 
-impl NumberElement {
-  pub fn new(value: Decimal) -> NumberElement {
+impl Element<Decimal> for NumberElement {
+  fn new(value: Decimal) -> NumberElement {
     NumberElement { value }
   }
 }

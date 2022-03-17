@@ -1,3 +1,4 @@
+use crate::core::element::Element;
 use crate::core::element::string::StringElement;
 use crate::core::operation::Operation;
 

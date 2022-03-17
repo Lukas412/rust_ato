@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 use std::str::FromStr;
+use crate::core::element::Element;
 
 use crate::core::element::path::PathElement;
 use crate::core::operation::Operation;

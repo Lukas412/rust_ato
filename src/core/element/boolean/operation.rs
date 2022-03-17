@@ -1,4 +1,5 @@
 use crate::core::element::boolean::BooleanElement;
+use crate::core::element::Element;
 use crate::core::operation::Operation;
 
 struct BooleanValueOperation {
