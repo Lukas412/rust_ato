@@ -1,4 +1,4 @@
 mod boolean;
 mod number;
 mod path;
-mod boolean;
+mod string;

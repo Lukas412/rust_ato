@@ -2,12 +2,12 @@ use rust_decimal::Decimal;
 
 mod operation;
 
-struct NumberElement {
+pub struct NumberElement {
   value: Decimal,
 }
 
 impl NumberElement {
-  fn new(value: Decimal) -> NumberElement {
+  pub fn new(value: Decimal) -> NumberElement {
     NumberElement { value }
   }
 }

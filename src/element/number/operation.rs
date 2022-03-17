@@ -10,7 +10,7 @@ struct NumberValueOperation {
 
 impl Operation<NumberElement> for NumberValueOperation {
   fn build(&self) -> NumberElement {
-    match Decimal::from_str(self.value.into()) {
+    match Decimal::from_str(&self.value) {
       Ok(value) => NumberElement::new(value),
       Err(_) => NumberElement::new(Decimal::zero())
     }

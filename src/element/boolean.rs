@@ -1,11 +1,11 @@
 mod operation;
 
-struct BooleanElement {
+pub struct BooleanElement {
   value: bool,
 }
 
 impl BooleanElement {
-  fn new(value: bool) -> BooleanElement {
+  pub fn new(value: bool) -> BooleanElement {
     BooleanElement { value }
   }
 }
