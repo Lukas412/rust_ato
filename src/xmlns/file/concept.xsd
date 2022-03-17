@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/ato"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
+           targetNamespace="http://www.ato.net/xmlns/ato">
+
+  <xs:element name="definition">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="dependencies" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="bundle:reference" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
