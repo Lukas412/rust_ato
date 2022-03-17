@@ -1,5 +1,5 @@
-use crate::element::boolean::BooleanElement;
-use crate::operation::Operation;
+use crate::core::element::boolean::BooleanElement;
+use crate::core::operation::Operation;
 
 struct BooleanValueOperation {
   value: String,

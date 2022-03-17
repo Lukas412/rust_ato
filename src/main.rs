@@ -1,5 +1,4 @@
-mod element;
-mod operation;
+mod core;
 
 fn main() {
   println!("Hello, world!");

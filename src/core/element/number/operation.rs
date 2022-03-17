@@ -1,8 +1,8 @@
 use std::str::FromStr;
 use rust_decimal::Decimal;
 use rust_decimal::prelude::Zero;
-use crate::element::number::NumberElement;
-use crate::operation::Operation;
+use crate::core::element::number::NumberElement;
+use crate::core::operation::Operation;
 
 struct NumberValueOperation {
   value: String,
