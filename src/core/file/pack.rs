@@ -7,6 +7,6 @@ struct Pack {
 
 impl File for Pack {
   fn reference(&self) -> Namespace {
-    self.namespace.clone()
+    self.namespace.to_owned()
   }
 }
