@@ -2,8 +2,10 @@ pub struct Namespace {
   value: String,
 }
 
-impl Namespace {
-  pub fn new(value: String) -> Namespace {
-    Namespace { value }
+impl Clone for Namespace {
+  fn clone(&self) -> Self {
+    Namespace {
+      value: self.value.clone()
+    }
   }
 }
