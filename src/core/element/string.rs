@@ -4,6 +4,6 @@ struct StringElement {
 
 impl StringElement {
   pub fn new(value: String) -> StringElement {
-    StringElement { value}
+    StringElement { value }
   }
 }
