@@ -1,3 +1,5 @@
+mod operation;
+
 struct StringElement {
   value: String,
 }
