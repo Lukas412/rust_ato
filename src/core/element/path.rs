@@ -1,5 +1,7 @@
 use std::path::PathBuf;
 
+mod operation;
+
 struct PathElement {
   value: PathBuf,
 }
