@@ -1,3 +1,9 @@
-use crate::operation::Operation;
+struct StringElement {
+  value: String,
+}
 
-struct StringElement {}
+impl StringElement {
+  pub fn new(value: String) -> StringElement {
+    StringElement { value}
+  }
+}

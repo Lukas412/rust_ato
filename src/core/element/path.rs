@@ -1,3 +1,11 @@
-use crate::operation::Operation;
+use std::path::PathBuf;
 
-struct PathElement {}
+struct PathElement {
+  value: PathBuf,
+}
+
+impl PathElement {
+  pub fn new(value: PathBuf) -> PathElement {
+    PathElement { value }
+  }
+}
