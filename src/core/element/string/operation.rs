@@ -1,6 +1,6 @@
 use crate::core::element::Element;
 use crate::core::element::string::StringElement;
-use crate::core::operation::Operation;
+use crate::core::element::Operation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
