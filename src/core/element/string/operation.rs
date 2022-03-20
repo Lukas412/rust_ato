@@ -9,12 +9,6 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl StringValueOperation {
-  pub fn get_value(&self) -> String {
-    return self.text.to_owned();
-  }
-}
-
 impl Operation<StringElement> for StringValueOperation {
   fn build(&self) -> StringElement {
     let value = self.text.to_owned();
