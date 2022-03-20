@@ -7,7 +7,7 @@ use crate::core::operation::Operation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "number", namespace = "number: http://www.ato.net/xmlns/element/number")]
-struct NumberValueOperation {
+pub struct NumberValueOperation {
   #[yaserde(text)]
   text: String,
 }

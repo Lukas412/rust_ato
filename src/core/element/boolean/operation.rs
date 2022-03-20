@@ -4,7 +4,7 @@ use crate::core::operation::Operation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "boolean", namespace = "boolean: http://www.ato.net/xmlns/element/boolean")]
-struct BooleanValueOperation {
+pub struct BooleanValueOperation {
   #[yaserde(text)]
   text: String,
 }

@@ -1,4 +1,4 @@
 pub mod element;
-mod operation;
+pub mod operation;
 mod file;
 mod namespace;

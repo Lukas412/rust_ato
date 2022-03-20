@@ -2,7 +2,7 @@ use crate::core::element::Element;
 
 pub mod operation;
 
-struct StringElement {
+pub struct StringElement {
   value: String,
 }
 

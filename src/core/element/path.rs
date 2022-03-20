@@ -3,7 +3,7 @@ use crate::core::element::Element;
 
 mod operation;
 
-struct PathElement {
+pub struct PathElement {
   value: PathBuf,
 }
 
