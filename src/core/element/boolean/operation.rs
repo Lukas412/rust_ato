@@ -2,13 +2,16 @@ use crate::core::element::boolean::BooleanElement;
 use crate::core::element::Element;
 use crate::core::operation::Operation;
 
+#[derive(Debug, YaDeserialize)]
+#[yaserde(rename = "value", prefix = "boolean", namespace = "boolean: http://www.ato.net/xmlns/element/boolean")]
 struct BooleanValueOperation {
-  value: String,
+  #[yaserde(text)]
+  text: String,
 }
 
 impl Operation<BooleanElement> for BooleanValueOperation {
   fn build(&self) -> BooleanElement {
-    let value = &self.value.to_lowercase() == "true";
+    let value = &self.text.to_lowercase() == "true";
     BooleanElement::new(value)
   }
 }
