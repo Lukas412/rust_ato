@@ -1,6 +1,6 @@
 use crate::core::element::Element;
 
-mod operation;
+pub mod operation;
 
 struct StringElement {
   value: String,

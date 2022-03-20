@@ -1,7 +1,7 @@
-mod boolean;
-mod number;
-mod path;
-mod string;
+pub mod boolean;
+pub mod number;
+pub mod path;
+pub mod string;
 
 trait Element<T> {
   fn new(value: T) -> Self;
