@@ -2,7 +2,7 @@ use crate::core::file::File;
 use crate::core::namespace::Namespace;
 
 struct Pack {
-  namespace: Namespace
+  namespace: Namespace,
 }
 
 impl File for Pack {

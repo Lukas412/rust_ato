@@ -4,6 +4,7 @@ extern crate yaserde_derive;
 use yaserde::de::from_str;
 
 use crate::core::element::string::operation::StringValueOperation;
+
 use self::core::element::{Element, Operation};
 
 mod core;

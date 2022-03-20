@@ -1,4 +1,5 @@
 use rust_decimal::Decimal;
+
 use crate::core::element::Element;
 
 mod operation;
