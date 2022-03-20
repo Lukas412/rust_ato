@@ -1,6 +1,7 @@
 use crate::core::element::Element;
 
-mod operation;
+pub mod operation;
+pub mod parameter;
 
 pub struct BooleanElement {
   value: bool,
