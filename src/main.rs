@@ -10,4 +10,5 @@ mod core;
 fn main() {
   let test = "<boolean:parameter xmlns:boolean=\"http://www.ato.net/xmlns/element/boolean\" name=\"yes\"/>";
   let xml: BooleanParameter = from_str(test).unwrap();
+  println!("{:?}", xml)
 }
