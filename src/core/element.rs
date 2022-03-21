@@ -11,3 +11,5 @@ pub trait Element<T> {
 pub trait Operation<T> {
   fn build(&self) -> T;
 }
+
+pub trait Parameter {}

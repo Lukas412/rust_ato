@@ -1,11 +1,10 @@
+use std::collections::hash_set::Union;
+use crate::BooleanParameter;
+use crate::core::element::{Element, Parameter};
 use crate::core::file::File;
 
 struct Pack {
   namespace: String,
-}
-
-impl File for Pack {
-  fn reference(&self) -> String {
-    self.namespace.to_owned()
-  }
+  parameters: Option<Vec<dyn Parameter>>,
+  element: dyn Element<T>,
 }
