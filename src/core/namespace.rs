@@ -4,7 +4,7 @@ use std::iter;
 pub fn compare_namespace(namespaces: (&String, &String)) -> bool {
   let first_namespace_parts = split_namespace(namespaces.0);
   let second_namespace_parts = split_namespace(namespaces.1);
-  iter::zip(first_namespace_parts, second_namespace_parts).all(|n| { compare_namespace_part(n) })
+  iter::zip(first_namespace_parts, second_namespace_parts).all(compare_namespace_part)
 }
 
 fn split_namespace(namespace: &String) -> Split<&str> {
