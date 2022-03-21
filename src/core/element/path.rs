@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use crate::core::element::Element;
 
 mod operation;
+mod parameter;
 
 pub struct PathElement {
   value: PathBuf,

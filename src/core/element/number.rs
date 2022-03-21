@@ -3,6 +3,7 @@ use rust_decimal::Decimal;
 use crate::core::element::Element;
 
 mod operation;
+mod parameter;
 
 pub struct NumberElement {
   value: Decimal,
