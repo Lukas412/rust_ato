@@ -1,12 +1,11 @@
 use crate::core::file::File;
-use crate::core::namespace::Namespace;
 
 struct Pack {
-  namespace: Namespace,
+  namespace: String,
 }
 
 impl File for Pack {
-  fn reference(&self) -> Namespace {
+  fn reference(&self) -> String {
     self.namespace.to_owned()
   }
 }
