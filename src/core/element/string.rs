@@ -1,7 +1,7 @@
 use crate::core::element::Element;
 
 pub mod operation;
-mod parameter;
+pub mod parameter;
 
 pub struct StringElement {
   value: String,

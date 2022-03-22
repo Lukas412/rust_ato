@@ -1,4 +1,3 @@
-use std::iter;
 use crate::core::element::Parameter;
 
 #[derive(Debug, YaDeserialize)]

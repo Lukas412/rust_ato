@@ -3,8 +3,8 @@ use crate::BooleanParameter;
 use crate::core::element::{Element, Parameter};
 use crate::core::file::File;
 
-struct Pack {
+struct Pack<E, P: Parameter> {
   namespace: String,
-  parameters: Option<Vec<dyn Parameter>>,
-  element: dyn Element<T>,
+  parameters: Option<Vec<P>>,
+  element: dyn Element<E>,
 }
