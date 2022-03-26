@@ -8,8 +8,8 @@ pub trait Element<T> {
   fn get_value(&self) -> T;
 }
 
-pub trait Operation<T> {
-  fn build(&self) -> T;
+pub trait Operation<E: Element<T>, T> {
+  fn build(&self) -> E;
 }
 
-pub trait Parameter: Sized {}
+pub trait Parameter {}

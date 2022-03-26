@@ -1,10 +1,5 @@
-use std::collections::hash_set::Union;
-use crate::BooleanParameter;
-use crate::core::element::{Element, Parameter};
+use std::any::Any;
+use crate::core::element::{Element, Operation, Parameter};
 use crate::core::file::File;
 
-struct Pack<E, P: Parameter> {
-  namespace: String,
-  parameters: Option<Vec<P>>,
-  element: dyn Element<E>,
-}
+trait Pack<O: Operation<E, dyn Any>, E: Element<dyn Any>> {}

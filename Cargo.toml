@@ -7,5 +7,3 @@ edition = "2018"
 
 [dependencies]
 rust_decimal = "1.22.0"
-yaserde = "0.7.1"
-yaserde_derive = "0.7.0"

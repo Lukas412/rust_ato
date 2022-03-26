@@ -1,5 +1,3 @@
-mod pack;
+pub mod pack;
 
-trait File {
-  fn reference(&self) -> String;
-}
+pub trait File {}

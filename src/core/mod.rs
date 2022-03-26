@@ -1,4 +1,4 @@
 pub mod element;
-mod file;
-mod namespace;
+pub mod file;
+pub mod namespace;
 pub mod requirement;
