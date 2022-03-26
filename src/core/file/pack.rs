@@ -1,5 +1,3 @@
-use std::any::Any;
-use crate::core::element::{Element, Operation, Parameter};
-use crate::core::file::File;
+use crate::core::element::{Element, Operation};
 
-trait Pack<O: Operation<E, dyn Any>, E: Element<dyn Any>> {}
+pub trait Pack<O: Operation<E, T>, E: Element<T>, T> {}
