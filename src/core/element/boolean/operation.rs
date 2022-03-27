@@ -8,7 +8,7 @@ pub struct BooleanValueOperation {
   text: String,
 }
 
-impl<T> Operation<BooleanElement, T> for BooleanValueOperation {
+impl Operation<BooleanElement, bool> for BooleanValueOperation {
   fn build(&self) -> BooleanElement {
     let value = &self.text.to_lowercase() == "true";
     BooleanElement::new(value)

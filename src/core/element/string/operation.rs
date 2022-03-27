@@ -8,7 +8,7 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl<T> Operation<StringElement, T> for StringValueOperation {
+impl Operation<StringElement, String> for StringValueOperation {
   fn build(&self) -> StringElement {
     let value = self.text.to_owned();
     StringElement::new(value)

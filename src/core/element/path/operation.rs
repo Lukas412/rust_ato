@@ -11,7 +11,7 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl<T> Operation<PathElement, T> for PathValueOperation {
+impl Operation<PathElement, PathBuf> for PathValueOperation {
   fn build(&self) -> PathElement {
     match PathBuf::from_str(&self.text) {
       Ok(value) => PathElement::new(value),

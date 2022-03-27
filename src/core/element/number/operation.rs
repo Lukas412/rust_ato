@@ -13,7 +13,7 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl<T> Operation<NumberElement, T> for NumberValueOperation {
+impl Operation<NumberElement, Decimal> for NumberValueOperation {
   fn build(&self) -> NumberElement {
     match Decimal::from_str(&self.text) {
       Ok(value) => NumberElement::new(value),
