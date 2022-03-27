@@ -1,6 +1,12 @@
+#[macro_use]
+extern crate yaserde_derive;
+
+use yaserde::de::from_str;
+use crate::core::element::boolean::operation::BooleanValueOperation;
+
 mod core;
 
 fn main() {
-  let test = "<boolean:parameter xmlns:boolean=\"http://www.ato.net/xmlns/element/boolean\" name=\"yes\"/>";
+  let test: BooleanValueOperation = from_str("<boolean:value xmlns:boolean=\"http://www.ato.net/xmlns/element/boolean\">Hello</boolean:value>").unwrap();
   println!("{:?}", test);
 }
