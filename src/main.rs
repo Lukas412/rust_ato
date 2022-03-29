@@ -2,7 +2,7 @@
 extern crate yaserde_derive;
 
 use yaserde::de::from_str;
-use crate::core::element::boolean::operation::BooleanValueOperation;
+use crate::core::element::r#mod::operation::BooleanValueOperation;
 
 mod core;
 mod concepts;
