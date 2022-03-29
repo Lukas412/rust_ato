@@ -1,3 +1,5 @@
 pub mod pack;
 
-pub trait File {}
+pub trait File {
+  fn suffix() -> String;
+}
