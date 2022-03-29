@@ -10,7 +10,7 @@ impl Element<Decimal> for NumberElement {
   fn new(value: Decimal) -> NumberElement {
     NumberElement { value }
   }
-  fn get_value(&self) -> Decimal {
+  fn value(&self) -> Decimal {
     self.value
   }
 }

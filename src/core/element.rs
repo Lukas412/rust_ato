@@ -7,7 +7,7 @@ pub mod string;
 
 pub trait Element<T> {
   fn new(value: T) -> Self;
-  fn get_value(&self) -> T;
+  fn value(&self) -> T;
 }
 
 pub trait Operation<E: Element<T>, T>: Builder<Self, E> {}

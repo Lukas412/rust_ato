@@ -4,11 +4,11 @@ pub struct BooleanElement {
   value: bool,
 }
 
-impl Elesment<bool> for BooleanElement {
+impl Element<bool> for BooleanElement {
   fn new(value: bool) -> BooleanElement {
     BooleanElement { value }
   }
-  fn get_value(&self) -> bool {
+  fn value(&self) -> bool {
     self.value
   }
 }
