@@ -1,4 +1,4 @@
-use crate::concepts::Builder;
+use crate::concepts::Buildable;
 
 pub mod boolean;
 pub mod number;
@@ -10,6 +10,6 @@ pub trait Element<T> {
   fn value(&self) -> T;
 }
 
-pub trait Operation<E: Element<T>, T>: Builder<Self, E> {}
+pub trait Operation<E: Element<T>, T>: Buildable<E> {}
 
 pub trait Parameter {}

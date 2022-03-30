@@ -1,5 +1,5 @@
-pub trait Builder<Buildable, Build> {
-  fn build(buildable: Buildable) -> Build;
+pub trait Buildable<Build> {
+  fn build(&self) -> Build;
 }
 
 pub trait BuilderWithRequirements<Buildable, Build, Requirements> {

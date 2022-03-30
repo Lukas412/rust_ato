@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use crate::core::element::Element;
+use crate::core::data::element::Element;
 
 pub struct PathElement {
   value: PathBuf,

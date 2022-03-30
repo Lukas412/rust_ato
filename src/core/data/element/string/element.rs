@@ -1,4 +1,4 @@
-use crate::core::element::Element;
+use crate::core::data::element::Element;
 
 pub struct StringElement {
   value: String,
