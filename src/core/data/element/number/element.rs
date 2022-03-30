@@ -2,6 +2,7 @@ use rust_decimal::Decimal;
 
 use crate::core::data::element::element::Element;
 
+#[derive(Debug)]
 pub struct NumberElement {
   value: Decimal,
 }

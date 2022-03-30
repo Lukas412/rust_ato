@@ -2,6 +2,7 @@ use std::path::PathBuf;
 
 use crate::core::data::element::element::Element;
 
+#[derive(Debug)]
 pub struct PathElement {
   value: PathBuf,
 }
