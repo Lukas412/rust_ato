@@ -1,4 +1,4 @@
-use crate::core::data::element::Element;
+use crate::core::data::element::element::Element;
 
 pub struct BooleanElement {
   value: bool,

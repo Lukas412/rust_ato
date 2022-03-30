@@ -1,4 +1,4 @@
-use crate::core::data::element::Parameter;
+use crate::core::data::element::parameter::Parameter;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "parameter", prefix = "number", namespace = "number: http://www.ato.net/xmlns/element/number")]

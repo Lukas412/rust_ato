@@ -1,6 +1,7 @@
 use crate::concepts::Buildable;
 use crate::core::data::element::boolean::element::BooleanElement;
-use crate::core::data::element::{Element, Operation};
+use crate::core::data::element::element::Element;
+use crate::core::data::element::operation::Operation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "boolean", namespace = "boolean: http://www.ato.net/xmlns/element/boolean")]

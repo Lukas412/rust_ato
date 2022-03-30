@@ -1,6 +1,6 @@
 use rust_decimal::Decimal;
 
-use crate::core::data::element::Element;
+use crate::core::data::element::element::Element;
 
 pub struct NumberElement {
   value: Decimal,

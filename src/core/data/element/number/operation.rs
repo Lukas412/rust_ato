@@ -3,9 +3,10 @@ use std::str::FromStr;
 use rust_decimal::Decimal;
 use rust_decimal::prelude::Zero;
 use crate::concepts::Buildable;
+use crate::core::data::element::element::Element;
 
-use crate::core::data::element::{Element, Operation};
 use crate::core::data::element::number::element::NumberElement;
+use crate::core::data::element::operation::Operation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "number", namespace = "number: http://www.ato.net/xmlns/element/number")]
