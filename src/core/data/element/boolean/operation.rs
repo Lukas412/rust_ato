@@ -1,4 +1,4 @@
-use crate::concepts::Buildable;
+use crate::core::concepts::build::Buildable;
 use crate::core::data::element::boolean::element::BooleanElement;
 use crate::core::data::element::element::Element;
 use crate::core::data::element::operation::Operation;
