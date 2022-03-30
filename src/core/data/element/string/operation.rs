@@ -1,7 +1,8 @@
-use crate::core::concepts::build::Buildable;
+use crate::core::concepts::build::BuildableWithRequirements;
 use crate::core::data::element::element::Element;
 use crate::core::data::element::operation::Operation;
 use crate::core::data::element::string::element::StringElement;
+use crate::core::data::requirement::Requirements;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
@@ -10,8 +11,8 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl Buildable<StringElement> for StringValueOperation {
-  fn build(&self) -> StringElement {
+impl BuildableWithRequirements<StringElement, Requirements> for StringValueOperation {
+  fn build_with_requirements(&self, _: Requirements) -> StringElement {
     let value = self.text.to_owned();
     StringElement::new(value)
   }
