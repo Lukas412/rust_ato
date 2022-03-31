@@ -1,5 +1,7 @@
+use yaserde::YaDeserialize;
+
 pub mod pack;
 
-pub trait File {
+pub trait File: YaDeserialize {
   fn suffix() -> String;
 }
