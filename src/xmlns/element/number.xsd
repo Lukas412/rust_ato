@@ -89,4 +89,14 @@
       <xs:attribute name="value" type="value-type"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="pack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="element:parameters" minOccurs="0"/>
+        <xs:group ref="includes-element"/>
+      </xs:sequence>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
