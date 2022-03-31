@@ -100,4 +100,23 @@
       <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="pack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="parameters" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:choice maxOccurs="unbounded">
+                <xs:element ref="parameter"/>
+                <xs:group ref="element:parameter"/>
+              </xs:choice>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:group ref="includes-action"/>
+      </xs:sequence>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
