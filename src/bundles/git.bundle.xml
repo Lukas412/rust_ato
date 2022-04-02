@@ -1,13 +1,11 @@
 <bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
-                   xmlns:pack="http://www.ato.net/xmlns/file/pack"
-                   xmlns:create="http://www.ato.net/xmlns/file/crate"
+                   xmlns:action="http://www.ato.net/xmlns/action"
+                   xmlns:string="http://www.ato.net/xmlns/element/string"
                    namespace="git">
 
-  <packs>
-    <pack:reference namespace="git::commit::message"/>
-  </packs>
-  <crates>
-    <create:reference namespace="git::commit"/>
-    <create:reference namespace="git::init"/>
-  </crates>
+  <references>
+    <action:reference namespace="git::commit"/>
+    <string:reference namespace="git::commit::message"/>
+    <action:reference namespace="git::init"/>
+  </references>
 </bundle:definition>

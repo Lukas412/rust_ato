@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<pack:definition xmlns:pack="http://www.ato.net/xmlns/file/pack"
-                 xmlns:string="http://www.ato.net/xmlns/element/string"
-                 namespace="git::commit::message">
+<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="git::commit::message">
 
   <parameters>
     <string:parameter name="value"/>
@@ -11,4 +10,4 @@
     <string:value>--message</string:value>
     <string:get_argument namespace="git::commit::message" name="value"/>
   </string:element>
-</pack:definition>
+</string:pack>

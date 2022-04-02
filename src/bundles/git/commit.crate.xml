@@ -8,11 +8,9 @@
     <string:parameter name="flags" namespace="git::commit::*"/>
   </parameters>
   <action:reference namespace="ato::command::invoke">
-    <argument name="command">
-      <string:value>git commit</string:value>
-    </argument>
-    <argument name="flags">
+    <string:argument name="command" value="git commit"/>
+    <string:argument name="flags">
       <string:get_argument namespace="git::commit" name="flags"/>
-    </argument>
+    </string:argument>
   </action:reference>
 </action:pack>
