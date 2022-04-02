@@ -3,11 +3,12 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/element/path"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:parameter="http://www.ato.net/xmlns/parameter"
            xmlns:element="http://www.ato.net/xmlns/element"
            xmlns:boolean="http://www.ato.net/xmlns/element/boolean"
            xmlns:string="http://www.ato.net/xmlns/element/string"
            targetNamespace="http://www.ato.net/xmlns/element/path">
+
+  <xs:include schemaLocation="../parameter.xsd"/>
 
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
              schemaLocation="../namespace.xsd"/>
@@ -86,7 +87,6 @@
 
   <xs:element name="from_string" type="string:includes-element"/>
 
-  <xs:element name="parameter" type="parameter:type"/>
   <xs:element name="argument">
     <xs:complexType>
       <xs:group ref="includes-element"/>

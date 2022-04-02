@@ -3,7 +3,6 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/action"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:parameter="http://www.ato.net/xmlns/parameter"
            xmlns:action_content="http://www.ato.net/xmlns/action/content"
            xmlns:action_directory="http://www.ato.net/xmlns/action/directory"
            xmlns:action_expression="http://www.ato.net/xmlns/action/expression"
@@ -12,6 +11,8 @@
            xmlns:action_output="http://www.ato.net/xmlns/action/output"
            xmlns:element="http://www.ato.net/xmlns/element"
            targetNamespace="http://www.ato.net/xmlns/action">
+
+  <xs:include schemaLocation="../parameter.xsd"/>
 
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
              schemaLocation="namespace.xsd"/>
@@ -93,7 +94,6 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="parameter" type="parameter:type"/>
   <xs:element name="argument">
     <xs:complexType>
       <xs:group ref="includes-action"/>
