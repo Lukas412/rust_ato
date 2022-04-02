@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
-                   xmlns:pack="http://www.ato.net/xmlns/file/pack"
-                   xmlns:crate="http://www.ato.net/xmlns/file/crate"
+                   xmlns:action="http://www.ato.net/xmlns/action"
+                   xmlns:string="http://www.ato.net/xmlns/element/string"
                    namespace="angular">
 
-  <packs>
-    <pack:reference namespace="angular::cli::build::production"/>
-    <pack:reference namespace="angular::cli::init::name"/>
-    <pack:reference namespace="angular::cli::init::style"/>
-    <pack:reference namespace="angular::cli::start::port"/>
-    <pack:reference namespace="angular::cli::start::production"/>
-  </packs>
-  <crates>
-    <crate:reference namespace="angular::cli::build"/>
-    <crate:reference namespace="angular::cli::init"/>
-    <crate:reference namespace="angular::cli::start"/>
-    <crate:reference namespace="angular::project"/>
-    <crate:reference namespace="angular::project::create"/>
-    <crate:reference namespace="angular::project::edit"/>
-  </crates>
+  <references>
+    <action:reference namespace="angular::cli::build"/>
+    <string:reference namespace="angular::cli::build::production"/>
+
+    <action:reference namespace="angular::cli::init"/>
+    <string:reference namespace="angular::cli::init::name"/>
+    <string:reference namespace="angular::cli::init::style"/>
+
+    <action:reference namespace="angular::cli::start"/>
+    <string:reference namespace="angular::cli::start::port"/>
+    <string:reference namespace="angular::cli::start::production"/>
+
+    <action:reference namespace="angular::project"/>
+    <action:reference namespace="angular::project::create"/>
+    <action:reference namespace="angular::project::edit"/>
+  </references>
 </bundle:definition>

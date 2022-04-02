@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<pack:definition xmlns:pack="http://www.ato.net/xmlns/file/pack"
-                 xmlns:string="http://www.ato.net/xmlns/element/string"
-                 namespace="angular::cli::init::style">
+<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="angular::cli::init::style">
 
   <parameters>
     <string:parameter name="type"/>
@@ -15,4 +14,4 @@
     <case value="scss" then="scss"/>
     <case value="sass" then="sass"/>
   </string:switch>
-</pack:definition>
+</string:pack>

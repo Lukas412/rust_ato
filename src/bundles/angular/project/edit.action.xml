@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<action:pack xmlns:action="http://www.ato.net/xmlns/action"
+             xmlns:action_location="http://www.ato.net/xmlns/action/location"
+             xmlns:path="http://www.ato.net/xmlns/element/path"
+             xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="angular::project::edit">
+
+  <action_location:change>
+    <path:from_string>
+      <string:get_argument namespace="angular::project" name="name"/>
+    </path:from_string>
+    <action:array/>
+  </action_location:change>
+</action:pack>

@@ -1,0 +1,5 @@
+<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="angular::cli::start::production">
+
+  <string:value>--configuration=production</string:value>
+</string:pack>

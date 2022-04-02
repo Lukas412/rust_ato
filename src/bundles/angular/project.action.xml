@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<crate:definition xmlns:crate="http://www.ato.net/xmlns/file/crate"
-                  xmlns:action="http://www.ato.net/xmlns/action"
-                  xmlns:string="http://www.ato.net/xmlns/element/string"
-                  namespace="angular::project">
+<action:pack xmlns:action="http://www.ato.net/xmlns/action"
+             xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="angular::project">
 
   <parameters>
     <string:parameter name="name"/>
@@ -13,4 +12,4 @@
     <action:reference namespace="angular::project::create"/>
     <action:reference namespace="angular::project::edit"/>
   </action:array>
-</crate:definition>
+</action:pack>

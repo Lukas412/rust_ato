@@ -1,0 +1,14 @@
+<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
+             xmlns:number="http://www.ato.net/xmlns/element/number"
+             namespace="angular::cli::start::port">
+
+  <parameters>
+    <number:parameter name="value"/>
+  </parameters>
+  <string:element>
+    <string:value>--port</string:value>
+    <string:from_number>
+      <number:get_argument namespace="angular::cli::start::port" name="value"/>
+    </string:from_number>
+  </string:element>
+</string:pack>
