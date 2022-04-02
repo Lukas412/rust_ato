@@ -12,7 +12,7 @@
            xmlns:element="http://www.ato.net/xmlns/element"
            targetNamespace="http://www.ato.net/xmlns/action">
 
-  <xs:include schemaLocation="../parameter.xsd"/>
+  <xs:include schemaLocation="parameter.xsd"/>
 
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
              schemaLocation="namespace.xsd"/>
