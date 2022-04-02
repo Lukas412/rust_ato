@@ -1,6 +1,6 @@
 use rust_decimal::Decimal;
 
-use crate::core::data::element::element::Element;
+use crate::core::traits::element::Element;
 
 #[derive(Debug)]
 pub struct NumberElement {
