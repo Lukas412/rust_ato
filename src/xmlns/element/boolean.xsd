@@ -81,7 +81,7 @@
 
   <xs:element name="argument">
     <xs:complexType>
-      <xs:group ref="includes-element"/>
+      <xs:group ref="includes-element" minOccurs="0"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
       <xs:attribute name="value" type="value-type"/>
     </xs:complexType>
