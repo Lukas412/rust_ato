@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<crate:definition xmlns:crate="http://www.ato.net/xmlns/file/crate"
-                  xmlns:action="http://www.ato.net/xmlns/action"
-                  xmlns:string="http://www.ato.net/xmlns/element/string"
-                  namespace="git::commit">
+<action:pack xmlns:action="http://www.ato.net/xmlns/action"
+             xmlns:string="http://www.ato.net/xmlns/element/string"
+             namespace="git::commit">
 
   <parameters>
     <string:parameter name="flags" namespace="git::commit::*"/>
@@ -16,4 +15,4 @@
       <string:get_argument namespace="git::commit" name="flags"/>
     </argument>
   </action:reference>
-</crate:definition>
+</action:pack>
