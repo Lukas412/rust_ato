@@ -80,15 +80,8 @@
   <xs:element name="reference">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="argument" minOccurs="0" maxOccurs="unbounded">
-          <xs:complexType>
-            <xs:choice>
-              <xs:group ref="includes-action"/>
-              <xs:group ref="element:includes-element"/>
-            </xs:choice>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-          </xs:complexType>
-        </xs:element>
+        <xs:element ref="argument" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:group ref="element:argument" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
     </xs:complexType>
