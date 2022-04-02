@@ -56,10 +56,27 @@
     </xs:choice>
   </xs:group>
 
+  <xs:group name="reference">
+    <xs:choice>
+      <xs:element ref="boolean:reference"/>
+      <xs:element ref="number:reference"/>
+      <xs:element ref="path:reference"/>
+      <xs:element ref="string:reference"/>
+    </xs:choice>
+  </xs:group>
   <xs:complexType name="reference-type">
     <xs:sequence>
       <xs:group ref="argument" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
   </xs:complexType>
+
+  <xs:group name="pack">
+    <xs:choice>
+      <xs:element ref="boolean:pack"/>
+      <xs:element ref="number:pack"/>
+      <xs:element ref="path:pack"/>
+      <xs:element ref="string:pack"/>
+    </xs:choice>
+  </xs:group>
 </xs:schema>

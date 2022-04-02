@@ -3,29 +3,25 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/file/bundle"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:crate="http://www.ato.net/xmlns/file/crate"
-           xmlns:pack="http://www.ato.net/xmlns/file/pack"
+           xmlns:action="http://www.ato.net/xmlns/action"
+           xmlns:element="http://www.ato.net/xmlns/element"
            targetNamespace="http://www.ato.net/xmlns/file/bundle">
 
-  <xs:import namespace="http://www.ato.net/xmlns/file/crate"
-             schemaLocation="crate.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/file/pack"
-             schemaLocation="pack.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/action"
+             schemaLocation="../action.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/element"
+             schemaLocation="../element.xsd"/>
 
   <xs:element name="definition">
     <xs:complexType>
       <xs:all>
-        <xs:element name="packs" minOccurs="0">
+        <xs:element name="references" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element ref="pack:reference" maxOccurs="unbounded"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="crates" minOccurs="0">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element ref="crate:reference" maxOccurs="unbounded"/>
+              <xs:choice>
+                <xs:element ref="action:reference" maxOccurs="unbounded"/>
+                <xs:group ref="element:reference" maxOccurs="unbounded"/>
+              </xs:choice>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
