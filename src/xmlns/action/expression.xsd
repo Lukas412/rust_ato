@@ -8,5 +8,5 @@
   <xs:import namespace="http://www.ato.net/xmlns/element/string"
              schemaLocation="../element/string.xsd"/>
 
-  <xs:element name="invoke" type="string:includes-element"/>
+  <xs:element name="invoke" type="string:element-type"/>
 </xs:schema>
