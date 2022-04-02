@@ -1,8 +1,8 @@
 <bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
-                   xmlns:crate="http://www.ato.net/xmlns/file/crate"
+                   xmlns:action="http://www.ato.net/xmlns/action"
                    namespace="ato">
 
-  <crates>
-    <crate:reference namespace="ato::command::invoke"/>
-  </crates>
+  <references>
+    <action:reference namespace="ato::command::invoke"/>
+  </references>
 </bundle:definition>
