@@ -32,13 +32,11 @@
     </xs:choice>
   </xs:group>
 
-  <xs:element name="parameters">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:group ref="parameter" maxOccurs="unbounded"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="parameters">
+    <xs:sequence>
+      <xs:group ref="parameter" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:group name="parameter">
     <xs:choice>
       <xs:element ref="boolean:parameter"/>
