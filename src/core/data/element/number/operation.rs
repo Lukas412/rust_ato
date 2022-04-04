@@ -15,10 +15,8 @@ use crate::core::traits::operation::Operation;
 use crate::core::data::requirement::Requirements;
 use crate::core::traits::xml_element::XmlElement;
 
-#[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "value", prefix = "number", namespace = "number: http://www.ato.net/xmlns/element/number")]
+#[derive(Debug)]
 pub struct NumberValueOperation {
-  #[yaserde(text)]
   text: String,
 }
 
