@@ -40,8 +40,8 @@ impl XmlElement for StringValueOperation {
   fn tag_name() -> OwnedName {
     OwnedName {
       local_name: "value".to_string(),
-      namespace: Some("http://www.ato.net/xmlns/element/number".to_string()),
-      prefix: Some("number".to_string()),
+      namespace: Some("http://www.ato.net/xmlns/element/string".to_string()),
+      prefix: Some("string".to_string()),
     }
   }
 }
