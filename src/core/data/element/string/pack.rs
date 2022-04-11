@@ -21,16 +21,6 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl StringPack {
-  fn new() -> StringPack {
-    StringPack {
-      namespace: Namespace::empty(),
-      parameters: Parameters::empty(),
-      operation: StringOperation::Empty
-    }
-  }
-}
-
 impl File for StringPack {
   fn suffix() -> String {
     ".string.xml".into()
@@ -38,6 +28,14 @@ impl File for StringPack {
 }
 
 impl XmlElement for StringPack {
+  fn empty() -> Self {
+    StringPack {
+      namespace: Namespace::empty(),
+      parameters: Parameters::empty(),
+      operation: StringOperation::Empty
+    }
+  }
+
   fn tag_name() -> OwnedName {
     OwnedName {
       local_name: "pack".to_string(),
@@ -49,17 +47,8 @@ impl XmlElement for StringPack {
 
 impl YaDeserialize for StringPack {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    StringPack::peek_expect_tag_name(reader);
-    reader.read_inner_value(|f| {
-      let result = StringPack::new();
-      loop {
-        break match f.peek() {
-          Ok(_) => Ok(result),
-          Err(error) => Err(error)
-        }
-        // reader.next_event();
-      }
-    })
+    StringPack::peek_expect_tag_name(reader)?;
+    StringPack::read_inner_element(reader)
   }
 }
 

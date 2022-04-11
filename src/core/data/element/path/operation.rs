@@ -42,6 +42,10 @@ impl YaDeserialize for PathValueOperation {
 }
 
 impl XmlElement for PathValueOperation {
+  fn empty() -> Self {
+    todo!()
+  }
+
   fn tag_name() -> OwnedName {
     OwnedName {
       local_name: "value".to_string(),

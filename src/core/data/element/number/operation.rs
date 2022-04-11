@@ -44,6 +44,10 @@ impl YaDeserialize for NumberValueOperation {
 }
 
 impl XmlElement for NumberValueOperation {
+  fn empty() -> Self {
+    todo!()
+  }
+
   fn tag_name() -> OwnedName {
     OwnedName {
       local_name: "value".to_string(),

@@ -5,7 +5,6 @@ use std::fs::read_to_string;
 
 use yaserde::de::from_str;
 
-use crate::core::data::element::string::operation::StringValueOperation;
 use crate::core::data::element::string::pack::StringPack;
 
 mod core;
