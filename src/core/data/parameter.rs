@@ -5,6 +5,12 @@ use crate::core::data::element::string::parameter::StringParameter;
 
 pub struct Parameters(Vec<Parameter>);
 
+impl Parameters {
+  pub fn empty() -> Parameters {
+    Parameters(vec![])
+  }
+}
+
 #[derive(Debug, YaDeserialize)]
 enum Parameter {
   Boolean(BooleanParameter),
