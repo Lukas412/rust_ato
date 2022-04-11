@@ -3,6 +3,7 @@ use crate::core::data::element::number::parameter::NumberParameter;
 use crate::core::data::element::path::parameter::PathParameter;
 use crate::core::data::element::string::parameter::StringParameter;
 
+#[derive(Debug)]
 pub struct Parameters(Vec<Parameter>);
 
 impl Parameters {
@@ -11,7 +12,7 @@ impl Parameters {
   }
 }
 
-#[derive(Debug, YaDeserialize)]
+#[derive(Debug)]
 enum Parameter {
   Boolean(BooleanParameter),
   Number(NumberParameter),

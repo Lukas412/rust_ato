@@ -1,26 +1,24 @@
 use std::io::Read;
 use yaserde::__xml::name::OwnedName;
-use yaserde::__xml::reader::XmlEvent;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 use crate::core::data::element::string::element::StringElement;
+use crate::core::data::element::string::operation::StringOperation;
 use crate::core::data::parameter::Parameters;
 use crate::core::data::requirement::Requirements;
 use crate::core::namespace::Namespace;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::file::File;
-use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::Pack;
-use crate::core::traits::parameter::Parameter;
 use crate::core::traits::xml_element::XmlElement;
 
 #[derive(Debug)]
 pub struct StringPack {
   namespace: Namespace,
   parameters: Parameters,
-  operation: Box<dyn Operation<StringElement, String>>,
+  operation: StringOperation,
 }
 
 impl StringPack {
@@ -28,7 +26,7 @@ impl StringPack {
     StringPack {
       namespace: Namespace::empty(),
       parameters: Parameters::empty(),
-      operation: Box::new(())
+      operation: StringOperation::Empty
     }
   }
 }
@@ -53,15 +51,13 @@ impl YaDeserialize for StringPack {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     StringPack::peek_expect_tag_name(reader);
     reader.read_inner_value(|f| {
-      let mut result = StringPack::new();
+      let result = StringPack::new();
       loop {
-        match reader.peek() {
-          Ok(XmlEvent::StartElement) => None,
-          Ok(XmlEvent::EndElement) => break Ok(result),
-          Ok(_) => None,
-          Err(error) => break Err(error)
+        break match f.peek() {
+          Ok(_) => Ok(result),
+          Err(error) => Err(error)
         }
-        reader.next_event();
+        // reader.next_event();
       }
     })
   }

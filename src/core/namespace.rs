@@ -1,6 +1,4 @@
-use core::str::Split;
-use std::iter;
-
+#[derive(Debug)]
 pub struct Namespace(String);
 
 impl Namespace {
