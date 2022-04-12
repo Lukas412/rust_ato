@@ -1,5 +1,6 @@
 use std::io::Read;
 use yaserde::__xml::name::OwnedName;
+use yaserde::__xml::reader::XmlEvent;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
@@ -41,6 +42,13 @@ impl XmlElement for StringPack {
       local_name: "pack".to_string(),
       namespace: Some("http://www.ato.net/xmlns/element/string".to_string()),
       prefix: Some("string".to_string())
+    }
+  }
+
+  fn on_event<R: Read>(&mut self, reader: &mut Deserializer<R>) -> Result<(), String> {
+    let event = reader.next_event()?;
+    match event {
+      _ => Ok(())
     }
   }
 }
