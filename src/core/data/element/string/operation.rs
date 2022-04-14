@@ -6,6 +6,7 @@ use crate::core::data::requirement::Requirements;
 use crate::core::traits::xml_element::XmlElement;
 
 #[derive(Debug, YaDeserialize)]
+#[yaserde(flatten)]
 pub enum StringOperation {
   #[yaserde(rename = "empty", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
   Empty,
