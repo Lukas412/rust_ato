@@ -1,9 +1,7 @@
-use std::fmt::format;
 use std::io::Read;
 use std::str::FromStr;
 
 use rust_decimal::Decimal;
-use rust_decimal::prelude::Zero;
 use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
