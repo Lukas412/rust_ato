@@ -15,7 +15,7 @@ use crate::core::traits::pack::Pack;
 pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,
-  #[yaserde(child, prefix = None, namespace = None)]
+  #[yaserde(child)]
   parameters: Option<Parameters>,
   #[yaserde(flatten)]
   operation: StringOperation,
