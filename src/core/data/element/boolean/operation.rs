@@ -7,7 +7,6 @@ use yaserde::YaDeserialize;
 
 use crate::core::data::element::boolean::element::BooleanElement;
 use crate::core::data::requirement::Requirements;
-use crate::core::parse::peek_expect_start_event;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
 use crate::core::traits::operation::Operation;

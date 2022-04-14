@@ -9,7 +9,6 @@ use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::file::File;
 use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::Pack;
-use crate::core::traits::parameter::Parameter;
 
 struct StringPack {
   namespace: Namespace,
