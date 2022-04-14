@@ -1,3 +1,3 @@
-pub trait BuildableWithRequirements<Build, Requirements> {
-  fn build_with_requirements(&self, requirements: Requirements) -> Build;
+pub trait BuildableWithRequirements<Build, Error, Requirements> {
+  fn build_with_requirements(&self, requirements: Requirements) -> Result<Build, Error>;
 }

@@ -26,10 +26,10 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<StringElement, Requirements> for StringValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> StringElement {
+impl BuildableWithRequirements<StringElement, String, Requirements> for StringValueOperation {
+  fn build_with_requirements(&self, _: Requirements) -> Result<StringElement, String> {
     let value = self.text.to_owned();
-    StringElement::new(value)
+    Ok(StringElement::new(value))
   }
 }
 
