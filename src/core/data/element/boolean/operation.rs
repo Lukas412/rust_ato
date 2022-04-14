@@ -39,6 +39,10 @@ impl YaDeserialize for BooleanValueOperation {
 }
 
 impl XmlElement for BooleanValueOperation {
+  fn empty() -> Self {
+    todo!()
+  }
+
   fn tag_name() -> OwnedName {
     OwnedName {
       local_name: "value".to_string(),
