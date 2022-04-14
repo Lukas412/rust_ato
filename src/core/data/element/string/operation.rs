@@ -3,10 +3,26 @@ use crate::core::traits::element::Element;
 use crate::core::traits::operation::Operation;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::requirement::Requirements;
+use crate::core::traits::xml_element::XmlElement;
+
+#[derive(Debug, YaDeserialize)]
+pub enum StringOperation {
+  #[yaserde(rename = "empty", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+  Empty,
+  #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+  Value(StringValueOperation),
+}
+
+impl Default for StringOperation {
+  fn default() -> Self {
+    Self::Empty
+  }
+}
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
 pub struct StringValueOperation {
+  #[yaserde(text)]
   text: String,
 }
 

@@ -3,7 +3,7 @@ use crate::core::data::element::number::parameter::NumberParameter;
 use crate::core::data::element::path::parameter::PathParameter;
 use crate::core::data::element::string::parameter::StringParameter;
 
-#[derive(Debug, YaDeserialize)]
+#[derive(Debug, Default, YaDeserialize)]
 pub struct Parameters {
   #[yaserde(rename = "parameter", prefix = "boolean", namespace = "boolean: http://www.ato.net/xmlns/element/boolean")]
   boolean: Vec<BooleanParameter>,
