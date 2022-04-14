@@ -1,9 +1,7 @@
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
-use crate::core::traits::operation::Operation;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::requirement::Requirements;
-use crate::core::traits::xml_element::XmlElement;
 
 #[derive(Debug, YaDeserialize)]
 pub enum StringOperation {
@@ -32,5 +30,3 @@ impl BuildableWithRequirements<StringElement, Requirements> for StringValueOpera
     StringElement::new(value)
   }
 }
-
-impl Operation<StringElement, String> for StringValueOperation {}

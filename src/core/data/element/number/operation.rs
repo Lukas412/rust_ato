@@ -11,7 +11,6 @@ use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
 
 use crate::core::data::element::number::element::NumberElement;
-use crate::core::traits::operation::Operation;
 use crate::core::data::requirement::Requirements;
 use crate::core::traits::xml_element::XmlElement;
 
@@ -56,5 +55,3 @@ impl XmlElement for NumberValueOperation {
     }
   }
 }
-
-impl Operation<NumberElement, Decimal> for NumberValueOperation {}
