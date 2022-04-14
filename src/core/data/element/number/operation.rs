@@ -1,3 +1,4 @@
+use std::fmt::format;
 use std::io::Read;
 use std::str::FromStr;
 
@@ -19,11 +20,11 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<NumberElement, Requirements> for NumberValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> NumberElement {
+impl BuildableWithRequirements<NumberElement, String, Requirements> for NumberValueOperation {
+  fn build_with_requirements(&self, _: Requirements) -> Result<NumberElement, String> {
     match Decimal::from_str(&self.text) {
-      Ok(value) => NumberElement::new(value),
-      Err(_) => NumberElement::new(Decimal::zero())
+      Ok(value) => Ok(NumberElement::new(value)),
+      Err(value) => Err(format!("NumberValueOperation: ValueError: {}", value))
     }
   }
 }

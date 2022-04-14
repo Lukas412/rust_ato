@@ -16,10 +16,13 @@ pub struct BooleanValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<BooleanElement, Requirements> for BooleanValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> BooleanElement {
-    let value = self.text == "true";
-    BooleanElement::new(value)
+impl BuildableWithRequirements<BooleanElement, String, Requirements> for BooleanValueOperation {
+  fn build_with_requirements(&self, _: Requirements) -> Result<BooleanElement, String> {
+    match self.text.as_str() {
+      "true" => Ok(BooleanElement::new(true)),
+      "false" => Ok(BooleanElement::new(false)),
+      value => Err(format!("BooleanValueOperation: ValueError: {}", value))
+    }
   }
 }
 

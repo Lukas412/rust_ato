@@ -17,11 +17,11 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<PathElement, Requirements> for PathValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> PathElement {
+impl BuildableWithRequirements<PathElement, String, Requirements> for PathValueOperation {
+  fn build_with_requirements(&self, _: Requirements) -> Result<PathElement, String> {
     match PathBuf::from_str(&self.text) {
-      Ok(value) => PathElement::new(value),
-      Err(_) => PathElement::new(PathBuf::default())
+      Ok(value) => Ok(PathElement::new(value)),
+      Err(value) => Err(format!("PathValueOperation: ValueError: {}", value))
     }
   }
 }
