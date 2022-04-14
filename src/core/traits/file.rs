@@ -1,5 +1,5 @@
 use yaserde::YaDeserialize;
 
-pub trait File: YaDeserialize {
+pub trait File {
   fn suffix() -> String;
 }
