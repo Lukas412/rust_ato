@@ -18,7 +18,7 @@ pub struct PathValueOperation {
 }
 
 impl BuildableWithRequirements<PathElement, String, Requirements> for PathValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> Result<PathElement, String> {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<PathElement, String> {
     match PathBuf::from_str(&self.text) {
       Ok(value) => Ok(PathElement::new(value)),
       Err(value) => Err(format!("PathValueOperation: ValueError: {}", value))

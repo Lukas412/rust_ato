@@ -11,7 +11,7 @@ pub struct StringValueOperation {
 }
 
 impl BuildableWithRequirements<StringElement, String, Requirements> for StringValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> Result<StringElement, String> {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<StringElement, String> {
     let value = self.text.to_owned();
     Ok(StringElement::new(value))
   }

@@ -23,7 +23,7 @@ impl File for StringPack {
 }
 
 impl BuildableWithRequirements<StringElement, String, Requirements> for StringPack {
-  fn build_with_requirements(&self, requirements: Requirements) -> Result<StringElement, String> {
+  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
     todo!()
   }
 }

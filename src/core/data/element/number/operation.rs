@@ -19,7 +19,7 @@ pub struct NumberValueOperation {
 }
 
 impl BuildableWithRequirements<NumberElement, String, Requirements> for NumberValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> Result<NumberElement, String> {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<NumberElement, String> {
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberElement::new(value)),
       Err(value) => Err(format!("NumberValueOperation: ValueError: {}", value))

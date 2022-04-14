@@ -17,7 +17,7 @@ pub struct BooleanValueOperation {
 }
 
 impl BuildableWithRequirements<BooleanElement, String, Requirements> for BooleanValueOperation {
-  fn build_with_requirements(&self, _: Requirements) -> Result<BooleanElement, String> {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<BooleanElement, String> {
     match self.text.as_str() {
       "true" => Ok(BooleanElement::new(true)),
       "false" => Ok(BooleanElement::new(false)),

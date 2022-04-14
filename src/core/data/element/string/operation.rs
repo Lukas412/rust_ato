@@ -22,7 +22,7 @@ impl Default for StringOperation {
 }
 
 impl BuildableWithRequirements<StringElement, String, Requirements> for StringOperation {
-  fn build_with_requirements(&self, requirements: Requirements) -> Result<StringElement, String> {
+  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
     match self {
       Self::Empty => Ok(StringElement::new("".to_string())),
       Self::Value(operation) => operation.build_with_requirements(requirements)
