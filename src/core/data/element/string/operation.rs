@@ -4,6 +4,7 @@ use crate::core::data::element::string::element::StringElement;
 use crate::core::data::requirement::Requirements;
 
 #[derive(Debug, YaDeserialize)]
+#[yaserde(prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
 pub enum StringOperation {
   #[yaserde(rename = "empty", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
   Empty,

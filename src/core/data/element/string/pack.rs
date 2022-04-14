@@ -6,12 +6,12 @@ use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::file::File;
 
 #[derive(Debug, Default, YaDeserialize)]
-#[yaserde(rename = "pack", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(root, rename = "pack", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
 pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(child)]
-  parameters: Option<Parameters>,
+  parameters: Parameters,
   #[yaserde(flatten)]
   operation: StringOperation,
 }
