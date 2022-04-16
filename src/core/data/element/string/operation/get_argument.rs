@@ -3,9 +3,12 @@ use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
 
 #[derive(Debug, YaDeserialize)]
+#[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
 pub struct StringGetArgumentOperation {
+  #[yaserde(attribute)]
   name: String,
-  namespace: String
+  #[yaserde(attribute)]
+  namespace: Option<String>,
 }
 
 impl BuildableWithRequirements<StringElement, String, Requirements> for StringGetArgumentOperation {

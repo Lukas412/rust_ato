@@ -29,8 +29,8 @@ impl BuildableWithRequirements<StringElement, String, Requirements> for StringOp
   fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
     match self {
       Self::Empty => Ok(StringElement::new("".to_string())),
-      Self::Value(operation) | Self::GetArgument(operation) =>
-        operation.build_with_requirements(requirements),
+      Self::Value(operation) => operation.build_with_requirements(requirements),
+      Self::GetArgument(operation) => operation.build_with_requirements(requirements),
     }
   }
 }
