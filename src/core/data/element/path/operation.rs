@@ -1,55 +1,31 @@
-use std::io::Read;
-use std::path::PathBuf;
-use std::str::FromStr;
-use yaserde::__xml::name::OwnedName;
-use yaserde::__xml::reader::XmlEvent;
-use yaserde::de::Deserializer;
-use yaserde::YaDeserialize;
+mod value;
+
+use crate::core::data::element::path::operation::value::PathValueOperation;
+use crate::core::data::element::string::element::StringElement;
+use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
 
-use crate::core::data::element::path::element::PathElement;
-use crate::core::data::requirement::Requirements;
-use crate::core::traits::xml_element::XmlElement;
-
-#[derive(Debug)]
-pub struct PathValueOperation {
-  text: String,
+#[derive(Debug, YaDeserialize)]
+#[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+pub enum PathOperation {
+  #[yaserde(rename = "empty", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+  Empty,
+  #[yaserde(rename = "value", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+  Value(PathValueOperation),
 }
 
-impl BuildableWithRequirements<PathElement, String, Requirements> for PathValueOperation {
-  fn build_with_requirements(&self, _: &Requirements) -> Result<PathElement, String> {
-    match PathBuf::from_str(&self.text) {
-      Ok(value) => Ok(PathElement::new(value)),
-      Err(value) => Err(format!("PathValueOperation: ValueError: {}", value))
-    }
+impl Default for PathOperation {
+  fn default() -> Self {
+    Self::Empty
   }
 }
 
-impl YaDeserialize for PathValueOperation {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    PathValueOperation::peek_expect_tag_name(reader)?;
-    reader.read_inner_value(|reader| {
-      let mut result = Self { text: "".to_string() };
-      match reader.next_event()? {
-        XmlEvent::Characters(text) => result.text = text,
-        event => return Err(format!("Expected XmlEvent::Characters, got: {:?}", event))
-      };
-      return Ok(result);
-    })
-  }
-}
-
-impl XmlElement for PathValueOperation {
-  fn empty() -> Self {
-    todo!()
-  }
-
-  fn tag_name() -> OwnedName {
-    OwnedName {
-      local_name: "value".to_string(),
-      namespace: Some("http://www.ato.net/xmlns/element/path".to_string()),
-      prefix: Some("path".to_string()),
+impl BuildableWithRequirements<StringElement, String, Requirements> for PathOperation {
+  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
+    match self {
+      Self::Empty => Ok(StringElement::new("".to_string())),
+      Self::Value(operation) => operation.build_with_requirements(requirements),
     }
   }
 }
