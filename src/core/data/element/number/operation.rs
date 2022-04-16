@@ -1,7 +1,6 @@
 use std::io::Read;
 use std::str::FromStr;
 
-use rust_decimal::Decimal;
 use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
@@ -11,7 +10,6 @@ use crate::core::data::build::BuildError;
 use crate::core::data::element::number::element::NumberElement;
 use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
-use crate::core::traits::element::Element;
 use crate::core::traits::xml_element::XmlElement;
 
 #[derive(Debug)]

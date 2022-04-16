@@ -1,3 +1,4 @@
+use crate::core::data::build::BuildError;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
@@ -11,8 +12,8 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl BuildableWithRequirements<StringElement, String, Requirements> for StringGetArgumentOperation {
-  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
+impl BuildableWithRequirements<StringElement, BuildError, Requirements> for StringGetArgumentOperation {
+  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, BuildError> {
     todo!()
   }
 }
