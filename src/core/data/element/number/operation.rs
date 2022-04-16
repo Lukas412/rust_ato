@@ -6,11 +6,12 @@ use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
-use crate::core::traits::build::BuildableWithRequirements;
-use crate::core::traits::element::Element;
 
+use crate::core::data::build::BuildError;
 use crate::core::data::element::number::element::NumberElement;
 use crate::core::data::requirement::Requirements;
+use crate::core::traits::build::BuildableWithRequirements;
+use crate::core::traits::element::Element;
 use crate::core::traits::xml_element::XmlElement;
 
 #[derive(Debug)]
@@ -18,12 +19,9 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<NumberElement, String, Requirements> for NumberValueOperation {
-  fn build_with_requirements(&self, _: &Requirements) -> Result<NumberElement, String> {
-    match Decimal::from_str(&self.text) {
-      Ok(value) => Ok(NumberElement::new(value)),
-      Err(value) => Err(format!("NumberValueOperation: ValueError: {}", value))
-    }
+impl BuildableWithRequirements<NumberElement, BuildError, Requirements> for NumberValueOperation {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<NumberElement, BuildError> {
+    NumberElement::from_str(&self.text)
   }
 }
 

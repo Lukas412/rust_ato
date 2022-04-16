@@ -1,10 +1,12 @@
 use std::io::Read;
+use std::str::FromStr;
 
 use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
+use crate::core::data::build::BuildError;
 use crate::core::data::element::boolean::element::BooleanElement;
 use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
@@ -16,13 +18,9 @@ pub struct BooleanValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<BooleanElement, String, Requirements> for BooleanValueOperation {
-  fn build_with_requirements(&self, _: &Requirements) -> Result<BooleanElement, String> {
-    match self.text.as_str() {
-      "true" => Ok(BooleanElement::new(true)),
-      "false" => Ok(BooleanElement::new(false)),
-      value => Err(format!("BooleanValueOperation: ValueError: {}", value))
-    }
+impl BuildableWithRequirements<BooleanElement, BuildError, Requirements> for BooleanValueOperation {
+  fn build_with_requirements(&self, _: &Requirements) -> Result<BooleanElement, BuildError> {
+    BooleanElement::from_str(&self.text)
   }
 }
 
