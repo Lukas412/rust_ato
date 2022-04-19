@@ -1,13 +1,8 @@
 use std::io::Read;
 
-use yaserde::__xml::name::OwnedName;
-use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
+use yaserde::YaDeserialize;
 
-pub fn peek_expect_start_event<R: Read>(reader: &mut Deserializer<R>) -> Result<OwnedName, String> {
-  let event = reader.peek()?;
-  match event {
-    XmlEvent::StartElement { name, .. } => Ok(name.to_owned()),
-    _ => Err(format!("Expected XmlEvent::StartElement, got: {:?}", event))
-  }
+pub fn from_deserializer<R: Read, T: YaDeserialize>(reader: &mut Deserializer<R>) -> Result<T, String> {
+  <T as YaDeserialize>::deserialize(reader)
 }
