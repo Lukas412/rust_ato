@@ -11,27 +11,27 @@ use crate::core::data::element::string::parameter::StringParameter;
 use crate::core::parse::from_deserializer;
 
 #[derive(Debug, Default, YaDeserialize)]
-pub struct Parameters {
+pub struct ElementParameters {
   #[yaserde(rename = "parameter")]
-  parameters: Vec<Parameter>,
+  parameters: Vec<ElementParameter>,
 }
 
 #[derive(Debug)]
-pub enum Parameter {
+pub enum ElementParameter {
   Boolean(BooleanParameter),
   Number(NumberParameter),
   Path(PathParameter),
   String(StringParameter),
 }
 
-impl Parameter {
+impl ElementParameter {
   fn from_xml_name<R: Read>(reader: &mut Deserializer<R>, name: OwnedName) -> Result<Self, String> {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       match (local_name.as_str(), namespace.as_str()) {
-        ("parameter", "http://www.ato.net/xmlns/element/boolean") => Ok(Parameter::Boolean(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/number") => Ok(Parameter::Number(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/path") => Ok(Parameter::Path(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/string") => Ok(Parameter::String(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/element/boolean") => Ok(ElementParameter::Boolean(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/element/number") => Ok(ElementParameter::Number(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/element/path") => Ok(ElementParameter::Path(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/element/string") => Ok(ElementParameter::String(from_deserializer(reader)?)),
         value => Err(format!("parameter: wrong name: {:?}", value))
       }
     } else {
@@ -40,11 +40,11 @@ impl Parameter {
   }
 }
 
-impl YaDeserialize for Parameter {
+impl YaDeserialize for ElementParameter {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let peek = reader.peek()?.to_owned();
     if let XmlEvent::StartElement { name, .. } = peek {
-      Parameter::from_xml_name(reader, name)
+      ElementParameter::from_xml_name(reader, name)
     } else {
       Err(format!("parameter: wrong xml format: {:?}", peek))
     }

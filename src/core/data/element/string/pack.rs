@@ -1,7 +1,7 @@
 use crate::core::data::element::argument::Arguments;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::element::string::operation::StringOperation;
-use crate::core::data::element::parameter::Parameters;
+use crate::core::data::element::parameter::ElementParameters;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::file::File;
 
@@ -11,7 +11,7 @@ pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(child)]
-  parameters: Parameters,
+  parameters: ElementParameters,
   #[yaserde(flatten)]
   operation: StringOperation,
 }
