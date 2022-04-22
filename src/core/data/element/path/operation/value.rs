@@ -1,7 +1,7 @@
 use std::str::FromStr;
+use crate::core::data::argument::Arguments;
 use crate::core::data::build::BuildError;
 use crate::core::data::element::path::element::PathElement;
-use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
 
 #[derive(Debug, YaDeserialize)]
@@ -11,8 +11,8 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<PathElement, BuildError, Requirements> for PathValueOperation {
-  fn build_with_requirements(&self, _: &Requirements) -> Result<PathElement, BuildError> {
+impl BuildableWithRequirements<PathElement, BuildError, Arguments> for PathValueOperation {
+  fn build_with_requirements(&self, _: &Arguments) -> Result<PathElement, BuildError> {
     PathElement::from_str(&self.text)
   }
 }

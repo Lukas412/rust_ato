@@ -1,7 +1,7 @@
+use crate::core::data::argument::Arguments;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::element::string::operation::StringOperation;
 use crate::core::data::parameter::Parameters;
-use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::file::File;
 
@@ -22,8 +22,8 @@ impl File for StringPack {
   }
 }
 
-impl BuildableWithRequirements<StringElement, String, Requirements> for StringPack {
-  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, String> {
+impl BuildableWithRequirements<StringElement, String, Arguments> for StringPack {
+  fn build_with_requirements(&self, requirements: &Arguments) -> Result<StringElement, String> {
     todo!()
   }
 }

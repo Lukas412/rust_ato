@@ -1,8 +1,8 @@
+use crate::core::data::argument::Arguments;
 use crate::core::data::build::BuildError;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::element::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::data::element::string::operation::value::StringValueOperation;
-use crate::core::data::requirement::Requirements;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
 
@@ -26,8 +26,8 @@ impl Default for StringOperation {
   }
 }
 
-impl BuildableWithRequirements<StringElement, BuildError, Requirements> for StringOperation {
-  fn build_with_requirements(&self, requirements: &Requirements) -> Result<StringElement, BuildError> {
+impl BuildableWithRequirements<StringElement, BuildError, Arguments> for StringOperation {
+  fn build_with_requirements(&self, requirements: &Arguments) -> Result<StringElement, BuildError> {
     match self {
       Self::Empty => Ok(StringElement::new("".to_string())),
       Self::Value(operation) => operation.build_with_requirements(requirements),
