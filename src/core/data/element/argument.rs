@@ -1,6 +1,5 @@
-#[derive(Debug, Default, YaDeserialize)]
+#[derive(Debug, Default)]
 pub struct ElementArguments {
-  #[yaserde(rename = "argument")]
   arguments: Vec<ElementArgument>,
 }
 
