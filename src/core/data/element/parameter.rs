@@ -9,6 +9,7 @@ use crate::core::data::element::number::parameter::NumberParameter;
 use crate::core::data::element::path::parameter::PathParameter;
 use crate::core::data::element::string::parameter::StringParameter;
 use crate::core::parse::from_deserializer;
+use crate::core::traits::parameter::Parameter;
 
 #[derive(Debug, Default, YaDeserialize)]
 pub struct ElementParameters {
@@ -48,5 +49,20 @@ impl YaDeserialize for ElementParameter {
     } else {
       Err(format!("parameter: wrong xml format: {:?}", peek))
     }
+  }
+}
+
+impl Parameter for ElementParameter {
+  fn name(&self) -> String {
+    match self {
+      ElementParameter::Boolean(parameter) => parameter.name(),
+      ElementParameter::Number(parameter) => parameter.name(),
+      ElementParameter::Path(parameter) => parameter.name(),
+      ElementParameter::String(parameter) => parameter.name(),
+    }
+  }
+
+  fn namespace(&self) -> String {
+    todo!()
   }
 }

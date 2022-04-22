@@ -1,4 +1,4 @@
 pub trait Parameter {
-  fn name();
-  fn namespace();
+  fn name(&self) -> String;
+  fn namespace(&self) -> String;
 }
