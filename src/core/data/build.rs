@@ -1,6 +1,6 @@
 #[derive(Debug)]
 pub enum BuildError {
-  ValueError(ValueError)
+  Value(ValueError)
 }
 
 #[derive(Debug)]
@@ -11,7 +11,7 @@ pub struct ValueError {
 
 impl ValueError {
   pub fn new(value: &str) -> BuildError {
-    BuildError::ValueError(Self {
+    BuildError::Value(Self {
       value: value.to_string(),
       backtrace: Backtrace::default(),
     })
