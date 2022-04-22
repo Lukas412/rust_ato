@@ -1,10 +1,7 @@
-#[derive(Debug, Default)]
-pub struct Arguments(Vec<Argument>);
-
-impl Arguments {
-  pub fn new(arguments: Vec<Argument>) -> Self {
-    Self(arguments)
-  }
+#[derive(Debug, Default, YaDeserialize)]
+pub struct Arguments {
+  #[yaserde(rename = "argument")]
+  arguments: Vec<Argument>,
 }
 
 #[derive(Debug)]
