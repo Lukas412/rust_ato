@@ -1,5 +1,5 @@
 use std::str::FromStr;
-use crate::core::data::element::argument::Arguments;
+use crate::core::data::element::argument::ElementArguments;
 use crate::core::data::build::BuildError;
 use crate::core::data::element::path::element::PathElement;
 use crate::core::traits::build::BuildableWithRequirements;
@@ -11,8 +11,8 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<PathElement, BuildError, Arguments> for PathValueOperation {
-  fn build_with_requirements(&self, _: &Arguments) -> Result<PathElement, BuildError> {
+impl BuildableWithRequirements<PathElement, BuildError, ElementArguments> for PathValueOperation {
+  fn build_with_requirements(&self, _: &ElementArguments) -> Result<PathElement, BuildError> {
     PathElement::from_str(&self.text)
   }
 }

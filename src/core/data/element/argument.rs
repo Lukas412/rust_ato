@@ -1,11 +1,11 @@
 #[derive(Debug, Default, YaDeserialize)]
-pub struct Arguments {
+pub struct ElementArguments {
   #[yaserde(rename = "argument")]
-  arguments: Vec<Argument>,
+  arguments: Vec<ElementArgument>,
 }
 
 #[derive(Debug)]
-pub enum Argument {
+pub enum ElementArgument {
   Boolean(),
   Number(),
   Path(),
