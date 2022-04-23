@@ -63,6 +63,11 @@ impl Parameter for ElementParameter {
   }
 
   fn namespace(&self) -> String {
-    todo!()
+    match self {
+      ElementParameter::Boolean(parameter) => parameter.namespace(),
+      ElementParameter::Number(parameter) => parameter.namespace(),
+      ElementParameter::Path(parameter) => parameter.namespace(),
+      ElementParameter::String(parameter) => parameter.namespace(),
+    }
   }
 }
