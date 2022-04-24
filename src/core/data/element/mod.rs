@@ -4,4 +4,10 @@ pub mod path;
 pub mod string;
 pub mod parameter;
 pub mod container;
-pub mod types;
+
+pub enum ElementType {
+  Boolean,
+  Number,
+  Path,
+  String
+}
