@@ -1,3 +1,5 @@
+use crate::core::traits::argument::Argument;
+
 #[derive(Debug, Default)]
 pub struct ElementArguments {
   arguments: Vec<ElementArgument>,
@@ -9,4 +11,10 @@ pub enum ElementArgument {
   Number(),
   Path(),
   String(),
+}
+
+impl<T> Argument<T> for ElementArgument {
+  fn value(&self) -> T {
+    todo!()
+  }
 }
