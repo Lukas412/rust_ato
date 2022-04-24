@@ -5,6 +5,7 @@ use crate::core::data::build::BuildError;
 use crate::core::data::element::path::element::PathElement;
 use crate::core::data::element::path::operation::value::PathValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
+use crate::ElementContainer;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
@@ -21,8 +22,8 @@ impl Default for PathOperation {
   }
 }
 
-impl BuildableWithRequirements<PathElement, BuildError, ElementArguments> for PathOperation {
-  fn build_with_requirements(&self, requirements: &ElementArguments) -> Result<PathElement, BuildError> {
+impl BuildableWithRequirements<PathElement, BuildError, ElementContainer> for PathOperation {
+  fn build_with_requirements(&self, requirements: &ElementContainer) -> Result<PathElement, BuildError> {
     match self {
       Self::Empty => PathElement::from_str(""),
       Self::Value(operation) => operation.build_with_requirements(requirements),
