@@ -1,3 +1,4 @@
+use crate::core::data::build::BuildError;
 use crate::core::data::element::argument::ElementArguments;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::data::element::string::operation::StringOperation;
@@ -22,8 +23,8 @@ impl File for StringPack {
   }
 }
 
-impl BuildableWithRequirements<StringElement, String, ElementArguments> for StringPack {
-  fn build_with_requirements(&self, requirements: &ElementArguments) -> Result<StringElement, String> {
-    todo!()
+impl BuildableWithRequirements<StringElement, BuildError, ElementArguments> for StringPack {
+  fn build_with_requirements(&self, requirements: &ElementArguments) -> Result<StringElement, BuildError> {
+    self.operation.build_with_requirements(requirements)
   }
 }
