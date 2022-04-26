@@ -1,5 +1,6 @@
 use crate::core::traits::container::Container;
 
+#[derive(Debug, Default)]
 pub struct ElementContainer {
 
 }
