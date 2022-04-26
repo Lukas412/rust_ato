@@ -2,7 +2,7 @@ use std::str::FromStr;
 use crate::core::data::build::BuildError;
 use crate::core::data::element::string::element::StringElement;
 use crate::core::traits::build::BuildableWithRequirements;
-use crate::ElementContainer;
+use crate::ElementCreation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
@@ -11,8 +11,8 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<StringElement, BuildError, ElementContainer> for StringValueOperation {
-  fn build_with_requirements(&self, _: &ElementContainer) -> Result<StringElement, BuildError> {
+impl BuildableWithRequirements<StringElement, BuildError, ElementCreation> for StringValueOperation {
+  fn build_with_requirements(&self, _: &ElementCreation) -> Result<StringElement, BuildError> {
     StringElement::from_str(&self.text)
   }
 }
