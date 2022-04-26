@@ -18,5 +18,5 @@ fn main() {
   println!("{}", string);
 
   let test: StringPack = from_str(&string).unwrap();
-  println!("{:?}", test.build_with_requirements(&ElementCreation::new(vec![])));
+  println!("{:#?}", test.build_with_requirements(&ElementCreation::new(vec![])));
 }
