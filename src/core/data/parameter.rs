@@ -3,6 +3,7 @@ use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
+use crate::core::data::action::parameter::ActionParameter;
 use crate::core::data::boolean::parameter::BooleanParameter;
 use crate::core::data::number::parameter::NumberParameter;
 use crate::core::data::path::parameter::PathParameter;
@@ -18,6 +19,7 @@ pub struct ElementParameters {
 
 #[derive(Debug)]
 pub enum ElementParameter {
+  Action(ActionParameter),
   Boolean(BooleanParameter),
   Number(NumberParameter),
   Path(PathParameter),
@@ -28,6 +30,7 @@ impl ElementParameter {
   fn from_xml_name<R: Read>(reader: &mut Deserializer<R>, name: OwnedName) -> Result<Self, String> {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       match (local_name.as_str(), namespace.as_str()) {
+        ("parameter", "http://www.ato.net/xmlns/action") => Ok(ElementParameter::Action(from_deserializer(reader)?)),
         ("parameter", "http://www.ato.net/xmlns/element/boolean") => Ok(ElementParameter::Boolean(from_deserializer(reader)?)),
         ("parameter", "http://www.ato.net/xmlns/element/number") => Ok(ElementParameter::Number(from_deserializer(reader)?)),
         ("parameter", "http://www.ato.net/xmlns/element/path") => Ok(ElementParameter::Path(from_deserializer(reader)?)),
