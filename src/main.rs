@@ -7,6 +7,7 @@ use yaserde::de::from_str;
 use crate::core::data::element::creation::ElementCreation;
 
 use crate::core::data::element::string::pack::StringPack;
+use crate::core::data::string::pack::StringPack;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::creation::Creation;
 
