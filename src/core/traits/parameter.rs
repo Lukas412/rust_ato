@@ -1,3 +1,5 @@
+use crate::core::data::name::AtoName;
+
 pub trait Parameter {
-  fn name(&self) -> &String;
+  fn name(&self) -> &AtoName;
 }
