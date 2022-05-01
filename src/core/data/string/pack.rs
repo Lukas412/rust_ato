@@ -1,3 +1,4 @@
+use crate::core::data::element::parameter::ElementParameters;
 use crate::core::data::string::operation::StringOperation;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -6,7 +7,7 @@ pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(child)]
-  parameters: Parameters,
+  parameters: ElementParameters,
   #[yaserde(flatten)]
   operation: StringOperation,
 }
