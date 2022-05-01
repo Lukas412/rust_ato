@@ -3,7 +3,6 @@ use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
-use crate::core::data::action::parameter::ActionParameter;
 use crate::core::data::boolean::parameter::BooleanParameter;
 use crate::core::data::number::parameter::NumberParameter;
 use crate::core::data::path::parameter::PathParameter;

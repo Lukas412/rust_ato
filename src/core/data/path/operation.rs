@@ -2,10 +2,9 @@ mod value;
 
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
-use crate::core::data::element::path::element::PathElement;
-use crate::core::data::element::path::operation::value::PathValueOperation;
+use crate::core::data::path::element::PathElement;
+use crate::core::data::path::operation::value::PathValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
-use crate::ElementCreation;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]

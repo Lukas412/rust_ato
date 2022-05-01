@@ -1,10 +1,9 @@
 use crate::core::data::build::BuildError;
-use crate::core::data::element::string::element::StringElement;
-use crate::core::data::element::string::operation::get_argument::StringGetArgumentOperation;
-use crate::core::data::element::string::operation::value::StringValueOperation;
+use crate::core::data::string::element::StringElement;
+use crate::core::data::string::operation::get_argument::StringGetArgumentOperation;
+use crate::core::data::string::operation::value::StringValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::element::Element;
-use crate::ElementCreation;
 
 pub mod value;
 pub mod get_argument;

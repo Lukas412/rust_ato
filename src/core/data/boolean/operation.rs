@@ -1,9 +1,8 @@
 use std::str::FromStr;
+use crate::core::data::boolean::element::BooleanElement;
 
 use crate::core::data::build::BuildError;
-use crate::core::data::element::boolean::element::BooleanElement;
 use crate::core::traits::build::BuildableWithRequirements;
-use crate::ElementCreation;
 
 #[derive(Debug)]
 pub struct BooleanValueOperation {
