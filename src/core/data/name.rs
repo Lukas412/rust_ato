@@ -1,4 +1,4 @@
-pub struct OwnedAtoName {
+pub struct AtoName {
   name: String,
   namespace: Option<String>,
 }
