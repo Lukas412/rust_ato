@@ -55,23 +55,13 @@ impl YaDeserialize for GeneralParameter {
 }
 
 impl Parameter for GeneralParameter {
-  fn name(&self) -> String {
+  fn name(&self) -> &String {
     match self {
       GeneralParameter::Action(parameter) => parameter.name(),
       GeneralParameter::Boolean(parameter) => parameter.name(),
       GeneralParameter::Number(parameter) => parameter.name(),
       GeneralParameter::Path(parameter) => parameter.name(),
       GeneralParameter::String(parameter) => parameter.name(),
-    }
-  }
-
-  fn namespace(&self) -> String {
-    match self {
-      GeneralParameter::Action(parameter) => parameter.namespace(),
-      GeneralParameter::Boolean(parameter) => parameter.namespace(),
-      GeneralParameter::Number(parameter) => parameter.namespace(),
-      GeneralParameter::Path(parameter) => parameter.namespace(),
-      GeneralParameter::String(parameter) => parameter.namespace(),
     }
   }
 }

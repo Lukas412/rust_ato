@@ -53,21 +53,12 @@ impl YaDeserialize for ElementParameter {
 }
 
 impl Parameter for ElementParameter {
-  fn name(&self) -> String {
+  fn name(&self) -> &String {
     match self {
       ElementParameter::Boolean(parameter) => parameter.name(),
       ElementParameter::Number(parameter) => parameter.name(),
       ElementParameter::Path(parameter) => parameter.name(),
       ElementParameter::String(parameter) => parameter.name(),
-    }
-  }
-
-  fn namespace(&self) -> String {
-    match self {
-      ElementParameter::Boolean(parameter) => parameter.namespace(),
-      ElementParameter::Number(parameter) => parameter.namespace(),
-      ElementParameter::Path(parameter) => parameter.namespace(),
-      ElementParameter::String(parameter) => parameter.namespace(),
     }
   }
 }

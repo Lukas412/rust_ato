@@ -10,11 +10,7 @@ pub struct ActionParameter {
 }
 
 impl Parameter for ActionParameter {
-  fn name(&self) -> String {
-    self.name.to_owned()
-  }
-
-  fn namespace(&self) -> String {
-    self.namespace.to_owned().unwrap_or("".to_string())
+  fn name(&self) -> &String {
+    &self.name
   }
 }
