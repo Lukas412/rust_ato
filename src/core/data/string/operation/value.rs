@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
-use crate::core::data::string::value::StringElement;
+use crate::core::data::string::value::StringValue;
 use crate::core::traits::build::BuildableWithRequirements;
 
 #[derive(Debug, YaDeserialize)]
@@ -10,8 +10,8 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl BuildableWithRequirements<StringElement, BuildError, ElementCreation> for StringValueOperation {
-  fn build_with_requirements(&self, _: &ElementCreation) -> Result<StringElement, BuildError> {
-    StringElement::from_str(&self.text)
+impl BuildableWithRequirements<StringValue, BuildError, ElementCreation> for StringValueOperation {
+  fn build_with_requirements(&self, _: &ElementCreation) -> Result<StringValue, BuildError> {
+    StringValue::from_str(&self.text)
   }
 }

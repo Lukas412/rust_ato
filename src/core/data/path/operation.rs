@@ -2,7 +2,7 @@ mod value;
 
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
-use crate::core::data::path::value::PathElement;
+use crate::core::data::path::value::PathValue;
 use crate::core::data::path::operation::value::PathValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
 
@@ -21,10 +21,10 @@ impl Default for PathOperation {
   }
 }
 
-impl BuildableWithRequirements<PathElement, BuildError, ElementCreation> for PathOperation {
-  fn build_with_requirements(&self, requirements: &ElementCreation) -> Result<PathElement, BuildError> {
+impl BuildableWithRequirements<PathValue, BuildError, ElementCreation> for PathOperation {
+  fn build_with_requirements(&self, requirements: &ElementCreation) -> Result<PathValue, BuildError> {
     match self {
-      Self::Empty => PathElement::from_str(""),
+      Self::Empty => PathValue::from_str(""),
       Self::Value(operation) => operation.build_with_requirements(requirements),
     }
   }

@@ -5,25 +5,25 @@ use crate::core::data::build::{BuildError, ValueError};
 use crate::core::traits::element::Value;
 
 #[derive(Debug)]
-pub struct NumberElement {
+pub struct NumberValue {
   value: Decimal,
   namespace: String,
 }
 
-impl FromStr for NumberElement {
+impl FromStr for NumberValue {
   type Err = BuildError;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
     match Decimal::from_str(s) {
-      Ok(value) => Ok(NumberElement::new(value)),
+      Ok(value) => Ok(NumberValue::new(value)),
       Err(value) => Err(ValueError::new(&value.to_string()))
     }
   }
 }
 
-impl Value<Decimal> for NumberElement {
-  fn new(value: Decimal, namespace: String) -> NumberElement {
-    NumberElement { value, namespace }
+impl Value<Decimal> for NumberValue {
+  fn new(value: Decimal, namespace: String) -> NumberValue {
+    NumberValue { value, namespace }
   }
 
   fn value(&self) -> &Decimal {
