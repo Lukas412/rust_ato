@@ -32,6 +32,6 @@ impl Value<bool> for BooleanValue {
   }
 
   fn namespace(&self) -> &String {
-    todo!()
+    &self.namespace
   }
 }
