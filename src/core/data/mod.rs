@@ -7,4 +7,3 @@ pub mod variety;
 pub mod action;
 pub mod element;
 pub mod general;
-pub mod name;

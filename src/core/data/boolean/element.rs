@@ -7,6 +7,8 @@ use crate::core::traits::element::Element;
 #[derive(Debug)]
 pub struct BooleanElement {
   value: bool,
+  name: String,
+  namespace: String,
 }
 
 impl FromStr for BooleanElement {
