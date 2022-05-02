@@ -1,5 +1,5 @@
 use crate::core::data::build::BuildError;
-use crate::core::data::string::element::StringElement;
+use crate::core::data::string::value::StringElement;
 use crate::core::traits::build::BuildableWithRequirements;
 
 #[derive(Debug, YaDeserialize)]

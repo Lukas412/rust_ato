@@ -2,11 +2,12 @@ use std::path::PathBuf;
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
 
-use crate::core::traits::element::Element;
+use crate::core::traits::element::Value;
 
 #[derive(Debug)]
 pub struct PathElement {
   value: PathBuf,
+  namespace: String,
 }
 
 impl FromStr for PathElement {
@@ -18,11 +19,16 @@ impl FromStr for PathElement {
   }
 }
 
-impl Element<PathBuf> for PathElement {
-  fn new(value: PathBuf) -> PathElement {
-    PathElement { value }
+impl Value<PathBuf> for PathElement {
+  fn new(value: PathBuf, namespace: String) -> PathElement {
+    PathElement { value, namespace }
   }
-  fn value(&self) -> PathBuf {
-    self.value.to_owned()
+
+  fn value(&self) -> &PathBuf {
+    &self.value
+  }
+
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 }

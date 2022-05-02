@@ -2,11 +2,12 @@ use std::str::FromStr;
 use rust_decimal::Decimal;
 use crate::core::data::build::{BuildError, ValueError};
 
-use crate::core::traits::element::Element;
+use crate::core::traits::element::Value;
 
 #[derive(Debug)]
 pub struct NumberElement {
   value: Decimal,
+  namespace: String,
 }
 
 impl FromStr for NumberElement {
@@ -20,11 +21,16 @@ impl FromStr for NumberElement {
   }
 }
 
-impl Element<Decimal> for NumberElement {
-  fn new(value: Decimal) -> NumberElement {
-    NumberElement { value }
+impl Value<Decimal> for NumberElement {
+  fn new(value: Decimal, namespace: String) -> NumberElement {
+    NumberElement { value, namespace }
   }
-  fn value(&self) -> Decimal {
-    self.value
+
+  fn value(&self) -> &Decimal {
+    &self.value
+  }
+
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 }

@@ -2,7 +2,7 @@ mod value;
 
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
-use crate::core::data::path::element::PathElement;
+use crate::core::data::path::value::PathElement;
 use crate::core::data::path::operation::value::PathValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
 
