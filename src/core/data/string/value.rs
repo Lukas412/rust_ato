@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
-use crate::core::traits::element::Value;
+use crate::core::traits::value::Value;
 
 #[derive(Debug)]
 pub struct StringValue {
@@ -16,12 +16,14 @@ impl FromStr for StringValue {
   }
 }
 
-impl Value<String> for StringValue {
-  fn new(value: String, namespace: String) -> StringValue {
+impl Value for StringValue {
+  type Type = String;
+
+  fn new(value: Self::Type, namespace: String) -> StringValue {
     StringValue { value, namespace}
   }
 
-  fn value(&self) -> &String {
+  fn value(&self) -> &Self::Type {
     &self.value
   }
 

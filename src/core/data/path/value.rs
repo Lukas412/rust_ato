@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use std::str::FromStr;
 use crate::core::data::build::BuildError;
 
-use crate::core::traits::element::Value;
+use crate::core::traits::value::Value;
 
 #[derive(Debug)]
 pub struct PathValue {
@@ -19,12 +19,14 @@ impl FromStr for PathValue {
   }
 }
 
-impl Value<PathBuf> for PathValue {
-  fn new(value: PathBuf, namespace: String) -> PathValue {
+impl Value for PathValue {
+  type Type = PathBuf;
+
+  fn new(value: Self::Type, namespace: String) -> PathValue {
     PathValue { value, namespace }
   }
 
-  fn value(&self) -> &PathBuf {
+  fn value(&self) -> &Self::Type {
     &self.value
   }
 

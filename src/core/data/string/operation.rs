@@ -3,7 +3,7 @@ use crate::core::data::string::value::StringValue;
 use crate::core::data::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::data::string::operation::value::StringValueOperation;
 use crate::core::traits::build::BuildableWithRequirements;
-use crate::core::traits::element::Value;
+use crate::core::traits::value::Value;
 
 pub mod value;
 pub mod get_argument;

@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use crate::core::data::build::BuildError;
 use crate::core::data::build::ValueError;
-use crate::core::traits::element::Value;
+use crate::core::traits::value::Value;
 
 #[derive(Debug)]
 pub struct BooleanValue {
@@ -22,12 +22,14 @@ impl FromStr for BooleanValue {
   }
 }
 
-impl Value<bool> for BooleanValue {
-  fn new(value: bool, namespace: String) -> BooleanValue {
+impl Value for BooleanValue {
+  type Type = bool;
+
+  fn new(value: Self::Type, namespace: String) -> BooleanValue {
     BooleanValue { value, namespace }
   }
 
-  fn value(&self) -> &bool {
+  fn value(&self) -> &Self::Type {
     &self.value
   }
 
