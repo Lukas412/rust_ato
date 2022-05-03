@@ -26,7 +26,7 @@ impl Value for BooleanValue {
   type Type = bool;
 
   fn new(value: Self::Type, namespace: String) -> BooleanValue {
-    BooleanValue { value, namespace }
+    Self { value, namespace }
   }
 
   fn value(&self) -> &Self::Type {

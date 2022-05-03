@@ -25,7 +25,7 @@ impl Value for NumberValue {
   type Type = Decimal;
 
   fn new(value: Self::Type, namespace: String) -> NumberValue {
-    NumberValue { value, namespace }
+    Self { value, namespace }
   }
 
   fn value(&self) -> &Self::Type {

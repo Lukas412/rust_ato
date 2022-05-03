@@ -20,7 +20,7 @@ impl Value for StringValue {
   type Type = String;
 
   fn new(value: Self::Type, namespace: String) -> StringValue {
-    StringValue { value, namespace}
+    Self { value, namespace}
   }
 
   fn value(&self) -> &Self::Type {

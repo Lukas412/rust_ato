@@ -23,7 +23,7 @@ impl Value for PathValue {
   type Type = PathBuf;
 
   fn new(value: Self::Type, namespace: String) -> PathValue {
-    PathValue { value, namespace }
+    Self { value, namespace }
   }
 
   fn value(&self) -> &Self::Type {
