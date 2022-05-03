@@ -10,3 +10,20 @@ pub enum GeneralValue {
   Path(PathValue),
   String(StringValue),
 }
+
+impl Value<Option<bool>> for GeneralValue {
+  fn new(value: bool, namespace: String) -> Self {
+    GeneralValue::Boolean(BooleanValue::new(value, namespace))
+  }
+
+  fn value(&self) -> Option<&bool> {
+    match self {
+      
+      _ => None
+    }
+  }
+
+  fn namespace(&self) -> &String {
+    todo!()
+  }
+}
