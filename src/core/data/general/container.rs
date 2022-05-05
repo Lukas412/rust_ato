@@ -5,7 +5,7 @@ use crate::core::traits::container::Container;
 pub struct GeneralContainer {}
 
 impl Container<GeneralValue, GeneralParameter> for GeneralContainer {
-  fn satisfy_parameter(&self, parameters: &GeneralParameter) -> bool {
+  fn includes(&self, parameters: &GeneralParameter) -> bool {
     todo!()
   }
 

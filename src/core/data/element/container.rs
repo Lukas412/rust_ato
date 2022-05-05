@@ -7,7 +7,7 @@ pub struct ElementContainer {
 }
 
 impl Container<ElementValue, ElementParameter> for ElementContainer {
-  fn satisfy_parameter(&self, parameters: &ElementParameter) -> bool {
+  fn includes(&self, parameters: &ElementParameter) -> bool {
     todo!()
   }
 
