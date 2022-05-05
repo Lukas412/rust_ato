@@ -8,7 +8,7 @@ use yaserde::de::from_str;
 use crate::core::data::element::container::ElementContainer;
 
 use crate::core::data::string::pack::StringPack;
-use crate::core::traits::build::BuildableWithRequirements;
+use crate::core::traits::build::Buildable;
 
 mod core;
 
@@ -19,5 +19,5 @@ fn main() {
 
   let test: StringPack = from_str(&string).unwrap();
   let requirements = ElementContainer::new();
-  println!("{:#?}", test.build_with_requirements(&requirements));
+  println!("{:#?}", test.build(&requirements));
 }

@@ -1,6 +1,6 @@
 use crate::core::data::build::BuildError;
 use crate::core::data::string::value::StringValue;
-use crate::core::traits::build::BuildableWithRequirements;
+use crate::core::traits::build::Buildable;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
@@ -11,8 +11,8 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl BuildableWithRequirements<StringValue, BuildError, ElementCreation> for StringGetArgumentOperation {
-  fn build_with_requirements(&self, requirements: &ElementCreation) -> Result<StringValue, BuildError> {
+impl Buildable<StringValue, BuildError, ElementCreation> for StringGetArgumentOperation {
+  fn build(&self, requirements: &ElementCreation) -> Result<StringValue, BuildError> {
     todo!()
   }
 }

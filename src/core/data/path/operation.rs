@@ -4,7 +4,7 @@ use std::str::FromStr;
 use crate::core::data::build::BuildError;
 use crate::core::data::path::value::PathValue;
 use crate::core::data::path::operation::value::PathValueOperation;
-use crate::core::traits::build::BuildableWithRequirements;
+use crate::core::traits::build::Buildable;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
@@ -21,11 +21,11 @@ impl Default for PathOperation {
   }
 }
 
-impl BuildableWithRequirements<PathValue, BuildError, ElementCreation> for PathOperation {
-  fn build_with_requirements(&self, requirements: &ElementCreation) -> Result<PathValue, BuildError> {
+impl Buildable<PathValue, BuildError, ElementCreation> for PathOperation {
+  fn build(&self, requirements: &ElementCreation) -> Result<PathValue, BuildError> {
     match self {
       Self::Empty => PathValue::from_str(""),
-      Self::Value(operation) => operation.build_with_requirements(requirements),
+      Self::Value(operation) => operation.build(requirements),
     }
   }
 }

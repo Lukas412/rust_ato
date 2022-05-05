@@ -2,7 +2,7 @@ use crate::core::data::build::BuildError;
 use crate::core::data::string::value::StringValue;
 use crate::core::data::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::data::string::operation::value::StringValueOperation;
-use crate::core::traits::build::BuildableWithRequirements;
+use crate::core::traits::build::Buildable;
 use crate::core::traits::value::Value;
 
 pub mod value;
@@ -25,12 +25,12 @@ impl Default for StringOperation {
   }
 }
 
-impl BuildableWithRequirements<StringValue, BuildError, ElementCreation> for StringOperation {
-  fn build_with_requirements(&self, requirements: &ElementCreation) -> Result<StringValue, BuildError> {
+impl Buildable<StringValue, BuildError, ElementCreation> for StringOperation {
+  fn build(&self, requirements: &ElementCreation) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => Ok(StringValue::new("".to_string())),
-      Self::Value(operation) => operation.build_with_requirements(requirements),
-      Self::GetArgument(operation) => operation.build_with_requirements(requirements),
+      Self::Value(operation) => operation.build(requirements),
+      Self::GetArgument(operation) => operation.build(requirements),
     }
   }
 }
