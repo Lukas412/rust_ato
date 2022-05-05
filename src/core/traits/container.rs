@@ -10,3 +10,7 @@ pub trait Container {
   fn includes(&self, parameter: &Self::Parameter) -> bool;
   fn get_element(&self, name: &String) -> Option<&Self::Value>;
 }
+
+pub trait Provide<T, Error>: Container {
+  fn get_value(&self, name: &String) -> Result<&T, Error>;
+}
