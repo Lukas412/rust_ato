@@ -13,7 +13,7 @@ pub struct ValueError {
 impl ValueError {
   pub fn new(value: &str) -> BuildError {
     BuildError::Value(Self {
-      value: value.to_string(),
+      value: value.to_owned(),
       backtrace: Backtrace::default(),
     })
   }
