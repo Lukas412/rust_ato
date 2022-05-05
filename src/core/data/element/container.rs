@@ -8,17 +8,15 @@ pub struct ElementContainer {
   elements: HashMap<String, ElementValue>
 }
 
-impl ElementContainer {
-  pub fn new() -> Self {
-    ElementContainer { elements: HashMap::new() }
-  }
-
-  pub fn from<const N: usize>(elements: [(String, ElementValue); N]) -> Self {
-    ElementContainer { elements: HashMap::from(elements) }
-  }
-}
-
 impl Container<ElementValue, ElementParameter> for ElementContainer {
+  fn new() -> Self {
+    Self { elements: HashMap::new() }
+  }
+
+  fn from<const N: usize>(elements: [(String, ElementValue); N]) -> Self {
+    Self { elements: HashMap::from(elements) }
+  }
+
   fn includes(&self, parameters: &ElementParameter) -> bool {
     self.elements.contains_key(parameters.name())
   }
