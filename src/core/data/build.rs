@@ -1,6 +1,7 @@
 #[derive(Debug)]
 pub enum BuildError {
-  Value(ValueError)
+  Value(ValueError),
+  Requirement(RequirementError),
 }
 
 #[derive(Debug)]
@@ -13,6 +14,23 @@ impl ValueError {
   pub fn new(value: &str) -> BuildError {
     BuildError::Value(Self {
       value: value.to_string(),
+      backtrace: Backtrace::default(),
+    })
+  }
+}
+
+#[derive(Debug)]
+pub struct RequirementError {
+  name: String,
+  namespace: String,
+  backtrace: Backtrace,
+}
+
+impl RequirementError {
+  pub fn new(name: &str, namespace: &str) -> BuildError {
+    BuildError::Requirement(Self {
+      name: name.to_owned(),
+      namespace: namespace.to_owned(),
       backtrace: Backtrace::default(),
     })
   }
