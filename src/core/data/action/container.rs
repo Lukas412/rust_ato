@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 use crate::core::data::action::parameter::ActionParameter;
-use crate::core::data::action::value::ActionValue;
-use crate::core::traits::container::Container;
+use crate::core::data::action::value::{Action, ActionValue};
+use crate::core::data::build::{BuildError, RequirementError};
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
+use crate::core::traits::value::Value;
 
 pub struct ActionContainer {
   elements: HashMap<String, ActionValue>
@@ -26,5 +28,16 @@ impl Container for ActionContainer {
 
   fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
+  }
+}
+
+impl Provide<Action> for ActionContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&Action, Self::Error> {
+    match self.get_element(name) {
+      Some(value) => Ok(value.value()),
+      _ => RequirementError::new(name, namespace)
+    }
   }
 }

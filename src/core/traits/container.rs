@@ -11,6 +11,8 @@ pub trait Container {
   fn get_element(&self, name: &String) -> Option<&Self::Value>;
 }
 
-pub trait Provide<T, Error>: Container {
-  fn get_value(&self, name: &String) -> Result<&T, Error>;
+pub trait Provide<T>: Container {
+  type Error;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&T, Self::Error>;
 }

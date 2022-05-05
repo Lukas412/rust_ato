@@ -27,7 +27,7 @@ pub struct RequirementError {
 }
 
 impl RequirementError {
-  pub fn new(name: &str, namespace: &str) -> BuildError {
+  pub fn new(name: &String, namespace: &String) -> BuildError {
     BuildError::Requirement(Self {
       name: name.to_owned(),
       namespace: namespace.to_owned(),
