@@ -17,8 +17,8 @@ impl Container<ElementValue, ElementParameter> for ElementContainer {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameters: &ElementParameter) -> bool {
-    self.elements.contains_key(parameters.name())
+  fn includes(&self, parameter: &ElementParameter) -> bool {
+    self.elements.contains_key(parameter.name())
   }
 
   fn get_element(&self, name: &String) -> Option<&ElementValue> {
