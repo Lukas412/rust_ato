@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 use crate::core::data::boolean::parameter::BooleanParameter;
 use crate::core::data::boolean::value::BooleanValue;
-use crate::core::traits::container::Container;
+use crate::core::data::build::{BuildError, RequirementError};
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
+use crate::core::traits::value::Value;
 
 pub struct BooleanContainer {
   elements: HashMap<String, BooleanValue>
@@ -26,5 +28,16 @@ impl Container for BooleanContainer {
 
   fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
+  }
+}
+
+impl Provide<bool> for BooleanContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&bool, Self::Error> {
+    match self.get_element(name) {
+      Some(value) => Ok(value.value()),
+      _ => Err(RequirementError::new(name, namespace)),
+    }
   }
 }

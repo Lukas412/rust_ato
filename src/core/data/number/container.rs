@@ -1,8 +1,11 @@
 use std::collections::HashMap;
+use rust_decimal::Decimal;
+use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::number::parameter::NumberParameter;
 use crate::core::data::number::value::NumberValue;
-use crate::core::traits::container::Container;
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
+use crate::core::traits::value::Value;
 
 pub struct NumberContainer {
   elements: HashMap<String, NumberValue>
@@ -26,5 +29,16 @@ impl Container for NumberContainer {
 
   fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
+  }
+}
+
+impl Provide<Decimal> for NumberContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&Decimal, Self::Error> {
+    match self.get_element(name) {
+      Some(value) => Ok(value.value()),
+      _ => Err(RequirementError::new(name, namespace)),
+    }
   }
 }

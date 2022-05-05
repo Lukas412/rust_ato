@@ -37,7 +37,7 @@ impl Provide<Action> for ActionContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<&Action, Self::Error> {
     match self.get_element(name) {
       Some(value) => Ok(value.value()),
-      _ => RequirementError::new(name, namespace)
+      _ => Err(RequirementError::new(name, namespace))
     }
   }
 }

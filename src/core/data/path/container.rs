@@ -1,8 +1,11 @@
 use std::collections::HashMap;
+use std::path::PathBuf;
+use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::path::parameter::PathParameter;
 use crate::core::data::path::value::PathValue;
-use crate::core::traits::container::Container;
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
+use crate::core::traits::value::Value;
 
 pub struct PathContainer {
   elements: HashMap<String, PathValue>
@@ -26,5 +29,16 @@ impl Container for PathContainer {
 
   fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
+  }
+}
+
+impl Provide<PathBuf> for PathContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathBuf, Self::Error> {
+    match self.get_element(name) {
+      Some(value) => Ok(value.value()),
+      _ => Err(RequirementError::new(name, namespace)),
+    }
   }
 }
