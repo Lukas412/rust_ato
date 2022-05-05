@@ -8,20 +8,23 @@ pub struct BooleanContainer {
   elements: HashMap<String, BooleanValue>
 }
 
-impl Container<BooleanValue, BooleanParameter> for BooleanContainer {
+impl Container for BooleanContainer {
+  type Value = BooleanValue;
+  type Parameter = BooleanParameter;
+
   fn new() -> Self {
     Self { elements: HashMap::new() }
   }
 
-  fn from<const N: usize>(elements: [(String, BooleanValue); N]) -> Self {
+  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameter: &BooleanParameter) -> bool {
+  fn includes(&self, parameter: &Self::Parameter) -> bool {
     self.elements.contains_key(parameter.name())
   }
 
-  fn get_element(&self, name: &String) -> Option<&BooleanValue> {
+  fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
   }
 }

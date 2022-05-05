@@ -8,20 +8,23 @@ pub struct StringContainer {
   elements: HashMap<String, StringValue>
 }
 
-impl Container<StringValue, StringParameter> for StringContainer {
+impl Container for StringContainer {
+  type Value = StringValue;
+  type Parameter = StringParameter;
+
   fn new() -> Self {
     Self { elements: HashMap::new() }
   }
 
-  fn from<const N: usize>(elements: [(String, StringValue); N]) -> Self {
+  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameter: &StringParameter) -> bool {
+  fn includes(&self, parameter: &Self::Parameter) -> bool {
     self.elements.contains_key(parameter.name())
   }
 
-  fn get_element(&self, name: &String) -> Option<&StringValue> {
+  fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
   }
 }

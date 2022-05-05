@@ -8,20 +8,23 @@ pub struct NumberContainer {
   elements: HashMap<String, NumberValue>
 }
 
-impl Container<NumberValue, NumberParameter> for NumberContainer {
+impl Container for NumberContainer {
+  type Value = NumberValue;
+  type Parameter = NumberParameter;
+
   fn new() -> Self {
     Self { elements: HashMap::new() }
   }
 
-  fn from<const N: usize>(elements: [(String, NumberValue); N]) -> Self {
+  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameter: &NumberParameter) -> bool {
+  fn includes(&self, parameter: &Self::Parameter) -> bool {
     self.elements.contains_key(parameter.name())
   }
 
-  fn get_element(&self, name: &String) -> Option<&NumberValue> {
+  fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
   }
 }

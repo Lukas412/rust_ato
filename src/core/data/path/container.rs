@@ -8,20 +8,23 @@ pub struct PathContainer {
   elements: HashMap<String, PathValue>
 }
 
-impl Container<PathValue, PathParameter> for PathContainer {
+impl Container for PathContainer {
+  type Value = PathValue;
+  type Parameter = PathParameter;
+
   fn new() -> Self {
     Self { elements: HashMap::new() }
   }
 
-  fn from<const N: usize>(elements: [(String, PathValue); N]) -> Self {
+  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameter: &PathParameter) -> bool {
+  fn includes(&self, parameter: &Self::Parameter) -> bool {
     self.elements.contains_key(parameter.name())
   }
 
-  fn get_element(&self, name: &String) -> Option<&PathValue> {
+  fn get_element(&self, name: &String) -> Option<&Self::Value> {
     self.elements.get(name)
   }
 }

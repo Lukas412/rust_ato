@@ -9,20 +9,23 @@ pub struct GeneralContainer {
   elements: HashMap<String, GeneralValue>,
 }
 
-impl Container<GeneralValue, GeneralParameter> for GeneralContainer {
+impl Container for GeneralContainer {
+  type Value = GeneralValue;
+  type Parameter = GeneralParameter;
+
   fn new() -> Self {
     Self { elements: HashMap::new() }
   }
 
-  fn from<const N: usize>(elements: [(String, GeneralValue); N]) -> Self {
+  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
     Self { elements: HashMap::from(elements) }
   }
 
-  fn includes(&self, parameter: &GeneralParameter) -> bool {
+  fn includes(&self, parameter: &Self::Parameter) -> bool {
     self.elements.contains_key(parameter.name())
   }
 
-  fn get_element(&self, name: &String) -> Option<&GeneralValue> {
-    todo!()
+  fn get_element(&self, name: &String) -> Option<&Self::Value> {
+    self.elements.get(name)
   }
 }
