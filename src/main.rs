@@ -1,11 +1,14 @@
 #[macro_use]
 extern crate yaserde_derive;
 
+use std::collections::HashMap;
 use std::fs::read_to_string;
 
 use yaserde::de::from_str;
+use crate::core::data::element::container::ElementContainer;
 
 use crate::core::data::string::pack::StringPack;
+use crate::core::traits::build::BuildableWithRequirements;
 
 mod core;
 
@@ -15,6 +18,6 @@ fn main() {
   println!("{}", string);
 
   let test: StringPack = from_str(&string).unwrap();
-  let requirements = ;
-  println!("{:#?}", test.build_with_requirements(requirements));
+  let requirements = ElementContainer::new();
+  println!("{:#?}", test.build_with_requirements(&requirements));
 }

@@ -9,7 +9,7 @@ impl Container<GeneralValue, GeneralParameter> for GeneralContainer {
     todo!()
   }
 
-  fn get_element(&self, name: &String, namespace: Option<String>) -> &GeneralValue {
+  fn get_element(&self, name: &String) -> Option<&GeneralValue> {
     todo!()
   }
 }

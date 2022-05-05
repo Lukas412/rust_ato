@@ -3,5 +3,5 @@ use crate::core::traits::parameter::Parameter;
 
 pub trait Container<V: Value, P: Parameter> {
   fn includes(&self, parameters: &P) -> bool;
-  fn get_element(&self, name: &String, namespace: Option<String>) -> &V;
+  fn get_element(&self, name: &String) -> Option<&V>;
 }
