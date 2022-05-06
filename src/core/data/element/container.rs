@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::path::PathBuf;
 use rust_decimal::Decimal;
 use crate::core::data::action::value::Action;
 use crate::core::data::build::{BuildError, RequirementError};
@@ -50,6 +51,28 @@ impl Provide<Decimal> for ElementContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<&Decimal, Self::Error> {
     match self.get_element(name) {
       Some(ElementValue::Number(value)) => Ok(value.value()),
+      _ => Err(RequirementError::new(name, namespace)),
+    }
+  }
+}
+
+impl Provide<PathBuf> for ElementContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathBuf, Self::Error> {
+    match self.get_element(name) {
+      Some(ElementValue::Path(value)) => Ok(value.value()),
+      _ => Err(RequirementError::new(name, namespace)),
+    }
+  }
+}
+
+impl Provide<String> for ElementContainer {
+  type Error = BuildError;
+
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&String, Self::Error> {
+    match self.get_element(name) {
+      Some(ElementValue::String(value)) => Ok(value.value()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
