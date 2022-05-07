@@ -1,3 +1,4 @@
+use crate::Container;
 use crate::core::data::build::BuildError;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::build::Buildable;
@@ -12,8 +13,8 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl<C: Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringGetArgumentOperation {
+impl<C: Container + Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringGetArgumentOperation {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
-    todo!()
+    requirements.get_value(&self.name, &self.namespace.unwrap_or("".to_owned()))
   }
 }
