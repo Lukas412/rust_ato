@@ -7,13 +7,15 @@ pub enum BuildError {
 #[derive(Debug)]
 pub struct ValueError {
   value: String,
+  namespace: String,
   backtrace: Backtrace,
 }
 
 impl ValueError {
-  pub fn new(value: &str) -> BuildError {
+  pub fn new(value: &str, namespace: &String) -> BuildError {
     BuildError::Value(Self {
       value: value.to_owned(),
+      namespace: namespace.to_owned(),
       backtrace: Backtrace::default(),
     })
   }
