@@ -1,11 +1,9 @@
 use std::collections::HashMap;
-use std::path::PathBuf;
 use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::path::parameter::PathParameter;
 use crate::core::data::path::value::PathValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
-use crate::core::traits::value::Value;
 
 pub struct PathContainer {
   elements: HashMap<String, PathValue>

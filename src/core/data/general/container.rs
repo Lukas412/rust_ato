@@ -1,7 +1,5 @@
 use std::collections::HashMap;
-use std::path::PathBuf;
-use rust_decimal::Decimal;
-use crate::core::data::action::value::{Action, ActionValue};
+use crate::core::data::action::value::ActionValue;
 use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 
@@ -12,7 +10,6 @@ use crate::core::data::path::value::PathValue;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
-use crate::core::traits::value::Value;
 
 pub struct GeneralContainer {
   elements: HashMap<String, GeneralValue>,

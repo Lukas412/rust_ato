@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate yaserde_derive;
 
-use std::collections::HashMap;
 use std::fs::read_to_string;
 
 use yaserde::de::from_str;
@@ -9,6 +8,7 @@ use crate::core::data::element::container::ElementContainer;
 
 use crate::core::data::string::pack::StringPack;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::container::Container;
 
 mod core;
 

@@ -1,11 +1,9 @@
 use std::collections::HashMap;
-use rust_decimal::Decimal;
 use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::number::parameter::NumberParameter;
 use crate::core::data::number::value::NumberValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
-use crate::core::traits::value::Value;
 
 pub struct NumberContainer {
   elements: HashMap<String, NumberValue>

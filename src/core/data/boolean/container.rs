@@ -4,7 +4,6 @@ use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
-use crate::core::traits::value::Value;
 
 pub struct BooleanContainer {
   elements: HashMap<String, BooleanValue>

@@ -4,7 +4,6 @@ use crate::core::data::string::parameter::StringParameter;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
-use crate::core::traits::value::Value;
 
 pub struct StringContainer {
   elements: HashMap<String, StringValue>
