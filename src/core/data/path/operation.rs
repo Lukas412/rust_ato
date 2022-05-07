@@ -1,5 +1,6 @@
 mod value;
 
+use crate::Container;
 use crate::core::data::build::BuildError;
 use crate::core::data::path::value::PathValue;
 use crate::core::data::path::operation::value::PathValueOperation;
@@ -21,10 +22,10 @@ impl Default for PathOperation {
   }
 }
 
-impl<C: Provide<PathValue>> Buildable<PathValue, BuildError, C> for PathOperation {
+impl<C: Container + Provide<PathValue>> Buildable<PathValue, BuildError, C> for PathOperation {
   fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
     match self {
-      Self::Empty => PathValue::from_str(""),
+      Self::Empty => Ok(PathValue::from_str("")),
       Self::Value(operation) => operation.build(requirements),
     }
   }

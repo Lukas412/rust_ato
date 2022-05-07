@@ -1,3 +1,4 @@
+use crate::Container;
 use crate::core::data::build::BuildError;
 use crate::core::data::string::value::StringValue;
 use crate::core::data::string::operation::get_argument::StringGetArgumentOperation;
@@ -26,7 +27,7 @@ impl Default for StringOperation {
   }
 }
 
-impl<C: Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringOperation {
+impl<C: Container + Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringOperation {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => Ok(StringValue::new("".to_owned())),
