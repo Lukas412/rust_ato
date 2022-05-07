@@ -24,7 +24,7 @@ impl FromStr for NumberValue {
 impl Value for NumberValue {
   type Type = Decimal;
 
-  fn new(value: Self::Type, namespace: String) -> NumberValue {
+  fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace }
   }
 

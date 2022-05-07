@@ -25,7 +25,7 @@ impl FromStr for BooleanValue {
 impl Value for BooleanValue {
   type Type = bool;
 
-  fn new(value: Self::Type, namespace: String) -> BooleanValue {
+  fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace }
   }
 

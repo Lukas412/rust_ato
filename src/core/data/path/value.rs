@@ -22,7 +22,7 @@ impl FromStr for PathValue {
 impl Value for PathValue {
   type Type = PathBuf;
 
-  fn new(value: Self::Type, namespace: String) -> PathValue {
+  fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace }
   }
 

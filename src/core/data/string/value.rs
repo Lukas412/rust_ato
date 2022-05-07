@@ -19,7 +19,7 @@ impl FromStr for StringValue {
 impl Value for StringValue {
   type Type = String;
 
-  fn new(value: Self::Type, namespace: String) -> StringValue {
+  fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace}
   }
 
