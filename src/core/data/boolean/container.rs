@@ -41,10 +41,8 @@ impl Container for BooleanContainer {
   }
 }
 
-impl Provide<BooleanValue> for BooleanContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, Self::Error> {
+impl Provide<BooleanValue, BuildError> for BooleanContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),

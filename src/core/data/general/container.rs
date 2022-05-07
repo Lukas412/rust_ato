@@ -47,10 +47,8 @@ impl Container for GeneralContainer {
   }
 }
 
-impl Provide<ActionValue> for GeneralContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, Self::Error> {
+impl Provide<ActionValue, BuildError> for GeneralContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
     match self.get_element(name) {
       Some(GeneralValue::Action(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -58,10 +56,8 @@ impl Provide<ActionValue> for GeneralContainer {
   }
 }
 
-impl Provide<BooleanValue> for GeneralContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, Self::Error> {
+impl Provide<BooleanValue, BuildError> for GeneralContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_element(name) {
       Some(GeneralValue::Boolean(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -69,10 +65,8 @@ impl Provide<BooleanValue> for GeneralContainer {
   }
 }
 
-impl Provide<NumberValue> for GeneralContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, Self::Error> {
+impl Provide<NumberValue, BuildError> for GeneralContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_element(name) {
       Some(GeneralValue::Number(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -80,10 +74,8 @@ impl Provide<NumberValue> for GeneralContainer {
   }
 }
 
-impl Provide<PathValue> for GeneralContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, Self::Error> {
+impl Provide<PathValue, BuildError> for GeneralContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_element(name) {
       Some(GeneralValue::Path(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -91,10 +83,8 @@ impl Provide<PathValue> for GeneralContainer {
   }
 }
 
-impl Provide<StringValue> for GeneralContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, Self::Error> {
+impl Provide<StringValue, BuildError> for GeneralContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_element(name) {
       Some(GeneralValue::String(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),

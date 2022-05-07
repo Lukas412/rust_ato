@@ -46,10 +46,8 @@ impl Container for ElementContainer {
   }
 }
 
-impl Provide<BooleanValue> for ElementContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, Self::Error> {
+impl Provide<BooleanValue, BuildError> for ElementContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_element(name) {
       Some(ElementValue::Boolean(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -57,10 +55,8 @@ impl Provide<BooleanValue> for ElementContainer {
   }
 }
 
-impl Provide<NumberValue> for ElementContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, Self::Error> {
+impl Provide<NumberValue, BuildError> for ElementContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_element(name) {
       Some(ElementValue::Number(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -68,10 +64,8 @@ impl Provide<NumberValue> for ElementContainer {
   }
 }
 
-impl Provide<PathValue> for ElementContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, Self::Error> {
+impl Provide<PathValue, BuildError> for ElementContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_element(name) {
       Some(ElementValue::Path(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
@@ -79,10 +73,8 @@ impl Provide<PathValue> for ElementContainer {
   }
 }
 
-impl Provide<StringValue> for ElementContainer {
-  type Error = BuildError;
-
-  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, Self::Error> {
+impl Provide<StringValue, BuildError> for ElementContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_element(name) {
       Some(ElementValue::String(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),

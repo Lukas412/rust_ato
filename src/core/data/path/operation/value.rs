@@ -12,7 +12,7 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl<C: Provide<PathValue>> Buildable<PathValue, BuildError, C> for PathValueOperation {
+impl<C: Provide<PathValue, BuildError>> Buildable<PathValue, BuildError, C> for PathValueOperation {
   fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
     let value = PathBuf::from(&self.text);
     let namespace = requirements.namespace().to_owned();

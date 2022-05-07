@@ -27,7 +27,7 @@ impl Default for StringOperation {
   }
 }
 
-impl<C: Container + Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringOperation {
+impl<C: Container + Provide<StringValue, BuildError>> Buildable<StringValue, BuildError, C> for StringOperation {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => Ok(StringValue::new("".to_owned(), requirements.namespace().to_owned())),

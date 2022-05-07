@@ -11,7 +11,7 @@ pub struct StringValueOperation {
   text: String,
 }
 
-impl<C: Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringValueOperation {
+impl<C: Provide<StringValue, BuildError>> Buildable<StringValue, BuildError, C> for StringValueOperation {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     let value = self.text.to_owned();
     let namespace = requirements.namespace().to_owned();
