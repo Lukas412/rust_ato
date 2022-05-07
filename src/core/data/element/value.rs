@@ -10,6 +10,7 @@ pub struct ElementValue {
   namespace: String,
 }
 
+#[derive(Debug, Clone)]
 pub enum CombinedValue {
   Boolean(bool),
   Number(Decimal),
