@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+
 use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::element::parameter::ElementParameter;
@@ -10,19 +11,30 @@ use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
 pub struct ElementContainer {
-  elements: HashMap<String, ElementValue>
+  namespace: String,
+  elements: HashMap<String, ElementValue>,
 }
 
 impl Container for ElementContainer {
   type Value = ElementValue;
   type Parameter = ElementParameter;
 
-  fn new() -> Self {
-    Self { elements: HashMap::new() }
+  fn new(namespace: String) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::new()
+    }
   }
 
-  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
-    Self { elements: HashMap::from(elements) }
+  fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::from(elements)
+    }
+  }
+
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 
   fn includes(&self, parameter: &Self::Parameter) -> bool {

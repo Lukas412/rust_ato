@@ -6,19 +6,30 @@ use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
 pub struct ActionContainer {
-  elements: HashMap<String, ActionValue>
+  namespace: String,
+  elements: HashMap<String, ActionValue>,
 }
 
 impl Container for ActionContainer {
   type Value = ActionValue;
   type Parameter = ActionParameter;
 
-  fn new() -> Self {
-    Self { elements: HashMap::new() }
+  fn new(namespace: String) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::new(),
+    }
   }
 
-  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
-    Self { elements: HashMap::from(elements) }
+  fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::from(elements),
+    }
+  }
+
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 
   fn includes(&self, parameter: &Self::Parameter) -> bool {

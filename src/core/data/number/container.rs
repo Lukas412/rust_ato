@@ -6,19 +6,30 @@ use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
 pub struct NumberContainer {
-  elements: HashMap<String, NumberValue>
+  namespace: String,
+  elements: HashMap<String, NumberValue>,
 }
 
 impl Container for NumberContainer {
   type Value = NumberValue;
   type Parameter = NumberParameter;
 
-  fn new() -> Self {
-    Self { elements: HashMap::new() }
+  fn new(namespace: String) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::new()
+    }
   }
 
-  fn from<const N: usize>(elements: [(String, Self::Value); N]) -> Self {
-    Self { elements: HashMap::from(elements) }
+  fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self {
+    Self {
+      namespace,
+      elements: HashMap::from(elements)
+    }
+  }
+
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 
   fn includes(&self, parameter: &Self::Parameter) -> bool {
