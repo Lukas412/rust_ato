@@ -32,12 +32,12 @@ impl Container for NumberContainer {
   }
 }
 
-impl Provide<Decimal> for NumberContainer {
+impl Provide<NumberValue> for NumberContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&Decimal, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&NumberValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value.value()),
+      Some(value) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

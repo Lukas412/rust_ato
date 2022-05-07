@@ -31,12 +31,12 @@ impl Container for BooleanContainer {
   }
 }
 
-impl Provide<bool> for BooleanContainer {
+impl Provide<BooleanValue> for BooleanContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&bool, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&BooleanValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value.value()),
+      Some(value) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

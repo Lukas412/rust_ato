@@ -32,12 +32,12 @@ impl Container for PathContainer {
   }
 }
 
-impl Provide<PathBuf> for PathContainer {
+impl Provide<PathValue> for PathContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathBuf, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value.value()),
+      Some(value) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

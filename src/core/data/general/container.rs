@@ -1,11 +1,15 @@
 use std::collections::HashMap;
 use std::path::PathBuf;
 use rust_decimal::Decimal;
-use crate::core::data::action::value::Action;
+use crate::core::data::action::value::{Action, ActionValue};
+use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 
 use crate::core::data::general::parameter::GeneralParameter;
 use crate::core::data::general::value::GeneralValue;
+use crate::core::data::number::value::NumberValue;
+use crate::core::data::path::value::PathValue;
+use crate::core::data::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 use crate::core::traits::value::Value;
@@ -35,56 +39,56 @@ impl Container for GeneralContainer {
   }
 }
 
-impl Provide<Action> for GeneralContainer {
+impl Provide<ActionValue> for GeneralContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&Action, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&ActionValue, Self::Error> {
     match self.get_element(name) {
-      Some(GeneralValue::Action(value)) => Ok(value.value()),
+      Some(GeneralValue::Action(value)) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
 }
 
-impl Provide<bool> for GeneralContainer {
+impl Provide<BooleanValue> for GeneralContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&bool, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&BooleanValue, Self::Error> {
     match self.get_element(name) {
-      Some(GeneralValue::Boolean(value)) => Ok(value.value()),
+      Some(GeneralValue::Boolean(value)) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
 }
 
-impl Provide<Decimal> for GeneralContainer {
+impl Provide<NumberValue> for GeneralContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&Decimal, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&NumberValue, Self::Error> {
     match self.get_element(name) {
-      Some(GeneralValue::Number(value)) => Ok(value.value()),
+      Some(GeneralValue::Number(value)) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
 }
 
-impl Provide<PathBuf> for GeneralContainer {
+impl Provide<PathValue> for GeneralContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathBuf, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathValue, Self::Error> {
     match self.get_element(name) {
-      Some(GeneralValue::Path(value)) => Ok(value.value()),
+      Some(GeneralValue::Path(value)) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
 }
 
-impl Provide<String> for GeneralContainer {
+impl Provide<StringValue> for GeneralContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&String, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&StringValue, Self::Error> {
     match self.get_element(name) {
-      Some(GeneralValue::String(value)) => Ok(value.value()),
+      Some(GeneralValue::String(value)) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

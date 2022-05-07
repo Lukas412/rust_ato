@@ -31,12 +31,12 @@ impl Container for ActionContainer {
   }
 }
 
-impl Provide<Action> for ActionContainer {
+impl Provide<ActionValue> for ActionContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&Action, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&ActionValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value.value()),
+      Some(value) => Ok(value),
       _ => Err(RequirementError::new(name, namespace))
     }
   }

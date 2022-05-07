@@ -31,12 +31,12 @@ impl Container for StringContainer {
   }
 }
 
-impl Provide<String> for StringContainer {
+impl Provide<StringValue> for StringContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&String, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<&StringValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value.value()),
+      Some(value) => Ok(value),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
