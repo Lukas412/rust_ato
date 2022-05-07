@@ -12,10 +12,10 @@ pub struct ValueError {
 }
 
 impl ValueError {
-  pub fn new(value: &str, namespace: &String) -> BuildError {
+  pub fn new(value: String, namespace: String) -> BuildError {
     BuildError::Value(Self {
-      value: value.to_owned(),
-      namespace: namespace.to_owned(),
+      value,
+      namespace,
       backtrace: Backtrace::default(),
     })
   }
@@ -29,10 +29,10 @@ pub struct RequirementError {
 }
 
 impl RequirementError {
-  pub fn new(name: &String, namespace: &String) -> BuildError {
+  pub fn new(name: String, namespace: String) -> BuildError {
     BuildError::Requirement(Self {
-      name: name.to_owned(),
-      namespace: namespace.to_owned(),
+      name,
+      namespace,
       backtrace: Backtrace::default(),
     })
   }
