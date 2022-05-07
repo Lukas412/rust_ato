@@ -8,6 +8,7 @@ use crate::core::data::path::value::PathValue;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::value::Value;
 
+#[derive(Debug, Clone)]
 pub enum ElementValue {
   Boolean(BooleanValue),
   Number(NumberValue),

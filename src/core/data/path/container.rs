@@ -44,9 +44,9 @@ impl Container for PathContainer {
 impl Provide<PathValue> for PathContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value),
+      Some(value) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

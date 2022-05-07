@@ -1,5 +1,6 @@
 use crate::core::traits::value::Value;
 
+#[derive(Debug, Clone)]
 pub struct ActionValue {
   value: Action,
   namespace: String,
@@ -21,7 +22,7 @@ impl Value for ActionValue {
   }
 }
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum Action {
   Content,
   Directory,

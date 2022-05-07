@@ -44,9 +44,9 @@ impl Container for ActionContainer {
 impl Provide<ActionValue> for ActionContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&ActionValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, Self::Error> {
     match self.get_element(name) {
-      Some(value) => Ok(value),
+      Some(value) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace))
     }
   }

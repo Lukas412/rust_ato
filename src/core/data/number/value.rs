@@ -2,7 +2,7 @@ use rust_decimal::Decimal;
 
 use crate::core::traits::value::Value;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct NumberValue {
   value: Decimal,
   namespace: String,

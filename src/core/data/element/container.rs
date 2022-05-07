@@ -49,9 +49,9 @@ impl Container for ElementContainer {
 impl Provide<BooleanValue> for ElementContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&BooleanValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, Self::Error> {
     match self.get_element(name) {
-      Some(ElementValue::Boolean(value)) => Ok(value),
+      Some(ElementValue::Boolean(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
@@ -60,9 +60,9 @@ impl Provide<BooleanValue> for ElementContainer {
 impl Provide<NumberValue> for ElementContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&NumberValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, Self::Error> {
     match self.get_element(name) {
-      Some(ElementValue::Number(value)) => Ok(value),
+      Some(ElementValue::Number(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
@@ -71,9 +71,9 @@ impl Provide<NumberValue> for ElementContainer {
 impl Provide<PathValue> for ElementContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&PathValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, Self::Error> {
     match self.get_element(name) {
-      Some(ElementValue::Path(value)) => Ok(value),
+      Some(ElementValue::Path(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }
@@ -82,9 +82,9 @@ impl Provide<PathValue> for ElementContainer {
 impl Provide<StringValue> for ElementContainer {
   type Error = BuildError;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&StringValue, Self::Error> {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, Self::Error> {
     match self.get_element(name) {
-      Some(ElementValue::String(value)) => Ok(value),
+      Some(ElementValue::String(value)) => Ok(value.clone()),
       _ => Err(RequirementError::new(name, namespace)),
     }
   }

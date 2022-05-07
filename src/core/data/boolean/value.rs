@@ -1,6 +1,6 @@
 use crate::core::traits::value::Value;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BooleanValue {
   value: bool,
   namespace: String,
