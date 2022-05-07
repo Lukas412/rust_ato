@@ -15,5 +15,5 @@ pub trait Container {
 pub trait Provide<T>: Container {
   type Error;
 
-  fn get_value(&self, name: &String, namespace: &String) -> Result<&T, Self::Error>;
+  fn get_value(&self, name: &String, namespace: &String) -> Result<T, Self::Error>;
 }
