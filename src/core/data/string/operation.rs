@@ -29,7 +29,7 @@ impl Default for StringOperation {
 impl<C: Provide<StringValue>> Buildable<StringValue, BuildError, C> for StringOperation {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match self {
-      Self::Empty => Ok(StringValue::new("".to_string())),
+      Self::Empty => Ok(StringValue::new("".to_owned())),
       Self::Value(operation) => operation.build(requirements),
       Self::GetArgument(operation) => operation.build(requirements),
     }

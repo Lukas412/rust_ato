@@ -12,7 +12,7 @@ impl FromStr for StringValue {
   type Err = BuildError;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
-    Ok(StringValue::new(s.to_string()))
+    Ok(StringValue::new(s.to_owned()))
   }
 }
 

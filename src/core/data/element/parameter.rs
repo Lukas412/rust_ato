@@ -35,7 +35,7 @@ impl ElementParameter {
         value => Err(format!("parameter: wrong name: {:?}", value))
       }
     } else {
-      Err("parameter: no namespace found".to_string())
+      Err("parameter: no namespace found".to_owned())
     }
   }
 }
