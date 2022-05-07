@@ -10,15 +10,6 @@ pub struct PathValue {
   namespace: String,
 }
 
-impl FromStr for PathValue {
-  type Err = BuildError;
-
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
-    let value = PathBuf::from(s);
-    Ok(PathValue::new(value))
-  }
-}
-
 impl Value for PathValue {
   type Type = PathBuf;
 

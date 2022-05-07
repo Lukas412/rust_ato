@@ -8,14 +8,6 @@ pub struct StringValue {
   namespace: String,
 }
 
-impl FromStr for StringValue {
-  type Err = BuildError;
-
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
-    Ok(StringValue::new(s.to_owned()))
-  }
-}
-
 impl Value for StringValue {
   type Type = String;
 
