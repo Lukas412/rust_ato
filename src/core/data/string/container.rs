@@ -45,7 +45,7 @@ impl Provide<StringValue, BuildError> for StringContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }

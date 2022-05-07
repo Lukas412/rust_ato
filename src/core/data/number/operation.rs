@@ -17,7 +17,7 @@ impl<C: Container> Buildable<NumberValue, BuildError, C> for NumberValueOperatio
   fn build(&self, requirements: &C) -> Result<NumberValue, BuildError> {
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, requirements.namespace().to_owned())),
-      Err(error) => Err(ValueError::new(&error.to_string(), requirements.namespace())),
+      Err(error) => Err(ValueError::new(error.to_string(), requirements.namespace().to_owned())),
     }
   }
 }
