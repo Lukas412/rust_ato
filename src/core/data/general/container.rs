@@ -4,16 +4,26 @@ use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 
 use crate::core::data::general::parameter::GeneralParameter;
-use crate::core::data::general::value::GeneralValue;
+use crate::core::data::general::value::{CombinedGeneralValue, GeneralValue};
 use crate::core::data::number::value::NumberValue;
 use crate::core::data::path::value::PathValue;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
+use crate::core::traits::value::Value;
 
 pub struct GeneralContainer {
   namespace: String,
   elements: HashMap<String, GeneralValue>,
+}
+
+impl GeneralContainer {
+  fn get_value_and_namespace(&self, name: &String, namespace: &String) -> Result<(&CombinedGeneralValue, String), BuildError> {
+    match self.get_element(name) {
+      Some(value) => Ok((value.value(), value.namespace().to_owned())),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
+    }
+  }
 }
 
 impl Container for GeneralContainer {
@@ -49,45 +59,45 @@ impl Container for GeneralContainer {
 
 impl Provide<ActionValue, BuildError> for GeneralContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
-    match self.get_element(name) {
-      Some(GeneralValue::Action(value)) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+    match self.get_value_and_namespace(name, namespace)? {
+      (CombinedGeneralValue::Action(value), namespace) => Ok(ActionValue::new(value.to_owned(), namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }
 
 impl Provide<BooleanValue, BuildError> for GeneralContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
-    match self.get_element(name) {
-      Some(GeneralValue::Boolean(value)) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+    match self.get_value_and_namespace(name, namespace)? {
+      (CombinedGeneralValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }
 
 impl Provide<NumberValue, BuildError> for GeneralContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
-    match self.get_element(name) {
-      Some(GeneralValue::Number(value)) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+    match self.get_value_and_namespace(name, namespace)? {
+      (CombinedGeneralValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }
 
 impl Provide<PathValue, BuildError> for GeneralContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
-    match self.get_element(name) {
-      Some(GeneralValue::Path(value)) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+    match self.get_value_and_namespace(name, namespace)? {
+      (CombinedGeneralValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }
 
 impl Provide<StringValue, BuildError> for GeneralContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
-    match self.get_element(name) {
-      Some(GeneralValue::String(value)) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name, namespace)),
+    match self.get_value_and_namespace(name, namespace)? {
+      (CombinedGeneralValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
 }

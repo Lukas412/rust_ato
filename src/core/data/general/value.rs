@@ -7,12 +7,12 @@ use crate::core::traits::value::Value;
 
 #[derive(Debug, Clone)]
 pub struct  GeneralValue {
-  value: CombinedValue,
+  value: CombinedGeneralValue,
   namespace: String,
 }
 
 #[derive(Debug, Clone)]
-pub enum CombinedValue {
+pub enum CombinedGeneralValue {
   Action(Action),
   Boolean(bool),
   Number(Decimal),
@@ -21,7 +21,7 @@ pub enum CombinedValue {
 }
 
 impl Value for GeneralValue {
-  type Type = CombinedValue;
+  type Type = CombinedGeneralValue;
 
   fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace }
