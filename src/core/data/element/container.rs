@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use crate::core::data::boolean::value::BooleanValue;
 use crate::core::data::build::{BuildError, RequirementError};
 use crate::core::data::element::parameter::ElementParameter;
-use crate::core::data::element::value::{CombinedValue, ElementValue};
+use crate::core::data::element::value::{CombinedElementValue, ElementValue};
 use crate::core::data::number::value::NumberValue;
 use crate::core::data::path::value::PathValue;
 use crate::core::data::string::value::StringValue;
@@ -17,7 +17,7 @@ pub struct ElementContainer {
 }
 
 impl ElementContainer {
-  fn get_value_and_namespace(&self, name: &String, namespace: &String) -> Result<(&CombinedValue, String), BuildError> {
+  fn get_value_and_namespace(&self, name: &String, namespace: &String) -> Result<(&CombinedElementValue, String), BuildError> {
     match self.get_element(name) {
       Some(value) => Ok((value.value(), value.namespace().to_owned())),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
@@ -59,7 +59,7 @@ impl Container for ElementContainer {
 impl Provide<BooleanValue, BuildError> for ElementContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
-      (CombinedValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
+      (CombinedElementValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
@@ -68,7 +68,7 @@ impl Provide<BooleanValue, BuildError> for ElementContainer {
 impl Provide<NumberValue, BuildError> for ElementContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
-      (CombinedValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
+      (CombinedElementValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
@@ -77,7 +77,7 @@ impl Provide<NumberValue, BuildError> for ElementContainer {
 impl Provide<PathValue, BuildError> for ElementContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
-      (CombinedValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
+      (CombinedElementValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }
@@ -86,7 +86,7 @@ impl Provide<PathValue, BuildError> for ElementContainer {
 impl Provide<StringValue, BuildError> for ElementContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
-      (CombinedValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),
+      (CombinedElementValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
     }
   }

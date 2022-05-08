@@ -6,12 +6,12 @@ use crate::core::traits::value::Value;
 
 #[derive(Debug, Clone)]
 pub struct ElementValue {
-  value: CombinedValue,
+  value: CombinedElementValue,
   namespace: String,
 }
 
 #[derive(Debug, Clone)]
-pub enum CombinedValue {
+pub enum CombinedElementValue {
   Boolean(bool),
   Number(Decimal),
   Path(PathBuf),
@@ -19,7 +19,7 @@ pub enum CombinedValue {
 }
 
 impl Value for ElementValue {
-  type Type = CombinedValue;
+  type Type = CombinedElementValue;
 
   fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace }
