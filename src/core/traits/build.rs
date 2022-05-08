@@ -1,3 +1,3 @@
-pub trait Buildable<Build, Error, Requirements> {
-  fn build(&self, requirements: &Requirements) -> Result<Build, Error>;
+pub trait Buildable<B, E, R> {
+  fn build(&self, requirements: &R) -> Result<B, E>;
 }
