@@ -21,6 +21,6 @@ fn main() {
   println!("{}", string);
 
   let test: StringPack = from_str(&string).unwrap();
-  let elements = [("value".to_owned(), ElementValue::new(CombinedElementValue::String("website-name".to_owned()), "__main__".to_owned())); 1];
+  let elements = [("value".to_owned(), ElementValue::new(CombinedElementValue::String("website-name".to_owned()), "__creation__".to_owned())); 1];
   println!("{:#?}", test.build_with_requirements(elements));
 }
