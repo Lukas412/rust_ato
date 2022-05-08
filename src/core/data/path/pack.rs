@@ -1,6 +1,9 @@
-use crate::Container;
+use crate::{Buildable, Container, ElementContainer};
+use crate::core::data::build::BuildError;
 use crate::core::data::element::parameter::ElementParameters;
 use crate::core::data::path::operation::PathOperation;
+use crate::core::data::path::value::PathValue;
+use crate::core::traits::container::Provide;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -14,8 +17,16 @@ pub struct PathPack {
   operation: PathOperation,
 }
 
-impl<C: Container> Pack<C> for PathPack {
-  fn requirements(&self) -> C {
-    C::new(self.namespace.to_owned())
+impl Buildable<PathValue, BuildError, ElementContainer> for PathPack
+{
+  fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
+    self.operation.build(requirements)
+  }
+}
+
+impl Pack<PathValue, BuildError, ElementContainer> for PathPack
+{
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 }

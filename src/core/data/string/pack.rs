@@ -1,10 +1,10 @@
-use crate::Container;
+use crate::{Container, ElementContainer};
 use crate::core::data::build::BuildError;
-use crate::core::data::element::container::ElementContainer;
 use crate::core::data::element::parameter::ElementParameters;
 use crate::core::data::string::operation::StringOperation;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::container::Provide;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -18,14 +18,16 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl<C: Container> Pack<C> for StringPack {
-  fn requirements(&self) -> C {
-    C::new(self.namespace.to_owned())
+impl Buildable<StringValue, BuildError, ElementContainer> for StringPack
+{
+  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
+    self.operation.build(requirements)
   }
 }
 
-impl Buildable<StringValue, BuildError, ElementContainer> for StringPack {
-  fn build(&self, requirements: &ElementContainer) -> Result<StringValue, BuildError> {
-    todo!()
+impl Pack<StringValue, BuildError, ElementContainer> for StringPack
+{
+  fn namespace(&self) -> &String {
+    &self.namespace
   }
 }

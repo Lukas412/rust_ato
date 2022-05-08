@@ -8,8 +8,8 @@ use crate::core::data::element::container::ElementContainer;
 
 use crate::core::data::string::pack::StringPack;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::pack::Pack;
 use crate::core::traits::container::Container;
+use crate::core::traits::pack::Pack;
 
 mod core;
 
@@ -19,6 +19,6 @@ fn main() {
   println!("{}", string);
 
   let test: StringPack = from_str(&string).unwrap();
-  let requirements: ElementContainer = test.requirements();
-  println!("{:#?}", test.build(&requirements));
+  let elements = [];
+  println!("{:#?}", test.build_with_requirements(elements));
 }
