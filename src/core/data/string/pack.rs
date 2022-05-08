@@ -1,10 +1,9 @@
-use crate::{Container, ElementContainer};
+use crate::ElementContainer;
 use crate::core::data::build::BuildError;
 use crate::core::data::element::parameter::ElementParameters;
 use crate::core::data::string::operation::StringOperation;
 use crate::core::data::string::value::StringValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Provide;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -20,7 +19,7 @@ pub struct StringPack {
 
 impl Buildable<StringValue, BuildError, ElementContainer> for StringPack
 {
-  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
+  fn build(&self, requirements: &ElementContainer) -> Result<StringValue, BuildError> {
     self.operation.build(requirements)
   }
 }
