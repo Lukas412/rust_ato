@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use crate::core::main::build::{BuildError, RequirementError};
+use crate::core::build::error::BuildError;
 use crate::core::main::string::parameter::StringParameter;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
@@ -45,7 +45,7 @@ impl Provide<StringValue, BuildError> for StringContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
+      _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
     }
   }
 }

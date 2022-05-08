@@ -1,9 +1,9 @@
 use crate::core::main::boolean::value::BooleanValue;
 
-use crate::core::main::build::{BuildError, ValueError};
 use crate::core::traits::build::Buildable;
 use crate::core::traits::value::Value;
 use crate::Container;
+use crate::core::build::error::BuildError;
 
 #[derive(Debug)]
 pub struct BooleanValueOperation {
@@ -15,7 +15,7 @@ impl<C: Container> Buildable<BooleanValue, BuildError, C> for BooleanValueOperat
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, requirements.namespace().to_owned())),
       "false" => Ok(BooleanValue::new(false, requirements.namespace().to_owned())),
-      value => Err(ValueError::new(value.to_owned(), requirements.namespace().to_owned()))
+      value => Err(BuildError::new_value(value.to_owned(), requirements.namespace().to_owned()))
     }
   }
 }

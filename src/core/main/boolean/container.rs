@@ -1,7 +1,7 @@
 use std::collections::HashMap;
+use crate::core::build::error::BuildError;
 use crate::core::main::boolean::parameter::BooleanParameter;
 use crate::core::main::boolean::value::BooleanValue;
-use crate::core::main::build::{BuildError, RequirementError};
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
@@ -45,7 +45,7 @@ impl Provide<BooleanValue, BuildError> for BooleanContainer {
   fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
+      _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
     }
   }
 }
