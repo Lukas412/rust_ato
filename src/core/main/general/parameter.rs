@@ -3,11 +3,11 @@ use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
-use crate::core::data::action::parameter::ActionParameter;
-use crate::core::data::boolean::parameter::BooleanParameter;
-use crate::core::data::number::parameter::NumberParameter;
-use crate::core::data::path::parameter::PathParameter;
-use crate::core::data::string::parameter::StringParameter;
+use crate::core::main::action::parameter::ActionParameter;
+use crate::core::main::boolean::parameter::BooleanParameter;
+use crate::core::main::number::parameter::NumberParameter;
+use crate::core::main::path::parameter::PathParameter;
+use crate::core::main::string::parameter::StringParameter;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::parameter::Parameter;
 

@@ -1,6 +1,6 @@
 use std::path::PathBuf;
-use crate::core::data::build::BuildError;
-use crate::core::data::path::value::PathValue;
+use crate::core::main::build::BuildError;
+use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Provide;
 use crate::core::traits::value::Value;

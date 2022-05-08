@@ -4,10 +4,10 @@ extern crate yaserde_derive;
 use std::fs::read_to_string;
 
 use yaserde::de::from_str;
-use crate::core::data::element::container::ElementContainer;
-use crate::core::data::element::value::{CombinedElementValue, ElementValue};
+use crate::core::main::element::container::ElementContainer;
+use crate::core::main::element::value::{CombinedElementValue, ElementValue};
 
-use crate::core::data::string::pack::StringPack;
+use crate::core::main::string::pack::StringPack;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
 use crate::core::traits::pack::Pack;

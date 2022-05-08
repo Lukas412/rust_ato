@@ -1,5 +1,5 @@
-use crate::core::data::build::BuildError;
-use crate::core::data::string::value::StringValue;
+use crate::core::main::build::BuildError;
+use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Provide;
 use crate::core::traits::value::Value;

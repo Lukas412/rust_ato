@@ -1,18 +1,18 @@
 use std::collections::HashMap;
-use crate::core::data::boolean::parameter::BooleanParameter;
-use crate::core::data::boolean::value::BooleanValue;
-use crate::core::data::build::{BuildError, RequirementError};
+use crate::core::main::build::{BuildError, RequirementError};
+use crate::core::main::number::parameter::NumberParameter;
+use crate::core::main::number::value::NumberValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
-pub struct BooleanContainer {
+pub struct NumberContainer {
   namespace: String,
-  elements: HashMap<String, BooleanValue>,
+  elements: HashMap<String, NumberValue>,
 }
 
-impl Container for BooleanContainer {
-  type Value = BooleanValue;
-  type Parameter = BooleanParameter;
+impl Container for NumberContainer {
+  type Value = NumberValue;
+  type Parameter = NumberParameter;
 
   fn new(namespace: String) -> Self {
     Self {
@@ -41,8 +41,8 @@ impl Container for BooleanContainer {
   }
 }
 
-impl Provide<BooleanValue, BuildError> for BooleanContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
+impl Provide<NumberValue, BuildError> for NumberContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
       _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),

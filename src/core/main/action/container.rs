@@ -1,30 +1,30 @@
 use std::collections::HashMap;
-use crate::core::data::build::{BuildError, RequirementError};
-use crate::core::data::path::parameter::PathParameter;
-use crate::core::data::path::value::PathValue;
+use crate::core::main::action::parameter::ActionParameter;
+use crate::core::main::action::value::ActionValue;
+use crate::core::main::build::{BuildError, RequirementError};
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
-pub struct PathContainer {
+pub struct ActionContainer {
   namespace: String,
-  elements: HashMap<String, PathValue>,
+  elements: HashMap<String, ActionValue>,
 }
 
-impl Container for PathContainer {
-  type Value = PathValue;
-  type Parameter = PathParameter;
+impl Container for ActionContainer {
+  type Value = ActionValue;
+  type Parameter = ActionParameter;
 
   fn new(namespace: String) -> Self {
     Self {
       namespace,
-      elements: HashMap::new()
+      elements: HashMap::new(),
     }
   }
 
   fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self {
     Self {
       namespace,
-      elements: HashMap::from(elements)
+      elements: HashMap::from(elements),
     }
   }
 
@@ -41,11 +41,11 @@ impl Container for PathContainer {
   }
 }
 
-impl Provide<PathValue, BuildError> for PathContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
+impl Provide<ActionValue, BuildError> for ActionContainer {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
-      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned())),
+      _ => Err(RequirementError::new(name.to_owned(), namespace.to_owned()))
     }
   }
 }

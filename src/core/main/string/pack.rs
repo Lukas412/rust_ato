@@ -1,8 +1,8 @@
 use crate::ElementContainer;
-use crate::core::data::build::BuildError;
-use crate::core::data::element::parameter::ElementParameters;
-use crate::core::data::string::operation::StringOperation;
-use crate::core::data::string::value::StringValue;
+use crate::core::main::build::BuildError;
+use crate::core::main::element::parameter::ElementParameters;
+use crate::core::main::string::operation::StringOperation;
+use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::pack::Pack;
 

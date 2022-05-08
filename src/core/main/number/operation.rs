@@ -3,8 +3,8 @@ use std::str::FromStr;
 use rust_decimal::Decimal;
 
 use crate::Container;
-use crate::core::data::build::{BuildError, ValueError};
-use crate::core::data::number::value::NumberValue;
+use crate::core::main::build::{BuildError, ValueError};
+use crate::core::main::number::value::NumberValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::value::Value;
 

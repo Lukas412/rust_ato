@@ -1,7 +1,7 @@
 use std::collections::HashMap;
-use crate::core::data::build::{BuildError, RequirementError};
-use crate::core::data::string::parameter::StringParameter;
-use crate::core::data::string::value::StringValue;
+use crate::core::main::build::{BuildError, RequirementError};
+use crate::core::main::string::parameter::StringParameter;
+use crate::core::main::string::value::StringValue;
 use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::parameter::Parameter;
 
