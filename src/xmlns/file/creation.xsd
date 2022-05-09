@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns="http://www.ato.net/xmlns/ato"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           targetNamespace="http://www.ato.net/xmlns/ato">
+
+  <xs:element name="main">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="uses">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="use" type="xs:anyURI" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="element">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="element" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="namespace" type="namespace:type-name"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
