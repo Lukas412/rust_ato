@@ -2,13 +2,13 @@ use crate::core::main::general::value::GeneralValue;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(root, rename = "main", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
-pub struct Creation {
-  uses: CreationUses,
+pub struct GeneralCreation {
+  uses: GeneralCreationUses,
   #[yaserde(prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
-  element: CreationElement,
+  element: GeneralCreationElement,
 }
 
-impl Creation {
+impl GeneralCreation {
   fn build(&self) -> GeneralValue {
     self.element.build()
   }
@@ -16,27 +16,27 @@ impl Creation {
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "uses")]
-pub struct CreationUses {
+pub struct GeneralCreationUses {
   #[yaserde(rename = "use")]
   uses: Vec<String>,
 }
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "element", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
-pub struct CreationElement {
+pub struct GeneralCreationElement {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(rename = "value")]
-  values: Vec<CreationValue>,
+  values: Vec<GeneralCreationValue>,
 }
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value")]
-pub struct CreationValue {
+pub struct GeneralCreationValue {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]
   value: Option<String>,
   #[yaserde(rename = "element", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
-  elements: Vec<CreationElement>,
+  elements: Vec<GeneralCreationElement>,
 }

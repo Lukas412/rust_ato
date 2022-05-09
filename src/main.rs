@@ -4,7 +4,7 @@ extern crate yaserde_derive;
 use std::fs::read_to_string;
 
 use yaserde::de::from_str;
-use self::core::main::general::creation::Creation;
+use self::core::main::general::creation::GeneralCreation;
 use crate::core::main::element::container::ElementContainer;
 use crate::core::main::element::value::{CombinedElementValue, ElementValue};
 
@@ -34,6 +34,6 @@ fn test_creation() {
   let string = read_to_string("src/creations/empty-git.creation.xml").unwrap();
   println!("{}", string);
 
-  let test: Creation = from_str(&string).unwrap();
+  let test: GeneralCreation = from_str(&string).unwrap();
   println!("{:#?}", test);
 }
