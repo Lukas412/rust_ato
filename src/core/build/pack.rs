@@ -13,7 +13,7 @@ pub struct PackCache {
 }
 
 impl Cache<StringPack, BuildError> for PackCache {
-  fn cache<M: Map>(&mut self) -> &mut M {
+  fn cache(&mut self) -> &mut HashMap<String, StringPack> {
     &mut self.string_packs
   }
 }
