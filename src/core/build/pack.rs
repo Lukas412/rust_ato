@@ -13,21 +13,7 @@ pub struct PackCache {
 }
 
 impl Cache<StringPack, BuildError> for PackCache {
-  fn store(&mut self, name: String, value: StringPack) {
-    self.string_packs[name] = value
-  }
-
-  fn get(&mut self, name: &String, load: fn() -> Result<StringPack, BuildError>) -> Result<&StringPack, BuildError> {
-    if let Some(value) = self.string_packs.get(name) {
-      Ok(value)
-    } else {
-      match load() {
-        Ok(value) => {
-          self.store(name.to_owned(), value);
-          &value
-        }
-        Err(error) => Err(error)
-      }
-    }
+  fn cache<M: Map>(&mut self) -> &mut M {
+    &mut self.string_packs
   }
 }
