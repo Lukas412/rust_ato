@@ -7,7 +7,7 @@ use crate::core::traits::build::Buildable;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
-#[yaserde(root, rename = "pack", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(root, rename = "pack", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
 pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,

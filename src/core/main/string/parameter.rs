@@ -1,7 +1,7 @@
 use crate::core::traits::parameter::Parameter;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "parameter", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(rename = "parameter", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
 pub struct StringParameter {
   #[yaserde(attribute)]
   name: String,

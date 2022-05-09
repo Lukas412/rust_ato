@@ -2,14 +2,14 @@
 
 <xs:schema xmlns="http://www.ato.net/xmlns/action/content"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:path="http://www.ato.net/xmlns/element/path"
-           xmlns:string="http://www.ato.net/xmlns/element/string"
+           xmlns:path="http://www.ato.net/xmlns/path"
+           xmlns:string="http://www.ato.net/xmlns/string"
            targetNamespace="http://www.ato.net/xmlns/action/content">
 
-  <xs:import namespace="http://www.ato.net/xmlns/element/path"
-             schemaLocation="../element/path.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/string"
-             schemaLocation="../element/string.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/path"
+             schemaLocation="../path.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/string"
+             schemaLocation="../string.xsd"/>
 
   <xs:element name="add">
     <xs:complexType>

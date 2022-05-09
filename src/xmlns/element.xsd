@@ -3,22 +3,22 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/element"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:boolean="http://www.ato.net/xmlns/element/boolean"
-           xmlns:number="http://www.ato.net/xmlns/element/number"
-           xmlns:string="http://www.ato.net/xmlns/element/string"
-           xmlns:path="http://www.ato.net/xmlns/element/path"
+           xmlns:boolean="http://www.ato.net/xmlns/boolean"
+           xmlns:number="http://www.ato.net/xmlns/number"
+           xmlns:string="http://www.ato.net/xmlns/string"
+           xmlns:path="http://www.ato.net/xmlns/path"
            targetNamespace="http://www.ato.net/xmlns/element">
 
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
              schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/boolean"
-             schemaLocation="element/boolean.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/number"
-             schemaLocation="element/number.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/string"
-             schemaLocation="element/string.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/path"
-             schemaLocation="element/path.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/boolean"
+             schemaLocation="boolean.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/number"
+             schemaLocation="number.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/string"
+             schemaLocation="string.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/path"
+             schemaLocation="path.xsd"/>
 
   <xs:complexType name="includes-element">
     <xs:group ref="includes-element"/>

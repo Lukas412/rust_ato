@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/element/string"
+<xs:schema xmlns="http://www.ato.net/xmlns/boolean"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
            xmlns:element="http://www.ato.net/xmlns/element"
-           xmlns:boolean="http://www.ato.net/xmlns/element/boolean"
-           xmlns:number="http://www.ato.net/xmlns/element/number"
-           targetNamespace="http://www.ato.net/xmlns/element/string">
+           xmlns:string="http://www.ato.net/xmlns/string"
+           targetNamespace="http://www.ato.net/xmlns/boolean">
 
-  <xs:include schemaLocation="../parameter.xsd"/>
+  <xs:include schemaLocation="parameter.xsd"/>
 
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="../namespace.xsd"/>
+             schemaLocation="namespace.xsd"/>
   <xs:import namespace="http://www.ato.net/xmlns/parameter"
-             schemaLocation="../parameter.xsd"/>
+             schemaLocation="parameter.xsd"/>
   <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="../element.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/boolean"
-             schemaLocation="boolean.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/number"
-             schemaLocation="number.xsd"/>
+             schemaLocation="element.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/string"
+             schemaLocation="string.xsd"/>
 
   <xs:complexType name="includes-element">
     <xs:group ref="includes-element"/>
@@ -32,19 +29,18 @@
       <xs:element ref="get_argument"/>
       <xs:element ref="if"/>
       <xs:element ref="switch"/>
-      <xs:element ref="from_number"/>
     </xs:choice>
   </xs:group>
 
   <xs:element name="value" type="value-type"/>
   <xs:simpleType name="value-type">
-    <xs:restriction base="xs:string"/>
+    <xs:restriction base="xs:boolean"/>
   </xs:simpleType>
 
   <xs:element name="element" type="element-type"/>
   <xs:complexType name="element-type">
     <xs:sequence>
-      <xs:group ref="includes-element" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="includes-element" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="value" type="value-type"/>
   </xs:complexType>
@@ -52,14 +48,14 @@
   <xs:element name="reference" type="element:reference-type"/>
   <xs:element name="get_argument">
     <xs:complexType>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
-      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="if">
     <xs:complexType>
       <xs:all>
-        <xs:element name="value" type="boolean:includes-element"/>
+        <xs:element name="value" type="includes-element"/>
         <xs:element name="then" type="element-type"/>
         <xs:element name="else" type="element-type" minOccurs="0"/>
       </xs:all>
@@ -68,22 +64,20 @@
   <xs:element name="switch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="value" type="includes-element"/>
+        <xs:element name="value" type="string:includes-element"/>
         <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:all>
               <xs:element name="then" type="element-type" minOccurs="0"/>
             </xs:all>
-            <xs:attribute name="value" type="value-type"/>
+            <xs:attribute name="value" type="string:value-type"/>
             <xs:attribute name="then" type="value-type"/>
           </xs:complexType>
         </xs:element>
-        <xs:element name="default" type="element-type" minOccurs="0"/>
+        <xs:element name="default" type="element-type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-
-  <xs:element name="from_number" type="number:includes-element"/>
 
   <xs:element name="argument">
     <xs:complexType>

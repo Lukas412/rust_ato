@@ -17,7 +17,7 @@ mod core;
 
 fn main() {
   let string = read_to_string("src/bundles/angular/cli/init/name.string.xml").unwrap();
-  // let string = "<boolean:value xmlns:boolean=\"http://www.ato.net/xmlns/element/boolean\">Hi</boolean:value>";
+  // let string = "<boolean:value xmlns:boolean=\"http://www.ato.net/xmlns/boolean\">Hi</boolean:value>";
   println!("{}", string);
 
   let test: StringPack = from_str(&string).unwrap();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <action:pack xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:string="http://www.ato.net/xmlns/element/string"
+             xmlns:string="http://www.ato.net/xmlns/string"
              namespace="angular::actions::init">
 
   <parameters>

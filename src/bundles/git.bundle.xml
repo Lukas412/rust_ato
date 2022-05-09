@@ -1,6 +1,6 @@
 <bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
                    xmlns:action="http://www.ato.net/xmlns/action"
-                   xmlns:string="http://www.ato.net/xmlns/element/string"
+                   xmlns:string="http://www.ato.net/xmlns/string"
                    namespace="git">
 
   <references>

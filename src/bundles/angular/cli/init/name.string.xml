@@ -1,4 +1,4 @@
-<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
+<string:pack xmlns:string="http://www.ato.net/xmlns/string"
              namespace="angular::cli::init::name">
 
   <parameters>

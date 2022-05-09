@@ -1,6 +1,6 @@
 <action:pack xmlns:action="http://www.ato.net/xmlns/action"
              xmlns:action_expression="http://www.ato.net/xmlns/action/expression"
-             xmlns:string="http://www.ato.net/xmlns/element/string"
+             xmlns:string="http://www.ato.net/xmlns/string"
              namespace="ato::command::invoke">
 
   <parameters>

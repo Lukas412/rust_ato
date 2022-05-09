@@ -31,10 +31,10 @@ impl GeneralParameter {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       match (local_name.as_str(), namespace.as_str()) {
         ("parameter", "http://www.ato.net/xmlns/action") => Ok(GeneralParameter::Action(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/boolean") => Ok(GeneralParameter::Boolean(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/number") => Ok(GeneralParameter::Number(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/path") => Ok(GeneralParameter::Path(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/string") => Ok(GeneralParameter::String(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/boolean") => Ok(GeneralParameter::Boolean(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/number") => Ok(GeneralParameter::Number(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/path") => Ok(GeneralParameter::Path(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/string") => Ok(GeneralParameter::String(from_deserializer(reader)?)),
         value => Err(format!("parameter: wrong name: {:?}", value))
       }
     } else {

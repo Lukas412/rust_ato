@@ -28,10 +28,10 @@ impl ElementParameter {
   fn from_xml_name<R: Read>(reader: &mut Deserializer<R>, name: OwnedName) -> Result<Self, String> {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       match (local_name.as_str(), namespace.as_str()) {
-        ("parameter", "http://www.ato.net/xmlns/element/boolean") => Ok(ElementParameter::Boolean(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/number") => Ok(ElementParameter::Number(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/path") => Ok(ElementParameter::Path(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/element/string") => Ok(ElementParameter::String(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/boolean") => Ok(ElementParameter::Boolean(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/number") => Ok(ElementParameter::Number(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/path") => Ok(ElementParameter::Path(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/string") => Ok(ElementParameter::String(from_deserializer(reader)?)),
         value => Err(format!("parameter: wrong name: {:?}", value))
       }
     } else {

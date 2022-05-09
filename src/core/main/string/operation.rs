@@ -10,13 +10,13 @@ pub mod value;
 pub mod get_argument;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
 pub enum StringOperation {
-  #[yaserde(rename = "empty", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+  #[yaserde(rename = "empty", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
   Empty,
-  #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+  #[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
   Value(StringValueOperation),
-  #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+  #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
   GetArgument(StringGetArgumentOperation),
 }
 

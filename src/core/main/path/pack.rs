@@ -6,7 +6,7 @@ use crate::core::main::path::value::PathValue;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
-#[yaserde(root, rename = "pack", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+#[yaserde(root, rename = "pack", prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
 pub struct PathPack {
   #[yaserde(attribute)]
   namespace: String,

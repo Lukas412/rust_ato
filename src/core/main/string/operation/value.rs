@@ -5,7 +5,7 @@ use crate::core::traits::container::Provide;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(rename = "value", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
 pub struct StringValueOperation {
   #[yaserde(text)]
   text: String,

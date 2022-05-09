@@ -9,11 +9,11 @@ use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Provide;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+#[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
 pub enum PathOperation {
-  #[yaserde(rename = "empty", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+  #[yaserde(rename = "empty", prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
   Empty,
-  #[yaserde(rename = "value", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+  #[yaserde(rename = "value", prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
   Value(PathValueOperation),
 }
 

@@ -5,7 +5,7 @@ use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Provide;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/element/string")]
+#[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
 pub struct StringGetArgumentOperation {
   #[yaserde(attribute)]
   name: String,

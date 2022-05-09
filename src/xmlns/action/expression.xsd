@@ -2,11 +2,11 @@
 
 <xs:schema xmlns="http://www.ato.net/xmlns/action/expression"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:string="http://www.ato.net/xmlns/element/string"
+           xmlns:string="http://www.ato.net/xmlns/string"
            targetNamespace="http://www.ato.net/xmlns/action/expression">
 
-  <xs:import namespace="http://www.ato.net/xmlns/element/string"
-             schemaLocation="../element/string.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/string"
+             schemaLocation="../string.xsd"/>
 
   <xs:element name="invoke" type="string:element-type"/>
 </xs:schema>

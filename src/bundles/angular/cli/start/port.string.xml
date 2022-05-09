@@ -1,5 +1,5 @@
-<string:pack xmlns:string="http://www.ato.net/xmlns/element/string"
-             xmlns:number="http://www.ato.net/xmlns/element/number"
+<string:pack xmlns:string="http://www.ato.net/xmlns/string"
+             xmlns:number="http://www.ato.net/xmlns/number"
              namespace="angular::cli::start::port">
 
   <parameters>

@@ -6,7 +6,7 @@ use crate::core::traits::container::Provide;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "value", prefix = "path", namespace = "path: http://www.ato.net/xmlns/element/path")]
+#[yaserde(rename = "value", prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
 pub struct PathValueOperation {
   #[yaserde(text)]
   text: String,

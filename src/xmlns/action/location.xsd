@@ -3,13 +3,13 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/action/location"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:action="http://www.ato.net/xmlns/action"
-           xmlns:path="http://www.ato.net/xmlns/element/path"
+           xmlns:path="http://www.ato.net/xmlns/path"
            targetNamespace="http://www.ato.net/xmlns/action/location">
 
   <xs:import namespace="http://www.ato.net/xmlns/action"
              schemaLocation="../action.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element/path"
-             schemaLocation="../element/path.xsd"/>
+  <xs:import namespace="http://www.ato.net/xmlns/path"
+             schemaLocation="../path.xsd"/>
 
   <xs:element name="change">
     <xs:complexType>
