@@ -27,13 +27,13 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element ref="element" minOccurs="0" maxOccurs="unbounded"/>
-              <xs:any/>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="value" type="xs:string"/>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>
