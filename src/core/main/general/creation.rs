@@ -1,9 +1,17 @@
+use crate::core::main::general::value::GeneralValue;
+
 #[derive(Debug, YaDeserialize)]
 #[yaserde(root, rename = "main", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
 pub struct Creation {
   uses: CreationUses,
   #[yaserde(prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
   element: CreationElement,
+}
+
+impl Creation {
+  fn build(&self) -> GeneralValue {
+    self.element.build()
+  }
 }
 
 #[derive(Debug, Default, YaDeserialize)]
