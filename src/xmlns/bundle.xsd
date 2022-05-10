@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/file/bundle"
+<xs:schema xmlns="http://www.ato.net/xmlns/bundle"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
            xmlns:action="http://www.ato.net/xmlns/action"
            xmlns:element="http://www.ato.net/xmlns/element"
-           targetNamespace="http://www.ato.net/xmlns/file/bundle">
+           targetNamespace="http://www.ato.net/xmlns/bundle">
 
   <xs:import namespace="http://www.ato.net/xmlns/action"
-             schemaLocation="../action.xsd"/>
+             schemaLocation="action.xsd"/>
   <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="../element.xsd"/>
+             schemaLocation="element.xsd"/>
 
   <xs:element name="definition">
     <xs:complexType>

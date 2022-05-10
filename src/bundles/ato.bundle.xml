@@ -1,4 +1,4 @@
-<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
+<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/bundle"
                    xmlns:action="http://www.ato.net/xmlns/action"
                    namespace="ato">
 

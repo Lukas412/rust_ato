@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/file/bundle"
+<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/bundle"
                    xmlns:action="http://www.ato.net/xmlns/action"
                    xmlns:string="http://www.ato.net/xmlns/string"
                    namespace="angular">
