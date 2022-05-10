@@ -4,6 +4,7 @@ use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::file::File;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -15,6 +16,12 @@ pub struct StringPack {
   parameters: ElementParameters,
   #[yaserde(flatten)]
   operation: StringOperation,
+}
+
+impl File for StringPack {
+  fn glob() -> String {
+    "*.string.xml".to_owned()
+  }
 }
 
 impl Buildable<StringValue, BuildError, ElementContainer> for StringPack

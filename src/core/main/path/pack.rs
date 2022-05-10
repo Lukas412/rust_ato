@@ -3,6 +3,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::path::operation::PathOperation;
 use crate::core::main::path::value::PathValue;
+use crate::core::traits::file::File;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -14,6 +15,12 @@ pub struct PathPack {
   parameters: ElementParameters,
   #[yaserde(flatten)]
   operation: PathOperation,
+}
+
+impl File for PathPack {
+  fn glob() -> String {
+    "*.path.xml".to_owned()
+  }
 }
 
 impl Buildable<PathValue, BuildError, ElementContainer> for PathPack
