@@ -1,24 +1,21 @@
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use crate::core::build::error::BuildError;
+use crate::core::traits::file::File;
+use crate::GeneralBundle;
 
 pub struct PackProvider {}
 
 impl PackProvider {
-  fn load_from_location(location: &Path) -> Result<Self, BuildError> {
-    let paths_result = fs::read_dir(location);
-    match paths_result {
-      Ok(paths) => {
-        for path_result in paths {
-          let path = match path_result {
-            Ok(path) => path.path(),
-            Err(_) => continue,
-          };
-        }
-        Ok(Self {})
+  fn from_bundles(paths: Vec<&Path>) -> Result<Self, BuildError> {
+    let mut bundles = Vec::new();
+    for path in paths {
+      match GeneralBundle::from_file(path) {
+        Ok(bundle) => bundles.push(bundle),
+        Err(error) => Err(BuildError::new_init(error)),
       }
-      Err(error) => Err(BuildError::new_init(format!("error while loading modules: {}", error))),
     }
+    Ok(Self)
   }
 }
