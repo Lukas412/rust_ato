@@ -1,5 +1,6 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/general"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:namespace="http://www.ato.net/xmlns/namespace"
            xmlns:action="http://www.ato.net/xmlns/action"
            xmlns:element="http://www.ato.net/xmlns/element"
            targetNamespace="http://www.ato.net/xmlns/general">
@@ -17,5 +18,21 @@
         <xs:group ref="element:parameter"/>
       </xs:choice>
     </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="creation" type="creation-type"/>
+  <xs:complexType name="creation-type">
+    <xs:sequence>
+      <xs:element name="value" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="creation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+          <xs:attribute name="value" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
   </xs:complexType>
 </xs:schema>
