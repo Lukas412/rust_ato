@@ -1,6 +1,2 @@
-<creation:main xmlns:creation="http://www.ato.net/xmlns/creation">
-  <uses>
-    <use>src/bundles</use>
-  </uses>
-  <creation:element namespace="angular::cli::build::production"/>
-</creation:main>
+<creation:element xmlns:creation="http://www.ato.net/xmlns/creation"
+                  namespace="angular::cli::build::production"/>

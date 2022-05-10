@@ -5,21 +5,6 @@
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
            targetNamespace="http://www.ato.net/xmlns/creation">
 
-  <xs:element name="main">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="uses">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="use" type="xs:anyURI" maxOccurs="unbounded"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element ref="element"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
   <xs:element name="element">
     <xs:complexType>
       <xs:sequence>
