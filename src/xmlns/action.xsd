@@ -3,6 +3,7 @@
 <xs:schema xmlns="http://www.ato.net/xmlns/action"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:namespace="http://www.ato.net/xmlns/namespace"
+           xmlns:general="http://www.ato.net/xmlns/general"
            xmlns:action_content="http://www.ato.net/xmlns/action/content"
            xmlns:action_directory="http://www.ato.net/xmlns/action/directory"
            xmlns:action_expression="http://www.ato.net/xmlns/action/expression"
@@ -14,6 +15,8 @@
 
   <xs:include schemaLocation="parameter.xsd"/>
 
+  <xs:import namespace="http://www.ato.net/xmlns/general"
+             schemaLocation="general.xsd"/>
   <xs:import namespace="http://www.ato.net/xmlns/namespace"
              schemaLocation="namespace.xsd"/>
   <xs:import namespace="http://www.ato.net/xmlns/parameter"
@@ -97,16 +100,7 @@
   <xs:element name="pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" minOccurs="0">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:choice maxOccurs="unbounded">
-                <xs:element ref="parameter"/>
-                <xs:group ref="element:parameter"/>
-              </xs:choice>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element ref="general:parameters" minOccurs="0"/>
         <xs:group ref="includes-action"/>
       </xs:sequence>
       <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
