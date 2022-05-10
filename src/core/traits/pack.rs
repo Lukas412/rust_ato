@@ -1,6 +1,7 @@
 use crate::{Buildable, Container};
+use crate::core::traits::file::File;
 
-pub trait Pack<B, E, C>: Buildable<B, E, C>
+pub trait Pack<B, E, C>: File + Buildable<B, E, C>
   where
     C: Container
 {

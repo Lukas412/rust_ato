@@ -1,3 +1,3 @@
 pub trait File {
-  fn suffix() -> String;
+  fn glob() -> String;
 }
