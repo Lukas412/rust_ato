@@ -1,19 +1,24 @@
-use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+
 use crate::core::build::error::BuildError;
-use crate::core::traits::cache::Cache;
-use crate::StringPack;
 
-pub struct PackProvider {
-  locations: Vec<String>,
-  cache: PackCache,
-}
+pub struct PackProvider {}
 
-pub struct PackCache {
-  string_packs: HashMap<String, StringPack>,
-}
-
-impl Cache<StringPack, BuildError> for PackCache {
-  fn cache(&mut self) -> &mut HashMap<String, StringPack> {
-    &mut self.string_packs
+impl PackProvider {
+  fn load_from_location(location: &Path) -> Result<Self, BuildError> {
+    let paths_result = fs::read_dir(location);
+    match paths_result {
+      Ok(paths) => {
+        for path_result in paths {
+          let path = match path_result {
+            Ok(path) => path.path(),
+            Err(_) => continue,
+          };
+        }
+        Ok(Self {})
+      }
+      Err(error) => Err(BuildError::new_init(format!("error while loading modules: {}", error))),
+    }
   }
 }

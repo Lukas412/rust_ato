@@ -18,7 +18,7 @@ pub struct PathPack {
 }
 
 impl File for PathPack {
-  fn glob() -> String {
+  fn suffix() -> String {
     "*.path.xml".to_owned()
   }
 }

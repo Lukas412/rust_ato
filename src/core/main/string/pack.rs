@@ -19,7 +19,7 @@ pub struct StringPack {
 }
 
 impl File for StringPack {
-  fn glob() -> String {
+  fn suffix() -> String {
     "*.string.xml".to_owned()
   }
 }
