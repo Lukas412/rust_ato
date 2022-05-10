@@ -13,3 +13,11 @@ pub trait Pack<B, E, C>: File + Buildable<B, E, C>
     self.build(&requirements)
   }
 }
+
+pub trait PackProvider<P, B, E, C>
+where
+  P: Pack<B, E, C>,
+  C: Container
+{
+  fn get_pack(&self) -> P;
+}
