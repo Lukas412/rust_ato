@@ -1,8 +1,8 @@
-<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/bundle"
+<general:bundle xmlns:general="http://www.ato.net/xmlns/general"
                    xmlns:action="http://www.ato.net/xmlns/action"
                    namespace="ato">
 
-  <references>
+  <general:references>
     <action:reference namespace="ato::command::invoke"/>
-  </references>
-</bundle:definition>
+  </general:references>
+</general:bundle>

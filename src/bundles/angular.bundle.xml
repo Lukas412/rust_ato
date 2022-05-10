@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/bundle"
-                   xmlns:action="http://www.ato.net/xmlns/action"
-                   xmlns:string="http://www.ato.net/xmlns/string"
-                   namespace="angular">
+<general:bundle xmlns:general="http://www.ato.net/xmlns/general"
+                xmlns:action="http://www.ato.net/xmlns/action"
+                xmlns:string="http://www.ato.net/xmlns/string"
+                namespace="angular">
 
-  <references>
+  <general:references>
     <action:reference namespace="angular::cli::build"/>
     <string:reference namespace="angular::cli::build::production"/>
 
@@ -20,5 +20,5 @@
     <action:reference namespace="angular::project"/>
     <action:reference namespace="angular::project::create"/>
     <action:reference namespace="angular::project::edit"/>
-  </references>
-</bundle:definition>
+  </general:references>
+</general:bundle>

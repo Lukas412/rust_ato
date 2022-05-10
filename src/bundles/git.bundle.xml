@@ -1,11 +1,11 @@
-<bundle:definition xmlns:bundle="http://www.ato.net/xmlns/bundle"
+<general:bundle xmlns:general="http://www.ato.net/xmlns/general"
                    xmlns:action="http://www.ato.net/xmlns/action"
                    xmlns:string="http://www.ato.net/xmlns/string"
                    namespace="git">
 
-  <references>
+  <general:references>
     <action:reference namespace="git::commit"/>
     <string:reference namespace="git::commit::message"/>
     <action:reference namespace="git::init"/>
-  </references>
-</bundle:definition>
+  </general:references>
+</general:bundle>
