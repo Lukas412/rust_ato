@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, io};
 use std::path::Path;
 
 use yaserde::de::from_str;
@@ -8,14 +8,11 @@ pub trait File
   where Self: Sized + YaDeserialize
 {
   fn suffix() -> String;
-  fn from_file(path: &Path) -> Result<Self, String> {
-    let suffix = Self::suffix();
-    if !path.ends_with(&suffix) {
-      return Err(format!("filename needs to end with: {}", &suffix));
-    };
-    match fs::read_to_string("src/bundles/angular/cli/init/name.string.xml") {
-      Ok(string) => from_str(&string),
-      Err(error) => Err(format!("{}", error)),
+  fn from_file(path: &Path) -> Option<Self> {
+    if path.ends_with(Self::suffix()) {
+      fs::read_to_string(path).ok()
+    } else {
+      None
     }
   }
 }

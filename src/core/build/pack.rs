@@ -8,14 +8,9 @@ use crate::GeneralBundle;
 pub struct PackProvider {}
 
 impl PackProvider {
-  fn from_bundles(paths: Vec<&Path>) -> Result<Self, BuildError> {
-    let mut bundles = Vec::new();
-    for path in paths {
-      match GeneralBundle::from_file(path) {
-        Ok(bundle) => bundles.push(bundle),
-        Err(error) => Err(BuildError::new_init(error)),
-      }
-    }
+  fn from_bundles(paths: Vec<Path>) -> Result<Self, BuildError> {
+    let bundles = paths.iter()
+      .filter_map(GeneralBundle::from_file);
     Ok(Self)
   }
 }
