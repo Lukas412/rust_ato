@@ -5,7 +5,7 @@ use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-#[derive(Debug, YaDeserialize)]
+#[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "references")]
 pub struct GeneralReferences {
   #[yaserde(rename = "reference")]
@@ -25,7 +25,7 @@ impl GeneralReference {
   fn from_xml_name_and_attributes(name: OwnedName, attributes: Vec<OwnedAttribute>) -> Result<Self, String> {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       if local_name != "reference" {
-        Err(format!("reference: wrong name: {:?}", value))
+        Err(format!("reference: wrong name: {:?}", local_name))
       } else {
         let namespace_attribute = Self::get_namespace_attribute_value(attributes)?;
         match namespace.as_str() {
@@ -44,7 +44,7 @@ impl GeneralReference {
 
   fn get_namespace_attribute_value(attributes: Vec<OwnedAttribute>) -> Result<String, String> {
     for attribute in attributes {
-      if attribute.name == "namespace" {
+      if attribute.name.local_name == "namespace" {
         return Ok(attribute.value);
       }
     }
@@ -56,7 +56,7 @@ impl YaDeserialize for GeneralReference {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let peek = reader.peek()?.to_owned();
     if let XmlEvent::StartElement { name, attributes, .. } = peek {
-      GeneralReference::from_xml_name(name, attributes)
+      GeneralReference::from_xml_name_and_attributes(name, attributes)
     } else {
       Err(format!("parameter: wrong xml format: {:?}", peek))
     }

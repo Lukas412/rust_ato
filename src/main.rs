@@ -8,6 +8,7 @@ use yaserde::de::from_str;
 
 use crate::core::main::element::container::ElementContainer;
 use crate::core::main::element::value::{CombinedElementValue, ElementValue};
+use crate::core::main::general::bundle::GeneralBundle;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
@@ -19,7 +20,15 @@ use self::core::main::general::creation::GeneralCreation;
 mod core;
 
 fn main() {
-  test_creation()
+  test_bundle()
+}
+
+fn test_bundle() {
+  let string = read_to_string("src/bundles/angular.bundle.xml").unwrap();
+  println!("{}", string);
+
+  let test: GeneralBundle = from_str(&string).unwrap();
+  println!("{:#?}", test);
 }
 
 fn test_pack() {
