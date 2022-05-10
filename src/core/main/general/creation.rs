@@ -1,7 +1,7 @@
 use crate::core::main::general::value::GeneralValue;
 
 #[derive(Debug, Default, YaDeserialize)]
-#[yaserde(rename = "element", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
+#[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
 pub struct GeneralCreation {
   #[yaserde(attribute)]
   namespace: String,
@@ -16,6 +16,6 @@ pub struct GeneralCreationValue {
   name: String,
   #[yaserde(attribute)]
   value: Option<String>,
-  #[yaserde(rename = "element", prefix = "creation", namespace = "creation: http://www.ato.net/xmlns/creation")]
+  #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
   elements: Vec<GeneralCreation>,
 }
