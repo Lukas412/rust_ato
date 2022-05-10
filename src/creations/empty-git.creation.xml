@@ -1,2 +1,2 @@
-<creation:element xmlns:creation="http://www.ato.net/xmlns/creation"
+<general:creation xmlns:general="http://www.ato.net/xmlns/general"
                   namespace="angular::cli::build::production"/>
