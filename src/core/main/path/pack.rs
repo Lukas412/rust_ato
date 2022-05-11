@@ -3,7 +3,6 @@ use crate::core::build::error::BuildError;
 use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::path::operation::PathOperation;
 use crate::core::main::path::value::PathValue;
-use crate::core::traits::file::File;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -17,10 +16,6 @@ pub struct PathPack {
   operation: PathOperation,
 }
 
-impl File for PathPack {
-  const SUFFIX: &'static str = "*.path.xml";
-}
-
 impl Buildable<PathValue, BuildError, ElementContainer> for PathPack
 {
   fn build(&self, requirements: &ElementContainer) -> Result<PathValue, BuildError> {
@@ -30,6 +25,8 @@ impl Buildable<PathValue, BuildError, ElementContainer> for PathPack
 
 impl Pack<PathValue, BuildError, ElementContainer> for PathPack
 {
+  const SUFFIX: &'static str = "*.path.xml";
+
   fn namespace(&self) -> &String {
     &self.namespace
   }

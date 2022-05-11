@@ -1,4 +1,3 @@
-extern crate glob;
 #[macro_use]
 extern crate yaserde_derive;
 
@@ -8,7 +7,6 @@ use yaserde::de::from_str;
 
 use crate::core::main::element::container::ElementContainer;
 use crate::core::main::element::value::{CombinedElementValue, ElementValue};
-use crate::core::main::general::bundle::GeneralBundle;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
@@ -20,15 +18,13 @@ use self::core::main::general::creation::GeneralCreation;
 mod core;
 
 fn main() {
-  test_bundle()
+  test_packs()
 }
 
-fn test_bundle() {
-  let string = read_to_string("src/bundles/angular.bundle.xml").unwrap();
-  println!("{}", string);
-
-  let test: GeneralBundle = from_str(&string).unwrap();
-  println!("{:#?}", test);
+fn test_packs() {
+  for p in StringPack::from_root("src/bundles".as_ref()) {
+    println!("{:?}", p)
+  }
 }
 
 fn test_pack() {

@@ -4,8 +4,7 @@ use std::path::Path;
 use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
 use crate::core::main::path::pack::PathPack;
-use crate::core::traits::file::File;
-use crate::{GeneralBundle, StringPack};
+use crate::{Pack, StringPack};
 
 pub struct PackProvider {
   path_packs: HashMap<Namespace, PathPack>,
@@ -14,7 +13,10 @@ pub struct PackProvider {
 
 impl PackProvider {
   fn from_root(root: &Path) -> Result<Self, BuildError> {
-    Ok(Self)
+    Ok(Self {
+      path_packs: PathPack::from_root(root),
+      string_packs: StringPack::from_root(root),
+    })
   }
 
   fn path_pack(&self, namespace: &Namespace) -> Option<&PathPack> {

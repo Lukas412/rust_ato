@@ -4,7 +4,6 @@ use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::file::File;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -18,10 +17,6 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl File for StringPack {
-  const SUFFIX: &'static str = "*.string.xml";
-}
-
 impl Buildable<StringValue, BuildError, ElementContainer> for StringPack
 {
   fn build(&self, requirements: &ElementContainer) -> Result<StringValue, BuildError> {
@@ -31,6 +26,8 @@ impl Buildable<StringValue, BuildError, ElementContainer> for StringPack
 
 impl Pack<StringValue, BuildError, ElementContainer> for StringPack
 {
+  const SUFFIX: &'static str = ".string.xml";
+
   fn namespace(&self) -> &String {
     &self.namespace
   }
