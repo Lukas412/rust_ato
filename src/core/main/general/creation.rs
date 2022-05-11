@@ -1,3 +1,5 @@
+use crate::core::traits::build::Buildable;
+
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
 pub struct GeneralCreation {
