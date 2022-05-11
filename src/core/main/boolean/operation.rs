@@ -2,8 +2,8 @@ use crate::core::main::boolean::value::BooleanValue;
 
 use crate::core::traits::build::Buildable;
 use crate::core::traits::value::Value;
-use crate::Container;
 use crate::core::build::error::BuildError;
+use crate::core::traits::container::Container;
 
 #[derive(Debug)]
 pub struct BooleanValueOperation {

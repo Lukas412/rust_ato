@@ -1,12 +1,12 @@
 mod value;
 
 use std::path::PathBuf;
-use crate::{Container, Value};
 use crate::core::build::error::BuildError;
 use crate::core::main::path::value::PathValue;
 use crate::core::main::path::operation::value::PathValueOperation;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Provide;
+use crate::core::traits::container::{Container, Provide};
+use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]

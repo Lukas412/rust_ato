@@ -1,5 +1,5 @@
 use crate::core::build::error::BuildError;
-use crate::ElementContainer;
+use crate::core::main::element::container::ElementContainer;
 use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;

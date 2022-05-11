@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
 use crate::core::main::path::pack::PathPack;
-use crate::{Pack, StringPack};
+use crate::core::main::string::pack::StringPack;
+use crate::core::traits::pack::Pack;
 
 pub struct PackProvider {
   path_packs: HashMap<Namespace, PathPack>,
@@ -19,11 +19,11 @@ impl PackProvider {
     }
   }
 
-  fn path_pack(&self, namespace: &Namespace) -> Option<&PathPack> {
+  pub fn path_pack(&self, namespace: &Namespace) -> Option<&PathPack> {
     self.path_packs.get(namespace)
   }
 
-  fn string_pack(&self, namespace: &Namespace) -> Option<&StringPack> {
+  pub fn string_pack(&self, namespace: &Namespace) -> Option<&StringPack> {
     self.string_packs.get(namespace)
   }
 }

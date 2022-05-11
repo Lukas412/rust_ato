@@ -1,16 +1,16 @@
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::fs::read_to_string;
-use std::iter::{FilterMap, FromIterator, Map};
+use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
 
-use walkdir::{DirEntry, FilterEntry, IntoIter, WalkDir};
+use walkdir::{DirEntry, WalkDir};
 use yaserde::de::from_str;
 use yaserde::YaDeserialize;
 
-use crate::{Buildable, Container};
 use crate::core::main::namespace::Namespace;
-use crate::core::main::path::pack::PathPack;
+use crate::core::traits::build::Buildable;
+use crate::core::traits::container::Container;
 
 pub trait Pack<B, E, C>: Buildable<B, E, C>
   where
