@@ -18,9 +18,7 @@ pub struct PathPack {
 }
 
 impl File for PathPack {
-  fn suffix() -> String {
-    "*.path.xml".to_owned()
-  }
+  const SUFFIX: &'static str = "*.path.xml";
 }
 
 impl Buildable<PathValue, BuildError, ElementContainer> for PathPack

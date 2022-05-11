@@ -19,9 +19,7 @@ pub struct StringPack {
 }
 
 impl File for StringPack {
-  fn suffix() -> String {
-    "*.string.xml".to_owned()
-  }
+  const SUFFIX: &'static str = "*.string.xml";
 }
 
 impl Buildable<StringValue, BuildError, ElementContainer> for StringPack

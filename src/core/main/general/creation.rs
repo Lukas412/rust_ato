@@ -1,5 +1,3 @@
-use crate::core::main::general::value::GeneralValue;
-
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
 pub struct GeneralCreation {
