@@ -7,9 +7,9 @@ use yaserde::YaDeserialize;
 pub trait File
   where Self: Sized + YaDeserialize
 {
-  fn suffix() -> String;
+  const SUFFIX: String;
 
   fn read_file(path: &Path) -> Option<String> {
-    fs::read_to_string(path.with_extension(Self::suffix())).ok()
+    fs::read_to_string(path.with_extension(&Self::SUFFIX)).ok()
   }
 }

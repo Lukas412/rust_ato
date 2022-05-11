@@ -32,9 +32,7 @@ impl YaDeserialize for GeneralBundle {
 }
 
 impl File for GeneralBundle {
-  fn suffix() -> String {
-    ".bundle.xml".to_owned()
-  }
+  const SUFFIX: String = ".bundle.xml".to_owned();
 }
 
 #[derive(Debug, Default, YaDeserialize)]
