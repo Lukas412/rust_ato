@@ -1,4 +1,4 @@
-use crate::core::build::error::BuildError::{Init, Requirement, Value};
+use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 
 #[derive(Debug)]
 pub enum BuildError {
@@ -12,8 +12,8 @@ pub enum BuildError {
     namespace: String,
     backtrace: Backtrace,
   },
-  Init {
-    name: String,
+  Pack {
+    namespace: String,
     backtrace: Backtrace,
   }
 }
@@ -27,8 +27,8 @@ impl BuildError {
     Requirement { name, namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn new_init(name: String) -> Self {
-    Init { name, backtrace: Backtrace::default() }
+  pub fn new_pack(namespace: String) -> Self {
+    Pack { namespace, backtrace: Backtrace::default() }
   }
 }
 

@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::path::Path;
+use crate::core::build::error::BuildError;
 
 use crate::core::main::namespace::Namespace;
 use crate::core::main::path::pack::PathPack;
@@ -19,11 +20,17 @@ impl PackProvider {
     }
   }
 
-  pub fn path_pack(&self, namespace: &Namespace) -> Option<&PathPack> {
-    self.path_packs.get(namespace)
+  pub fn path_pack(&self, namespace: &Namespace) -> Result<&PathPack, BuildError> {
+    match self.path_packs.get(namespace) {
+      Some(pack) => Ok(pack),
+      None => Err(BuildError::new_pack(namespace.to_owned())),
+    }
   }
 
-  pub fn string_pack(&self, namespace: &Namespace) -> Option<&StringPack> {
-    self.string_packs.get(namespace)
+  pub fn string_pack(&self, namespace: &Namespace) -> Result<&StringPack, BuildError> {
+    match self.string_packs.get(namespace) {
+      Some(pack) => Ok(pack),
+      None => Err(BuildError::new_pack(namespace.to_owned())),
+    }
   }
 }
