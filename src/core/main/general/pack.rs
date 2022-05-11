@@ -9,7 +9,7 @@ pub struct PackProvider {}
 impl PackProvider {
   fn from_bundle_paths(paths: Vec<Path>) -> Result<Self, BuildError> {
     let bundles = paths.iter()
-      .filter_map(GeneralBundle::from_file)
+      .filter_map(GeneralBundle::read_file)
       .collect();
     Ok(Self)
   }
