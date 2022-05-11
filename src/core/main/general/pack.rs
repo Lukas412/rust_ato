@@ -12,11 +12,11 @@ pub struct PackProvider {
 }
 
 impl PackProvider {
-  fn from_root(root: &Path) -> Result<Self, BuildError> {
-    Ok(Self {
+  fn from_root(root: &Path) -> Self {
+    Self {
       path_packs: PathPack::from_root(root),
       string_packs: StringPack::from_root(root),
-    })
+    }
   }
 
   fn path_pack(&self, namespace: &Namespace) -> Option<&PathPack> {
