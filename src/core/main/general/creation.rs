@@ -1,6 +1,10 @@
 use crate::core::build::error::BuildError;
+use crate::core::main::general::container::GeneralContainer;
+use crate::core::main::namespace::Namespace;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::container::{Container, Provide};
+use crate::core::traits::creation::{Creation, CreationValue};
 use crate::PackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -12,11 +16,24 @@ pub struct GeneralCreation {
   values: Vec<GeneralCreationValue>,
 }
 
+impl Creation<StringValue> for GeneralCreation {
+  type Container = GeneralContainer;
+  type Value = GeneralCreationValue;
+
+  fn namespace(&self) -> &String {
+    todo!()
+  }
+
+  fn values<const N: usize>(&self) -> [(String, Self::Value); N] {
+    todo!()
+  }
+}
+
 impl Buildable<StringValue, BuildError, PackProvider> for GeneralCreation {
   fn build(&self, requirements: &PackProvider) -> Result<StringValue, BuildError> {
     let pack = requirements.string_pack(&self.namespace)?;
-    let container = todo!();
-    pack.build(container)
+    let container = self.container();
+    pack.build(&container)
   }
 }
 
@@ -30,3 +47,5 @@ pub struct GeneralCreationValue {
   #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
   elements: Vec<GeneralCreation>,
 }
+
+impl CreationValue for GeneralCreationValue {}

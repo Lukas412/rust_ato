@@ -1,11 +1,17 @@
-pub trait Creation<Value: CreationValue<T>, T> {
-  fn new(values: Vec<Value>) -> Self;
-  fn value(&self, namespace: String, name: String) -> &Value;
+use crate::core::main::namespace::Namespace;
+use crate::core::traits::container::Container;
+
+pub trait Creation<T> {
+  type Container: Container;
+  type Value: CreationValue;
+
+  fn namespace(&self) -> &String;
+
+  fn values<const N: usize>(&self) -> [(String, Self::Value); N];
+
+  fn container(&self) -> Self::Container {
+    <Self::Container as Container>::from(self.namespace().to_owned(), [])
+  }
 }
 
-pub trait CreationValue<T> {
-  fn new(value: T, namespace: String, name: String) -> Self;
-  fn value(&self) -> &T;
-  fn namespace(&self) -> &String;
-  fn name(&self) -> &String;
-}
+pub trait CreationValue {}
