@@ -1,9 +1,9 @@
 use crate::core::build::error::BuildError;
-use crate::core::main::element::container::ElementContainer;
 use crate::core::main::element::parameter::ElementParameters;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -17,14 +17,18 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl Buildable<StringValue, BuildError, ElementContainer> for StringPack
+impl<C> Buildable<StringValue, BuildError, C> for StringPack
+  where
+    C: Container + Provide<StringValue, BuildError>
 {
-  fn build(&self, requirements: &ElementContainer) -> Result<StringValue, BuildError> {
+  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     self.operation.build(requirements)
   }
 }
 
-impl Pack<StringValue, BuildError, ElementContainer> for StringPack
+impl<C> Pack<StringValue, BuildError, C> for StringPack
+  where
+    C: Container + Provide<StringValue, BuildError>
 {
   const SUFFIX: &'static str = ".string.xml";
 
