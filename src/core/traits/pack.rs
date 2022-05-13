@@ -12,19 +12,16 @@ use crate::core::main::namespace::Namespace;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
 
-pub trait Pack<B, E, C>: Buildable<B, E, C>
-  where
-    Self: Debug + YaDeserialize,
-    C: Container
+pub trait Pack
+  where Self: Debug + YaDeserialize
 {
   const SUFFIX: &'static str;
 
   fn namespace(&self) -> &String;
 
-  fn build_with_requirements<const N: usize>(&self, elements: [(String, C::Value); N]) -> Result<B, E> {
+  fn requirements<C: Container, const N: usize>(&self, elements: [(String, C::Value); N]) -> C {
     let namespace = self.namespace().to_owned();
-    let requirements = C::from(namespace, elements);
-    self.build(&requirements)
+    C::from(namespace, elements)
   }
 
   fn from_root(root: &Path) -> HashMap<Namespace, Self> {
