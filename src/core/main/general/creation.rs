@@ -5,7 +5,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
 use crate::core::traits::operation::Operation;
-use crate::PackProvider;
+use crate::GeneralPackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -29,8 +29,8 @@ impl Creation<StringValue> for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue, PackProvider> for GeneralCreation {
-  fn build(&self, requirements: &PackProvider) -> Result<StringValue, BuildError> {
+impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation {
+  fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
     let pack = requirements.string_pack(&self.namespace)?;
     let container = self.container();
     pack.build(&container)

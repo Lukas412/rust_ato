@@ -7,12 +7,12 @@ use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::pack::Pack;
 
-pub struct PackProvider {
+pub struct GeneralPackProvider {
   path_packs: HashMap<Namespace, PathPack>,
   string_packs: HashMap<Namespace, StringPack>,
 }
 
-impl PackProvider {
+impl GeneralPackProvider {
   pub(crate) fn from_root(root: &Path) -> Self {
     Self {
       path_packs: PathPack::from_root(root),
