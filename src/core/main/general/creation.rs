@@ -1,5 +1,6 @@
 use crate::core::build::error::BuildError;
 use crate::core::main::general::container::GeneralContainer;
+use crate::core::main::namespace::Namespace;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
@@ -18,12 +19,12 @@ impl Creation<StringValue> for GeneralCreation {
   type Container = GeneralContainer;
   type Value = GeneralCreationValue;
 
-  fn namespace(&self) -> &String {
-    todo!()
+  fn namespace(&self) -> &Namespace {
+    &self.namespace
   }
 
-  fn values<const N: usize>(&self) -> [(String, Self::Value); N] {
-    todo!()
+  fn values(&self) -> Vec<(String, Self::Value)> {
+    Vec::new()
   }
 }
 
