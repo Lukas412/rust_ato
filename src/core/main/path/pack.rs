@@ -1,4 +1,5 @@
 use crate::core::main::element::parameter::ElementParameters;
+use crate::core::main::namespace::Namespace;
 use crate::core::main::path::operation::PathOperation;
 use crate::core::traits::pack::Pack;
 
@@ -16,7 +17,7 @@ pub struct PathPack {
 impl Pack for PathPack {
   const SUFFIX: &'static str = "*.path.xml";
 
-  fn namespace(&self) -> &String {
+  fn namespace(&self) -> &Namespace {
     &self.namespace
   }
 }

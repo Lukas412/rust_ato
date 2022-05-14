@@ -15,7 +15,7 @@ pub trait Pack: Debug + YaDeserialize
 {
   const SUFFIX: &'static str;
 
-  fn namespace(&self) -> &String;
+  fn namespace(&self) -> &Namespace;
 
   fn requirements<C: Container>(&self, elements: Vec<(String, C::Value)>) -> C {
     let namespace = self.namespace().to_owned();

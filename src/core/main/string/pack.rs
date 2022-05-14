@@ -1,4 +1,5 @@
 use crate::core::main::element::parameter::ElementParameters;
+use crate::core::main::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::traits::pack::Pack;
 
@@ -16,7 +17,7 @@ pub struct StringPack {
 impl Pack for StringPack {
   const SUFFIX: &'static str = ".string.xml";
 
-  fn namespace(&self) -> &String {
+  fn namespace(&self) -> &Namespace {
     &self.namespace
   }
 }
