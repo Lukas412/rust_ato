@@ -1,7 +1,13 @@
+use crate::core::main::namespace::Namespace;
+
 pub trait Value {
   type Type;
 
-  fn new(value: Self::Type, namespace: String) -> Self;
+  fn default(namespace: Namespace) -> Self;
+
+  fn new(value: Self::Type, namespace: Namespace) -> Self;
+
   fn value(&self) -> &Self::Type;
-  fn namespace(&self) -> &String;
+
+  fn namespace(&self) -> &Namespace;
 }

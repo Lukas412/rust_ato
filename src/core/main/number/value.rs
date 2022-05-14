@@ -1,4 +1,5 @@
 use rust_decimal::Decimal;
+use crate::core::main::namespace::Namespace;
 
 use crate::core::traits::value::Value;
 
@@ -11,7 +12,11 @@ pub struct NumberValue {
 impl Value for NumberValue {
   type Type = Decimal;
 
-  fn new(value: Self::Type, namespace: String) -> Self {
+  fn default(namespace: Namespace) -> Self {
+    Self { value: Decimal::default(), namespace }
+  }
+
+  fn new(value: Self::Type, namespace: Namespace) -> Self {
     Self { value, namespace }
   }
 
@@ -19,7 +24,7 @@ impl Value for NumberValue {
     &self.value
   }
 
-  fn namespace(&self) -> &String {
+  fn namespace(&self) -> &Namespace {
     &self.namespace
   }
 }

@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use crate::core::main::namespace::Namespace;
 
 use crate::core::traits::value::Value;
 
@@ -10,6 +11,10 @@ pub struct PathValue {
 
 impl Value for PathValue {
   type Type = PathBuf;
+
+  fn default(namespace: Namespace) -> Self {
+    PathValue { value: PathBuf::default(), namespace }
+  }
 
   fn new(value: Self::Type, namespace: String) -> Self {
     Self {

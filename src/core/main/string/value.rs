@@ -1,3 +1,4 @@
+use crate::core::main::namespace::Namespace;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, Clone)]
@@ -8,6 +9,10 @@ pub struct StringValue {
 
 impl Value for StringValue {
   type Type = String;
+
+  fn default(namespace: Namespace) -> Self {
+    Self { value: String::new(), namespace }
+  }
 
   fn new(value: Self::Type, namespace: String) -> Self {
     Self { value, namespace}
