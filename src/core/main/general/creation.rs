@@ -6,7 +6,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
 use crate::core::traits::operation::Operation;
-use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::core::traits::pack::ProvidePack;
 use crate::GeneralPackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -53,7 +53,7 @@ pub struct GeneralCreationValue {
 
 impl CreationValue<StringValue> for GeneralCreationValue
 {
-  fn operation<O: Operation<StringValue>>(&self) -> O {
+  fn operation<O: Operation>(&self) -> O {
     todo!()
   }
 }
