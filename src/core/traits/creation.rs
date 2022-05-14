@@ -16,5 +16,5 @@ pub trait Creation<T> {
 }
 
 pub trait CreationValue<T> {
-  fn operation<O: Operation<T>>(&self) -> O;
+  fn operation<O: Operation>(&self) -> O;
 }

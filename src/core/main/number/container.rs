@@ -3,7 +3,8 @@ use std::iter::FromIterator;
 use crate::core::build::error::BuildError;
 use crate::core::main::number::parameter::NumberParameter;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::container::{Container, Provide};
+use crate::core::traits::container::Container;
+use crate::core::traits::pack::Pack;
 use crate::core::traits::parameter::Parameter;
 
 pub struct NumberContainer {
@@ -12,21 +13,11 @@ pub struct NumberContainer {
 }
 
 impl Container for NumberContainer {
-  type Value = NumberValue;
+  type Operation = ();
   type Parameter = NumberParameter;
 
-  fn new(namespace: String) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::new()
-    }
-  }
-
-  fn from(namespace: String, elements: Vec<(String, Self::Value)>) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::from_iter(elements.into_iter())
-    }
+  fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self {
+    todo!()
   }
 
   fn namespace(&self) -> &String {

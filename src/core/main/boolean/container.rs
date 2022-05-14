@@ -1,9 +1,10 @@
 use std::collections::HashMap;
-use std::iter::FromIterator;
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::parameter::BooleanParameter;
 use crate::core::main::boolean::value::BooleanValue;
-use crate::core::traits::container::{Container, Provide};
+use crate::core::traits::container::Container;
+use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::pack::Pack;
 use crate::core::traits::parameter::Parameter;
 
 pub struct BooleanContainer {
@@ -12,21 +13,11 @@ pub struct BooleanContainer {
 }
 
 impl Container for BooleanContainer {
-  type Value = BooleanValue;
+  type Operation = ();
   type Parameter = BooleanParameter;
 
-  fn new(namespace: String) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::new()
-    }
-  }
-
-  fn from(namespace: String, elements: Vec<(String, Self::Value)>) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::from_iter(elements.into_iter())
-    }
+  fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self {
+    todo!()
   }
 
   fn namespace(&self) -> &String {

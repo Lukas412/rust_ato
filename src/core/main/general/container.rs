@@ -9,7 +9,8 @@ use crate::core::main::general::value::{CombinedGeneralValue, GeneralValue};
 use crate::core::main::number::value::NumberValue;
 use crate::core::main::path::value::PathValue;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::container::{Container, Provide};
+use crate::core::traits::container::Container;
+use crate::core::traits::pack::Pack;
 use crate::core::traits::parameter::Parameter;
 use crate::core::traits::value::Value;
 
@@ -28,21 +29,11 @@ impl GeneralContainer {
 }
 
 impl Container for GeneralContainer {
-  type Value = GeneralValue;
+  type Operation = ();
   type Parameter = GeneralParameter;
 
-  fn new(namespace: String) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::new()
-    }
-  }
-
-  fn from(namespace: String, elements: Vec<(String, Self::Value)>) -> Self {
-    Self {
-      namespace,
-      elements: HashMap::from_iter(elements.into_iter())
-    }
+  fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self {
+    todo!()
   }
 
   fn namespace(&self) -> &String {
