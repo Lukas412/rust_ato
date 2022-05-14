@@ -11,7 +11,7 @@ use self::core::main::general::creation::GeneralCreation;
 mod core;
 
 fn main() {
-  let pack_provider = GeneralPackProvider::from_root("src/bundles".as_ref());
+  let pack_provider = GeneralPackProvider::from_root("src/bundles");
   let creation: GeneralCreation = from_file("src/creations/empty-git.creation.xml").unwrap();
   let value = creation.build(&pack_provider).unwrap();
   println!("{:?}", value);

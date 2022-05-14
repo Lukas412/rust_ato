@@ -22,7 +22,7 @@ pub trait Pack: Debug + YaDeserialize
     C::from(namespace, elements)
   }
 
-  fn from_root(root: &Path) -> HashMap<Namespace, Self> {
+  fn from_root<P: AsRef<Path>>(root: P) -> HashMap<Namespace, Self> {
     let packs =
       WalkDir::new(root)
         .into_iter()

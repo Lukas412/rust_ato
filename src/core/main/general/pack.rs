@@ -12,7 +12,7 @@ pub struct GeneralPackProvider {
 }
 
 impl GeneralPackProvider {
-  pub fn from_root(root: &Path) -> Self {
+  pub fn from_root(root: &str) -> Self {
     Self {
       path_packs: PathPack::from_root(root),
       string_packs: StringPack::from_root(root),
