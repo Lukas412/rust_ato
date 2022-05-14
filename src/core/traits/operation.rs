@@ -3,5 +3,5 @@ pub trait Operation {
 }
 
 pub trait ProvideOperation<O: Operation> {
-  fn operation(&self) -> O;
+  fn operation(&self, name: &String) -> Option<&O>;
 }

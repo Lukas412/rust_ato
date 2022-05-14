@@ -1,23 +1,28 @@
 use std::collections::HashMap;
 use std::iter::FromIterator;
 use crate::core::build::error::BuildError;
+use crate::core::main::path::operation::PathOperation;
 use crate::core::main::path::parameter::PathParameter;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::container::Container;
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::Pack;
 use crate::core::traits::parameter::Parameter;
 
 pub struct PathContainer {
   namespace: String,
-  elements: HashMap<String, PathValue>,
+  elements: HashMap<String, PathOperation>,
 }
 
 impl Container for PathContainer {
-  type Operation = ();
+  type Operation = PathOperation;
   type Parameter = PathParameter;
 
   fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self {
-    todo!()
+    Self {
+      namespace: pack.namespace().to_owned(),
+      elements: HashMap::from_iter(elements.into_iter())
+    }
   }
 
   fn namespace(&self) -> &String {
@@ -33,11 +38,8 @@ impl Container for PathContainer {
   }
 }
 
-impl Provide<PathValue> for PathContainer {
-  fn get(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
-    match self.get_element(name) {
-      Some(value) => Ok(value.clone()),
-      _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
-    }
+impl ProvideOperation<PathOperation> for PathContainer {
+  fn operation(&self, name: &String) -> Option<&PathOperation> {
+    self.get_element(name)
   }
 }
