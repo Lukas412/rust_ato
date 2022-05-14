@@ -17,15 +17,6 @@ pub struct PathPack {
   operation: PathOperation,
 }
 
-impl<C> Buildable<PathValue, C> for PathPack
-  where
-    C: Container + Provide<PathValue>
-{
-  fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
-    self.operation.build(requirements)
-  }
-}
-
 impl Pack for PathPack {
   const SUFFIX: &'static str = "*.path.xml";
 

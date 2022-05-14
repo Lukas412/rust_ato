@@ -17,15 +17,6 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl<C> Buildable<StringValue, C> for StringPack
-  where
-    C: Container + Provide<StringValue>
-{
-  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
-    self.operation.build(requirements)
-  }
-}
-
 impl Pack for StringPack {
   const SUFFIX: &'static str = ".string.xml";
 
