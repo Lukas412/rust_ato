@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use crate::core::build::error::BuildError;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Provide;
+use crate::core::traits::container::{Container, Provide};
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
@@ -12,7 +12,10 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl<C: Provide<PathValue, BuildError>> Buildable<PathValue, BuildError, C> for PathValueOperation {
+impl<C> Buildable<PathValue, C> for PathValueOperation
+  where
+    C: Container + Provide<PathValue>
+{
   fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
     let value = PathBuf::from(&self.text);
     let namespace = requirements.namespace().to_owned();

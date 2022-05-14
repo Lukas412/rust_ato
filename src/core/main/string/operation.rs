@@ -26,9 +26,9 @@ impl Default for StringOperation {
   }
 }
 
-impl<C> Buildable<StringValue, BuildError, C> for StringOperation
+impl<C> Buildable<StringValue, C> for StringOperation
   where
-    C: Container + Provide<StringValue, BuildError>
+    C: Container + Provide<StringValue>
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match self {

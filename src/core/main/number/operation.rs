@@ -13,7 +13,7 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl<C: Container> Buildable<NumberValue, BuildError, C> for NumberValueOperation {
+impl<C: Container> Buildable<NumberValue, C> for NumberValueOperation {
   fn build(&self, requirements: &C) -> Result<NumberValue, BuildError> {
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, requirements.namespace().to_owned())),

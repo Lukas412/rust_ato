@@ -10,7 +10,7 @@ pub struct BooleanValueOperation {
   text: String,
 }
 
-impl<C: Container> Buildable<BooleanValue, BuildError, C> for BooleanValueOperation {
+impl<C: Container> Buildable<BooleanValue, C> for BooleanValueOperation {
   fn build(&self, requirements: &C) -> Result<BooleanValue, BuildError> {
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, requirements.namespace().to_owned())),

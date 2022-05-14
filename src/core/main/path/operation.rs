@@ -23,7 +23,10 @@ impl Default for PathOperation {
   }
 }
 
-impl<C: Container + Provide<PathValue, BuildError>> Buildable<PathValue, BuildError, C> for PathOperation {
+impl<C> Buildable<PathValue, C> for PathOperation
+  where
+    C: Container + Provide<PathValue>
+{
   fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
     match self {
       Self::Empty => Ok(PathValue::new(PathBuf::default(), requirements.namespace().to_owned())),

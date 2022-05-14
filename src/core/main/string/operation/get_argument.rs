@@ -12,7 +12,10 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl<C: Container + Provide<StringValue, BuildError>> Buildable<StringValue, BuildError, C> for StringGetArgumentOperation {
+impl<C> Buildable<StringValue, C> for StringGetArgumentOperation
+  where
+    C: Container + Provide<StringValue>
+{
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     requirements.get_value(&self.name, &self.namespace.as_ref().unwrap_or(&"".to_owned()))
   }

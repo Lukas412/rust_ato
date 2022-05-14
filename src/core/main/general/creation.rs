@@ -29,7 +29,7 @@ impl Creation<StringValue> for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue, BuildError, PackProvider> for GeneralCreation {
+impl Buildable<StringValue, PackProvider> for GeneralCreation {
   fn build(&self, requirements: &PackProvider) -> Result<StringValue, BuildError> {
     let pack = requirements.string_pack(&self.namespace)?;
     let container = self.container();

@@ -1,3 +1,4 @@
+use crate::core::build::error::BuildError;
 use crate::core::traits::value::Value;
 use crate::core::traits::parameter::Parameter;
 
@@ -12,6 +13,6 @@ pub trait Container {
   fn get_element(&self, name: &String) -> Option<&Self::Value>;
 }
 
-pub trait Provide<T, Error>: Container {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<T, Error>;
+pub trait Provide<T>: Container {
+  fn get_value(&self, name: &String, namespace: &String) -> Result<T, BuildError>;
 }

@@ -18,7 +18,7 @@ pub struct PathPack {
   operation: PathOperation,
 }
 
-impl<C> Buildable<PathValue, BuildError, C> for PathPack
+impl<C> Buildable<PathValue, C> for PathPack
   where
     C: Container + Provide<PathValue, BuildError>
 {
@@ -27,10 +27,7 @@ impl<C> Buildable<PathValue, BuildError, C> for PathPack
   }
 }
 
-impl<C> Pack<PathValue, BuildError, C> for PathPack
-  where
-    C: Container + Provide<PathValue, BuildError>
-{
+impl Pack for PathPack {
   const SUFFIX: &'static str = "*.path.xml";
 
   fn namespace(&self) -> &String {
