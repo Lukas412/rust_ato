@@ -7,7 +7,7 @@ pub trait Container {
   type Parameter: Parameter;
 
   fn new(namespace: String) -> Self;
-  fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self;
+  fn from(namespace: String, elements: Vec<(String, Self::Value)>) -> Self;
   fn namespace(&self) -> &String;
   fn includes(&self, parameter: &Self::Parameter) -> bool;
   fn get_element(&self, name: &String) -> Option<&Self::Value>;

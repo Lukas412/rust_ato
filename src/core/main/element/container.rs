@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::iter::FromIterator;
 use crate::core::build::error::BuildError;
 
 use crate::core::main::boolean::value::BooleanValue;
@@ -36,10 +37,10 @@ impl Container for ElementContainer {
     }
   }
 
-  fn from<const N: usize>(namespace: String, elements: [(String, Self::Value); N]) -> Self {
+  fn from(namespace: String, elements: Vec<(String, Self::Value)>) -> Self {
     Self {
       namespace,
-      elements: HashMap::from(elements)
+      elements: HashMap::from_iter(elements.into_iter())
     }
   }
 

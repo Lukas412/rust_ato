@@ -18,7 +18,7 @@ pub trait Pack
 
   fn namespace(&self) -> &String;
 
-  fn requirements<C: Container, const N: usize>(&self, elements: [(String, C::Value); N]) -> C {
+  fn requirements<C: Container>(&self, elements: Vec<(String, C::Value)>) -> C {
     let namespace = self.namespace().to_owned();
     C::from(namespace, elements)
   }

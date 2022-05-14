@@ -4,6 +4,7 @@ use crate::core::main::namespace::Namespace;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
+use crate::core::traits::operation::Operation;
 use crate::PackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -47,4 +48,9 @@ pub struct GeneralCreationValue {
   elements: Vec<GeneralCreation>,
 }
 
-impl CreationValue for GeneralCreationValue {}
+impl CreationValue<StringValue> for GeneralCreationValue
+{
+  fn operation<O: Operation<StringValue>>(&self) -> O {
+    todo!()
+  }
+}
