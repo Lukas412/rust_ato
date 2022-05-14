@@ -41,7 +41,7 @@ impl Container for BooleanContainer {
   }
 }
 
-impl Provide<BooleanValue, BuildError> for BooleanContainer {
+impl Provide<BooleanValue> for BooleanContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),

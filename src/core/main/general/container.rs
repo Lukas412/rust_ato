@@ -57,7 +57,7 @@ impl Container for GeneralContainer {
   }
 }
 
-impl Provide<ActionValue, BuildError> for GeneralContainer {
+impl Provide<ActionValue> for GeneralContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedGeneralValue::Action(value), namespace) => Ok(ActionValue::new(value.to_owned(), namespace)),
@@ -66,7 +66,7 @@ impl Provide<ActionValue, BuildError> for GeneralContainer {
   }
 }
 
-impl Provide<BooleanValue, BuildError> for GeneralContainer {
+impl Provide<BooleanValue> for GeneralContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedGeneralValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
@@ -75,7 +75,7 @@ impl Provide<BooleanValue, BuildError> for GeneralContainer {
   }
 }
 
-impl Provide<NumberValue, BuildError> for GeneralContainer {
+impl Provide<NumberValue> for GeneralContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedGeneralValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
@@ -84,7 +84,7 @@ impl Provide<NumberValue, BuildError> for GeneralContainer {
   }
 }
 
-impl Provide<PathValue, BuildError> for GeneralContainer {
+impl Provide<PathValue> for GeneralContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedGeneralValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
@@ -93,7 +93,7 @@ impl Provide<PathValue, BuildError> for GeneralContainer {
   }
 }
 
-impl Provide<StringValue, BuildError> for GeneralContainer {
+impl Provide<StringValue> for GeneralContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedGeneralValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),

@@ -19,7 +19,7 @@ pub struct StringPack {
 
 impl<C> Buildable<StringValue, C> for StringPack
   where
-    C: Container + Provide<StringValue, BuildError>
+    C: Container + Provide<StringValue>
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     self.operation.build(requirements)

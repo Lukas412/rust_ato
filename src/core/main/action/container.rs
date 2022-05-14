@@ -41,7 +41,7 @@ impl Container for ActionContainer {
   }
 }
 
-impl Provide<ActionValue, BuildError> for ActionContainer {
+impl Provide<ActionValue> for ActionContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),

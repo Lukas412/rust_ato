@@ -56,7 +56,7 @@ impl Container for ElementContainer {
   }
 }
 
-impl Provide<BooleanValue, BuildError> for ElementContainer {
+impl Provide<BooleanValue> for ElementContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
@@ -65,7 +65,7 @@ impl Provide<BooleanValue, BuildError> for ElementContainer {
   }
 }
 
-impl Provide<NumberValue, BuildError> for ElementContainer {
+impl Provide<NumberValue> for ElementContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
@@ -74,7 +74,7 @@ impl Provide<NumberValue, BuildError> for ElementContainer {
   }
 }
 
-impl Provide<PathValue, BuildError> for ElementContainer {
+impl Provide<PathValue> for ElementContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
@@ -83,7 +83,7 @@ impl Provide<PathValue, BuildError> for ElementContainer {
   }
 }
 
-impl Provide<StringValue, BuildError> for ElementContainer {
+impl Provide<StringValue> for ElementContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),

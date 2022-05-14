@@ -41,7 +41,7 @@ impl Container for StringContainer {
   }
 }
 
-impl Provide<StringValue, BuildError> for StringContainer {
+impl Provide<StringValue> for StringContainer {
   fn get(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
