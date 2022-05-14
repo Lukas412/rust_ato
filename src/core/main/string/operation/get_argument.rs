@@ -17,6 +17,6 @@ impl<C> Buildable<StringValue, C> for StringGetArgumentOperation
     C: Container + Provide<StringValue>
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
-    requirements.get_value(&self.name, &self.namespace.as_ref().unwrap_or(&"".to_owned()))
+    requirements.get(&self.name, &self.namespace.as_ref().unwrap_or(&"".to_owned()))
   }
 }

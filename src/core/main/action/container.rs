@@ -42,7 +42,7 @@ impl Container for ActionContainer {
 }
 
 impl Provide<ActionValue, BuildError> for ActionContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<ActionValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned()))

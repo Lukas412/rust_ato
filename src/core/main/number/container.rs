@@ -42,7 +42,7 @@ impl Container for NumberContainer {
 }
 
 impl Provide<NumberValue, BuildError> for NumberContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),

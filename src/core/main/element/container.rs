@@ -57,7 +57,7 @@ impl Container for ElementContainer {
 }
 
 impl Provide<BooleanValue, BuildError> for ElementContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<BooleanValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Boolean(value), namespace) => Ok(BooleanValue::new(value.to_owned(), namespace)),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
@@ -66,7 +66,7 @@ impl Provide<BooleanValue, BuildError> for ElementContainer {
 }
 
 impl Provide<NumberValue, BuildError> for ElementContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<NumberValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Number(value), namespace) => Ok(NumberValue::new(value.to_owned(), namespace)),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
@@ -75,7 +75,7 @@ impl Provide<NumberValue, BuildError> for ElementContainer {
 }
 
 impl Provide<PathValue, BuildError> for ElementContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::Path(value), namespace) => Ok(PathValue::new(value.to_owned(), namespace)),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
@@ -84,7 +84,7 @@ impl Provide<PathValue, BuildError> for ElementContainer {
 }
 
 impl Provide<StringValue, BuildError> for ElementContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<StringValue, BuildError> {
     match self.get_value_and_namespace(name, namespace)? {
       (CombinedElementValue::String(value), namespace) => Ok(StringValue::new(value.to_owned(), namespace)),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),

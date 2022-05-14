@@ -42,7 +42,7 @@ impl Container for PathContainer {
 }
 
 impl Provide<PathValue, BuildError> for PathContainer {
-  fn get_value(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
+  fn get(&self, name: &String, namespace: &String) -> Result<PathValue, BuildError> {
     match self.get_element(name) {
       Some(value) => Ok(value.clone()),
       _ => Err(BuildError::new_requirement(name.to_owned(), namespace.to_owned())),
