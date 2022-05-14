@@ -5,6 +5,7 @@ use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
 use yaserde::YaDeserialize;
+use crate::core::build::error::BuildError;
 
 use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
@@ -43,5 +44,12 @@ pub trait Pack
 pub trait ProvidePack<P>
   where P: Pack
 {
-  fn pack(&self) -> P;
+  fn packs(&self) -> &HashMap<Namespace, P>;
+
+  fn pack(&self, &namespace: Namespace) -> Result<&P, BuildError> {
+    match self.packs().get(namespace) {
+      Some(pack) => Ok(pack),
+      None => Err(BuildError::new_pack(namespace.to_owned())),
+    }
+  }
 }

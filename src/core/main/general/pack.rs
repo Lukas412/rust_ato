@@ -1,11 +1,10 @@
 use std::collections::HashMap;
 use std::path::Path;
-use crate::core::build::error::BuildError;
 
 use crate::core::main::namespace::Namespace;
 use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
-use crate::core::traits::pack::Pack;
+use crate::core::traits::pack::{Pack, ProvidePack};
 
 pub struct GeneralPackProvider {
   path_packs: HashMap<Namespace, PathPack>,
@@ -13,24 +12,22 @@ pub struct GeneralPackProvider {
 }
 
 impl GeneralPackProvider {
-  pub(crate) fn from_root(root: &Path) -> Self {
+  pub fn from_root(root: &Path) -> Self {
     Self {
       path_packs: PathPack::from_root(root),
       string_packs: StringPack::from_root(root),
     }
   }
+}
 
-  pub fn path_pack(&self, namespace: &Namespace) -> Result<&PathPack, BuildError> {
-    match self.path_packs.get(namespace) {
-      Some(pack) => Ok(pack),
-      None => Err(BuildError::new_pack(namespace.to_owned())),
-    }
+impl ProvidePack<PathPack> for GeneralPackProvider {
+  fn packs(&self) -> &HashMap<Namespace, PathPack> {
+    &self.path_packs
   }
+}
 
-  pub fn string_pack(&self, namespace: &Namespace) -> Result<&StringPack, BuildError> {
-    match self.string_packs.get(namespace) {
-      Some(pack) => Ok(pack),
-      None => Err(BuildError::new_pack(namespace.to_owned())),
-    }
+impl ProvidePack<StringPack> for GeneralPackProvider {
+  fn packs(&self) -> &HashMap<Namespace, StringPack> {
+    &self.string_packs
   }
 }
