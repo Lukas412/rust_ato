@@ -39,3 +39,9 @@ pub trait Pack
     path.to_str().unwrap().ends_with(Self::SUFFIX)
   }
 }
+
+pub trait ProvidePack<P>
+  where P: Pack
+{
+  fn pack(&self) -> P;
+}
