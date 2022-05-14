@@ -12,22 +12,6 @@ pub struct  GeneralValue {
   namespace: String,
 }
 
-#[derive(Debug, Clone)]
-pub enum CombinedGeneralValue {
-  None,
-  Action(Action),
-  Boolean(bool),
-  Number(Decimal),
-  Path(PathBuf),
-  String(String),
-}
-
-impl Default for CombinedGeneralValue {
-  const fn default() -> Self {
-    Self::None
-  }
-}
-
 impl Value for GeneralValue {
   type Type = CombinedGeneralValue;
 
@@ -45,5 +29,21 @@ impl Value for GeneralValue {
 
   fn namespace(&self) -> &String {
     &self.namespace
+  }
+}
+
+#[derive(Debug, Clone)]
+pub enum CombinedGeneralValue {
+  None,
+  Action(Action),
+  Boolean(bool),
+  Number(Decimal),
+  Path(PathBuf),
+  String(String),
+}
+
+impl Default for CombinedGeneralValue {
+  const fn default() -> Self {
+    Self::None
   }
 }
