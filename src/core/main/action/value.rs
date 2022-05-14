@@ -39,7 +39,7 @@ pub enum Action {
 }
 
 impl Default for Action {
-  const fn default() -> Self {
+  fn default() -> Self {
     Self::None
   }
 }

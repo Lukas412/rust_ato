@@ -1,12 +1,10 @@
-use std::path::PathBuf;
-
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::path::operation::value::PathValueOperation;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
-use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::operation::{Operation, ProvideOperation};
 use crate::core::traits::value::Value;
 
 pub mod value;
@@ -21,9 +19,13 @@ pub enum PathOperation {
 }
 
 impl Default for PathOperation {
-  const fn default() -> Self {
+  fn default() -> Self {
     Self::Empty
   }
+}
+
+impl Operation for PathOperation {
+  type Value = PathValue;
 }
 
 impl<C> Buildable<PathValue, C> for PathOperation

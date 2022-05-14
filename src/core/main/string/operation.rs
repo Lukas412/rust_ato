@@ -5,7 +5,7 @@ use crate::core::main::string::operation::get_argument::StringGetArgumentOperati
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
-use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::operation::{Operation, ProvideOperation};
 use crate::core::traits::value::Value;
 
 pub mod value;
@@ -26,6 +26,10 @@ impl Default for StringOperation {
   fn default() -> Self {
     Self::Empty
   }
+}
+
+impl Operation for StringOperation {
+  type Value = StringValue;
 }
 
 impl<C> Buildable<StringValue, C> for StringOperation

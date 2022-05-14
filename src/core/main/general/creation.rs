@@ -35,7 +35,7 @@ impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation
 {
   fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
     let pack: &StringPack = requirements.pack(self.namespace())?;
-    let container = self.container();
+    let container = self.container(requirements);
     pack.build(&container)
   }
 }

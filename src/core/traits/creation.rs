@@ -1,6 +1,8 @@
 use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
 use crate::core::traits::operation::Operation;
+use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::GeneralPackProvider;
 
 pub trait Creation<T> {
   type Container: Container;
@@ -10,8 +12,9 @@ pub trait Creation<T> {
 
   fn values(&self) -> Vec<(String, Self::Value)> ;
 
-  fn container(&self) -> Self::Container {
-    <Self::Container as Container>::from(self.namespace().to_owned(), Vec::new())
+  fn container<P: Pack>(&self, pack_provider: &GeneralPackProvider) -> Self::Container {
+    let pack: P = pack_provider.pack(self.namespace())?;
+    <Self::Container as Container>::from_pack(pack, Vec::new())
   }
 }
 

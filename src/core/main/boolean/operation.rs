@@ -4,7 +4,7 @@ use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
-use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::operation::{Operation, ProvideOperation};
 use crate::core::traits::value::Value;
 
 pub mod value;
@@ -19,9 +19,13 @@ pub enum BooleanOperation {
 }
 
 impl Default for BooleanOperation {
-  const fn default() -> Self {
+  fn default() -> Self {
     Self::Empty
   }
+}
+
+impl Operation for BooleanOperation {
+  type Value = BooleanValue;
 }
 
 impl<C> Buildable<BooleanValue, C> for BooleanOperation

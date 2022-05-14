@@ -1,4 +1,4 @@
-use crate::core::main::element::parameter::ElementParameters;
+use crate::core::main::general::parameter::GeneralParameters;
 use crate::core::main::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::traits::pack::Pack;
@@ -9,7 +9,7 @@ pub struct StringPack {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(child)]
-  parameters: ElementParameters,
+  parameters: GeneralParameters,
   #[yaserde(flatten)]
   operation: StringOperation,
 }

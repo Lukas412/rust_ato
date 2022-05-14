@@ -5,8 +5,8 @@ use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
 use yaserde::YaDeserialize;
-use crate::core::build::error::BuildError;
 
+use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
 use crate::from_file;
@@ -16,11 +16,6 @@ pub trait Pack: Debug + YaDeserialize
   const SUFFIX: &'static str;
 
   fn namespace(&self) -> &Namespace;
-
-  fn requirements<C: Container>(&self, elements: Vec<(String, C::Value)>) -> C {
-    let namespace = self.namespace().to_owned();
-    C::from(namespace, elements)
-  }
 
   fn from_root<P: AsRef<Path>>(root: P) -> HashMap<Namespace, Self> {
     let packs =

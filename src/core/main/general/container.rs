@@ -1,19 +1,12 @@
 use std::collections::HashMap;
 use std::iter::FromIterator;
-use crate::core::build::error::BuildError;
-use crate::core::main::action::value::ActionValue;
 use crate::core::main::boolean::operation::BooleanOperation;
-use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::CombinedGeneralOperation;
 
 use crate::core::main::general::parameter::GeneralParameter;
-use crate::core::main::general::value::{CombinedGeneralValue, GeneralValue};
 use crate::core::main::number::operation::NumberOperation;
-use crate::core::main::number::value::NumberValue;
 use crate::core::main::path::operation::PathOperation;
-use crate::core::main::path::value::PathValue;
 use crate::core::main::string::operation::StringOperation;
-use crate::core::main::string::value::StringValue;
 use crate::core::traits::container::Container;
 use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::Pack;
@@ -51,7 +44,7 @@ impl Container for GeneralContainer {
 impl ProvideOperation<BooleanOperation> for GeneralContainer {
   fn operation(&self, name: &String) -> Option<&BooleanOperation> {
     match self.get_element(name) {
-      Some(CombinedGeneralOperation::Boolean(&operation)) => Some(operation),
+      Some(CombinedGeneralOperation::Boolean(operation)) => Some(operation),
       _ => None,
     }
   }
@@ -60,7 +53,7 @@ impl ProvideOperation<BooleanOperation> for GeneralContainer {
 impl ProvideOperation<NumberOperation> for GeneralContainer {
   fn operation(&self, name: &String) -> Option<&NumberOperation> {
     match self.get_element(name) {
-      Some(CombinedGeneralOperation::Number(&operation)) => Some(operation),
+      Some(CombinedGeneralOperation::Number(operation)) => Some(operation),
       _ => None,
     }
   }
@@ -69,7 +62,7 @@ impl ProvideOperation<NumberOperation> for GeneralContainer {
 impl ProvideOperation<PathOperation> for GeneralContainer {
   fn operation(&self, name: &String) -> Option<&PathOperation> {
     match self.get_element(name) {
-      Some(CombinedGeneralOperation::Path(&operation)) => Some(operation),
+      Some(CombinedGeneralOperation::Path(operation)) => Some(operation),
       _ => None,
     }
   }
@@ -78,7 +71,7 @@ impl ProvideOperation<PathOperation> for GeneralContainer {
 impl ProvideOperation<StringOperation> for GeneralContainer {
   fn operation(&self, name: &String) -> Option<&StringOperation> {
     match self.get_element(name) {
-      Some(CombinedGeneralOperation::String(&operation)) => Some(operation),
+      Some(CombinedGeneralOperation::String(operation)) => Some(operation),
       _ => None,
     }
   }

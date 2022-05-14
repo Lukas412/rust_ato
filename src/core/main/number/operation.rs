@@ -1,12 +1,10 @@
-use empty::build_empty;
-
 use crate::Buildable;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::container::Container;
-use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
 
@@ -20,9 +18,13 @@ pub enum NumberOperation {
 }
 
 impl Default for NumberOperation {
-  const fn default() -> Self {
+  fn default() -> Self {
     Self::Empty
   }
+}
+
+impl Operation for NumberOperation {
+  type Value = NumberValue;
 }
 
 impl<C> Buildable<NumberValue, C> for NumberOperation

@@ -43,7 +43,7 @@ pub enum CombinedGeneralValue {
 }
 
 impl Default for CombinedGeneralValue {
-  const fn default() -> Self {
+  fn default() -> Self {
     Self::None
   }
 }

@@ -1,5 +1,5 @@
 pub trait Operation {
-  type Type;
+  type Value;
 }
 
 pub trait ProvideOperation<O: Operation> {

@@ -1,7 +1,9 @@
 use crate::core::build::error::BuildError;
+use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
@@ -13,7 +15,7 @@ pub struct StringValueOperation {
 
 impl<C> Buildable<StringValue, C> for StringValueOperation
   where
-    C: Container + Provide<StringValue>
+    C: Container + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     let value = self.text.to_owned();
