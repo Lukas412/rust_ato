@@ -1,3 +1,4 @@
+use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
 use crate::core::traits::operation::Operation;
@@ -12,8 +13,8 @@ pub trait Creation<T> {
 
   fn values(&self) -> Vec<(String, Self::Value)> ;
 
-  fn container<P: Pack>(&self, pack_provider: &GeneralPackProvider) -> Self::Container {
-    let pack: P = pack_provider.pack(self.namespace())?;
+  fn container<P: Pack>(&self, pack_provider: &GeneralPackProvider) -> Result<Self::Container, BuildError> {
+    let pack: &P = pack_provider.pack(self.namespace())?;
     <Self::Container as Container>::from_pack(pack, Vec::new())
   }
 }

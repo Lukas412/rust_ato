@@ -8,7 +8,6 @@ use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
-use crate::core::traits::container::Container;
 use crate::from_file;
 
 pub trait Pack: Debug + YaDeserialize
