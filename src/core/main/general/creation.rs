@@ -1,10 +1,12 @@
 use crate::core::build::error::BuildError;
 use crate::core::main::general::container::GeneralContainer;
 use crate::core::main::namespace::Namespace;
+use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
 use crate::core::traits::operation::Operation;
+use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralPackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -29,9 +31,10 @@ impl Creation<StringValue> for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation {
+impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation
+{
   fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
-    let pack = requirements.string_pack(&self.namespace)?;
+    let pack: &StringPack = requirements.pack(self.namespace())?;
     let container = self.container();
     pack.build(&container)
   }

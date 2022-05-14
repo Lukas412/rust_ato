@@ -11,8 +11,7 @@ use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
 use crate::from_file;
 
-pub trait Pack
-  where Self: Debug + YaDeserialize
+pub trait Pack: Debug + YaDeserialize
 {
   const SUFFIX: &'static str;
 
@@ -46,7 +45,7 @@ pub trait ProvidePack<P>
 {
   fn packs(&self) -> &HashMap<Namespace, P>;
 
-  fn pack(&self, &namespace: Namespace) -> Result<&P, BuildError> {
+  fn pack(&self, namespace: &Namespace) -> Result<&P, BuildError> {
     match self.packs().get(namespace) {
       Some(pack) => Ok(pack),
       None => Err(BuildError::new_pack(namespace.to_owned())),
