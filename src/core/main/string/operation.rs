@@ -1,9 +1,11 @@
 use crate::core::build::error::BuildError;
+use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::string::value::StringValue;
 use crate::core::main::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
 
 pub mod value;
@@ -27,12 +29,11 @@ impl Default for StringOperation {
 }
 
 impl<C> Buildable<StringValue, C> for StringOperation
-  where
-    C: Container + Provide<StringValue>
+  where C: Container + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match self {
-      Self::Empty => Ok(StringValue::new("".to_owned(), requirements.namespace().to_owned())),
+      Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),
       Self::GetArgument(operation) => operation.build(requirements),
     }

@@ -1,23 +1,37 @@
-use std::str::FromStr;
+use empty::build_empty;
 
-use rust_decimal::Decimal;
-
+use crate::Buildable;
 use crate::core::build::error::BuildError;
+use crate::core::main::general::operation::empty::build_empty;
+use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
-use crate::core::traits::value::Value;
+use crate::core::traits::operation::ProvideOperation;
 
-#[derive(Debug)]
-pub struct NumberValueOperation {
-  text: String,
+pub mod value;
+
+#[derive(Debug, YaDeserialize)]
+#[yaserde(prefix = "number", namespace = "number: http://www.ato.net/xmlns/number")]
+pub enum NumberOperation {
+  #[yaserde(rename = "empty", prefix = "number", namespace = "number: http://www.ato.net/xmlns/number")]
+  Empty,
+  #[yaserde(rename = "value", prefix = "number", namespace = "number: http://www.ato.net/xmlns/number")]
+  Value(NumberValueOperation),
 }
 
-impl<C: Container> Buildable<NumberValue, C> for NumberValueOperation {
+impl Default for NumberOperation {
+  const fn default() -> Self {
+    Self::Empty
+  }
+}
+
+impl<C> Buildable<NumberValue, C> for NumberOperation
+  where C: Container + ProvideOperation<NumberOperation>
+{
   fn build(&self, requirements: &C) -> Result<NumberValue, BuildError> {
-    match Decimal::from_str(&self.text) {
-      Ok(value) => Ok(NumberValue::new(value, requirements.namespace().to_owned())),
-      Err(error) => Err(BuildError::new_value(error.to_string(), requirements.namespace().to_owned())),
+    match self {
+      Self::Empty => build_empty(requirements),
+      Self::Value(operation) => operation.build(requirements),
     }
   }
 }

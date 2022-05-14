@@ -1,12 +1,15 @@
-mod value;
-
 use std::path::PathBuf;
+
 use crate::core::build::error::BuildError;
-use crate::core::main::path::value::PathValue;
+use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::path::operation::value::PathValueOperation;
+use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::container::Container;
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
+
+pub mod value;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(prefix = "path", namespace = "path: http://www.ato.net/xmlns/path")]
@@ -18,18 +21,17 @@ pub enum PathOperation {
 }
 
 impl Default for PathOperation {
-  fn default() -> Self {
+  const fn default() -> Self {
     Self::Empty
   }
 }
 
 impl<C> Buildable<PathValue, C> for PathOperation
-  where
-    C: Container + Provide<PathValue>
+  where C: Container + ProvideOperation<PathOperation>
 {
   fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
     match self {
-      Self::Empty => Ok(PathValue::new(PathBuf::default(), requirements.namespace().to_owned())),
+      Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),
     }
   }
