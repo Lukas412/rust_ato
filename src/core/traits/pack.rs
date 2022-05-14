@@ -10,6 +10,7 @@ use yaserde::YaDeserialize;
 
 use crate::core::main::namespace::Namespace;
 use crate::core::traits::container::Container;
+use crate::from_file;
 
 pub trait Pack
   where Self: Debug + YaDeserialize
@@ -30,9 +31,7 @@ pub trait Pack
         .filter_map(Result::ok)
         .map(DirEntry::into_path)
         .filter(Self::is_pack_path)
-        .map(read_to_string)
-        .filter_map(Result::ok)
-        .map(|s: String| from_str::<Self>(&s))
+        .map(from_file)
         .filter_map(Result::ok)
         .map(|pack: Self| (pack.namespace().to_owned(), pack));
     HashMap::from_iter(packs)
