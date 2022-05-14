@@ -1,11 +1,9 @@
 use std::collections::HashMap;
 use std::fmt::Debug;
-use std::fs::read_to_string;
 use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
-use yaserde::de::from_str;
 use yaserde::YaDeserialize;
 
 use crate::core::main::namespace::Namespace;
