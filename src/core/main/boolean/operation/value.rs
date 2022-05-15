@@ -1,7 +1,7 @@
 use crate::Buildable;
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
-use crate::core::traits::namespace::WithNamespace;
+use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
@@ -12,7 +12,7 @@ pub struct BooleanValueOperation {
 }
 
 impl<R> Buildable<BooleanValue, R> for BooleanValueOperation
-  where R: WithNamespace
+  where R: GetNamespace
 {
   fn build(&self, requirements: &R) -> Result<BooleanValue, BuildError> {
     let namespace = requirements.get_owned_namespace();

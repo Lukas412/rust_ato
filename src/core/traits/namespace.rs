@@ -1,6 +1,6 @@
 pub type Namespace = String;
 
-pub trait WithNamespace {
+pub trait GetNamespace {
   fn get_namespace(&self) -> &Namespace;
 
   fn get_owned_namespace(&self) -> Namespace {

@@ -3,7 +3,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::namespace::WithNamespace;
+use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
@@ -28,7 +28,7 @@ impl Operation for NumberOperation {
 }
 
 impl<R> Buildable<NumberValue, R> for NumberOperation
-  where R: WithNamespace + ProvideOperation<NumberOperation>
+  where R: GetNamespace + ProvideOperation<NumberOperation>
 {
   fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {
     match self {

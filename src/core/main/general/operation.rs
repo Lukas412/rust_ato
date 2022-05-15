@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::core::main::boolean::operation::BooleanOperation;
 use crate::core::main::general::value::CombinedGeneralValue;
 use crate::core::main::number::operation::NumberOperation;
@@ -6,6 +7,13 @@ use crate::core::main::string::operation::StringOperation;
 use crate::core::traits::operation::Operation;
 
 pub mod empty;
+
+pub struct GeneralOperationProvider {
+  boolean_operations: HashMap<String, BooleanOperation>,
+  number_operations: HashMap<String, NumberOperation>,
+  path_operations: HashMap<String, PathOperation>,
+  string_operations: HashMap<String, StringOperation>,
+}
 
 #[derive(Debug)]
 pub enum CombinedGeneralOperation {

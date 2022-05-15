@@ -3,7 +3,7 @@ use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::path::operation::value::PathValueOperation;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::namespace::WithNamespace;
+use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
@@ -28,7 +28,7 @@ impl Operation for PathOperation {
 }
 
 impl<R> Buildable<PathValue, R> for PathOperation
-  where R: WithNamespace + ProvideOperation<PathOperation>
+  where R: GetNamespace + ProvideOperation<PathOperation>
 {
   fn build(&self, requirements: &R) -> Result<PathValue, BuildError> {
     match self {

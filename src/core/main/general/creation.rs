@@ -4,14 +4,14 @@ use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
-use crate::core::traits::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::creation::{Creation, CreationValue};
+use crate::core::traits::creation::CreationValue;
+use crate::core::traits::namespace::{Namespace, GetNamespace};
 use crate::core::traits::pack::{Pack, ProvidePack};
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -23,24 +23,17 @@ pub struct GeneralCreation {
   values: Vec<GeneralCreationValue>,
 }
 
-impl Creation<StringOperation> for GeneralCreation {
-  type Pack = StringPack;
-  type Value = GeneralCreationValue;
-
-  fn namespace(&self) -> &Namespace {
+impl GetNamespace for GeneralCreation {
+  fn get_namespace(&self) -> &Namespace {
     &self.namespace
-  }
-
-  fn values(&self) -> Vec<(String, Self::Value)> {
-    Vec::new()
   }
 }
 
-impl<P> Buildable<StringValue, P> for GeneralCreation
-  where P: ProvidePack<StringPack>
+impl<R> Buildable<StringValue, R> for GeneralCreation
+  where R: ProvidePack<StringPack>
 {
-  fn build(&self, requirements: &P) -> Result<StringValue, BuildError> {
-    let pack = requirements.pack(self.namespace())?;
+  fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
+    let pack = requirements.pack(self.get_namespace())?;
     let operation = pack.operation();
     operation.build(&self)
   }
