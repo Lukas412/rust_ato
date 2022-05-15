@@ -8,6 +8,7 @@ use crate::core::traits::operation::Operation;
 
 pub mod empty;
 
+#[derive(Debug, Default)]
 pub struct GeneralOperationProvider {
   boolean_operations: HashMap<String, BooleanOperation>,
   number_operations: HashMap<String, NumberOperation>,
