@@ -3,7 +3,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::path::operation::PathOperation;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
 
@@ -14,13 +14,13 @@ pub struct PathValueOperation {
   text: String,
 }
 
-impl<C> Buildable<PathValue, C> for PathValueOperation
+impl<R> Buildable<PathValue, R> for PathValueOperation
   where
-    C: Container + ProvideOperation<PathOperation>
+    R: WithNamespace + ProvideOperation<PathOperation>
 {
-  fn build(&self, requirements: &C) -> Result<PathValue, BuildError> {
+  fn build(&self, requirements: &R) -> Result<PathValue, BuildError> {
     let value = PathBuf::from(&self.text);
-    let namespace = requirements.namespace().to_owned();
+    let namespace = requirements.get_owned_namespace();
     Ok(PathValue::new(value, namespace))
   }
 }

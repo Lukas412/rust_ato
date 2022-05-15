@@ -4,14 +4,13 @@ use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
-use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 use crate::core::traits::operation::Operation;
 use crate::from_file;
 
-pub trait Pack: Debug + YaDeserialize
+pub trait Pack: Debug
 {
   type Operation: Operation;
 
@@ -21,7 +20,9 @@ pub trait Pack: Debug + YaDeserialize
 
   fn operation(&self) -> &Self::Operation;
 
-  fn from_root<P: AsRef<Path>>(root: P) -> HashMap<Namespace, Self> {
+  fn from_root<P: AsRef<Path>>(root: P) -> HashMap<Namespace, Self>
+    where Self: Sized
+  {
     let packs =
       WalkDir::new(root)
         .into_iter()

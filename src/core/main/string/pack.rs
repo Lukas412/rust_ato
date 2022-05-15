@@ -1,5 +1,5 @@
 use crate::core::main::general::parameter::GeneralParameters;
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::traits::pack::Pack;
 

@@ -1,4 +1,4 @@
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, Clone)]

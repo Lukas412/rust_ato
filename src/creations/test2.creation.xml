@@ -1,0 +1,4 @@
+<general:creation xmlns:general="http://www.ato.net/xmlns/general"
+                  namespace="angular::cli::init::name">
+  <value name="value" value="my-project"/>
+</general:creation>

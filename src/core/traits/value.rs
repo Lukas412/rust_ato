@@ -1,4 +1,4 @@
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 
 pub trait Value {
   type Type;

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::pack::{Pack, ProvidePack};

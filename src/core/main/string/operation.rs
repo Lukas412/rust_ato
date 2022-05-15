@@ -4,7 +4,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::main::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
@@ -31,10 +31,10 @@ impl Operation for StringOperation {
   type Value = StringValue;
 }
 
-impl<C> Buildable<StringValue, C> for StringOperation
-  where C: Container + ProvideOperation<StringOperation>
+impl<R> Buildable<StringValue, R> for StringOperation
+  where R: WithNamespace + ProvideOperation<StringOperation>
 {
-  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
+  fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),

@@ -4,8 +4,7 @@ use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
-use crate::core::main::general::container::GeneralContainer;
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
@@ -13,9 +12,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
-use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::{Pack, ProvidePack};
-use crate::GeneralPackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -27,7 +24,6 @@ pub struct GeneralCreation {
 }
 
 impl Creation<StringOperation> for GeneralCreation {
-  type Container = GeneralContainer;
   type Pack = StringPack;
   type Value = GeneralCreationValue;
 
@@ -40,13 +36,13 @@ impl Creation<StringOperation> for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation
+impl<P> Buildable<StringValue, P> for GeneralCreation
+  where P: ProvidePack<StringPack>
 {
-  fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
-    let pack: &StringPack = requirements.pack(self.namespace())?;
-    let container = self.container(requirements)?;
+  fn build(&self, requirements: &P) -> Result<StringValue, BuildError> {
+    let pack = requirements.pack(self.namespace())?;
     let operation = pack.operation();
-    operation.build(&container)
+    operation.build(&self)
   }
 }
 

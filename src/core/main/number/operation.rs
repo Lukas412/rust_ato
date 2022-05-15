@@ -3,7 +3,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
@@ -27,10 +27,10 @@ impl Operation for NumberOperation {
   type Value = NumberValue;
 }
 
-impl<C> Buildable<NumberValue, C> for NumberOperation
-  where C: Container + ProvideOperation<NumberOperation>
+impl<R> Buildable<NumberValue, R> for NumberOperation
+  where R: WithNamespace + ProvideOperation<NumberOperation>
 {
-  fn build(&self, requirements: &C) -> Result<NumberValue, BuildError> {
+  fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),

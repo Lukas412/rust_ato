@@ -2,7 +2,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::operation::ProvideOperation;
 
 #[derive(Debug, YaDeserialize)]
@@ -14,13 +14,17 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl<C> Buildable<StringValue, C> for StringGetArgumentOperation
-  where C: Container + ProvideOperation<StringOperation>
+impl<R> Buildable<StringValue, R> for StringGetArgumentOperation
+  where R: WithNamespace + ProvideOperation<StringOperation>
 {
-  fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
+  fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
     match requirements.operation(&self.name) {
       Some(operation) => operation.build(requirements),
-      None => Err(BuildError::new_value(self.name.to_owned(), requirements.namespace().to_owned())),
+      None => {
+        let name = self.name.to_owned();
+        let namespace = requirements.get_owned_namespace();
+        Err(BuildError::new_value(name, namespace))
+      },
     }
   }
 }

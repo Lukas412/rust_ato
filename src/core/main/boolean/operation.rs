@@ -3,7 +3,7 @@ use crate::core::main::boolean::operation::value::BooleanValueOperation;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
 pub mod value;
@@ -27,10 +27,10 @@ impl Operation for BooleanOperation {
   type Value = BooleanValue;
 }
 
-impl<C> Buildable<BooleanValue, C> for BooleanOperation
-  where C: Container + ProvideOperation<BooleanOperation>
+impl<R> Buildable<BooleanValue, R> for BooleanOperation
+  where R: WithNamespace + ProvideOperation<BooleanOperation>
 {
-  fn build(&self, requirements: &C) -> Result<BooleanValue, BuildError> {
+  fn build(&self, requirements: &R) -> Result<BooleanValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),

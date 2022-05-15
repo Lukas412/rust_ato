@@ -1,8 +1,12 @@
 use crate::core::build::error::BuildError;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::value::Value;
 
-pub fn build_empty<C: Container, V: Value>(requirements: &C) -> Result<V, BuildError> {
-  let namespace = requirements.namespace().to_owned();
+pub fn build_empty<R, V>(requirements: &R) -> Result<V, BuildError>
+  where
+    R: WithNamespace,
+    V: Value
+{
+  let namespace = requirements.get_owned_namespace();
   Ok(V::default(namespace))
 }

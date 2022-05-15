@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 
 use crate::core::traits::value::Value;
 

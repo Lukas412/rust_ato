@@ -3,7 +3,7 @@ use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 #[derive(Debug)]
 pub enum BuildError {
   Value {
-    value: String,
+    name: String,
     namespace: String,
     backtrace: Backtrace,
   },
@@ -19,8 +19,8 @@ pub enum BuildError {
 }
 
 impl BuildError {
-  pub fn new_value(value: String, namespace: String) -> Self {
-    Value { value, namespace, backtrace: Backtrace::default() }
+  pub fn new_value(name: String, namespace: String) -> Self {
+    Value { name, namespace, backtrace: Backtrace::default() }
   }
 
   pub fn new_requirement(name: String, namespace: String) -> Self {

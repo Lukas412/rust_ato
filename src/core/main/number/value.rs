@@ -1,5 +1,5 @@
 use rust_decimal::Decimal;
-use crate::core::main::namespace::Namespace;
+use crate::core::traits::namespace::Namespace;
 
 use crate::core::traits::value::Value;
 

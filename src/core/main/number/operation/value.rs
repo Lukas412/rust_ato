@@ -3,7 +3,7 @@ use rust_decimal::Decimal;
 use crate::Buildable;
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::container::Container;
+use crate::core::traits::namespace::WithNamespace;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
@@ -13,9 +13,11 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl<C: Container> Buildable<NumberValue, C> for NumberValueOperation {
-  fn build(&self, requirements: &C) -> Result<NumberValue, BuildError> {
-    let namespace = requirements.namespace().to_owned();
+impl<R> Buildable<NumberValue, R> for NumberValueOperation
+  where R: WithNamespace
+{
+  fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {
+    let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, namespace)),
       Err(error) => Err(BuildError::new_value(error.to_string(), namespace)),
