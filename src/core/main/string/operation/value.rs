@@ -13,6 +13,13 @@ pub struct StringValueOperation {
   text: String,
 }
 
+impl StringValueOperation {
+  pub fn new(text: String) -> StringOperation {
+    let inner = Self { text };
+    StringOperation::Value(inner)
+  }
+}
+
 impl<C> Buildable<StringValue, C> for StringValueOperation
   where
     C: Container + ProvideOperation<StringOperation>

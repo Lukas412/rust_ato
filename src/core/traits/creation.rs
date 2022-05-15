@@ -5,16 +5,18 @@ use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralPackProvider;
 
-pub trait Creation<T>
-  where GeneralPackProvider: ProvidePack<<Self as Creation<T>>::Pack>
+pub trait Creation<O>
+  where
+    O: Operation,
+    GeneralPackProvider: ProvidePack<<Self as Creation<O>>::Pack>
 {
   type Container: Container;
   type Pack: Pack;
-  type Value: CreationValue<T>;
+  type Value: CreationValue<O>;
 
   fn namespace(&self) -> &Namespace;
 
-  fn values(&self) -> Vec<(String, Self::Value)> ;
+  fn values(&self) -> Vec<(String, Self::Value)>;
 
   fn container(&self, pack_provider: &GeneralPackProvider) -> Result<Self::Container, BuildError> {
     let pack: &Self::Pack = pack_provider.pack(self.namespace())?;
@@ -22,6 +24,8 @@ pub trait Creation<T>
   }
 }
 
-pub trait CreationValue<T> {
-  fn operation<O: Operation>(&self) -> O;
+pub trait CreationValue<O>
+  where O: Operation
+{
+  fn to_operation(self) -> O;
 }
