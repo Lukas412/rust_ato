@@ -4,13 +4,14 @@ use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
+use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
-use crate::core::traits::namespace::Namespace;
+use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::Operation;
 use crate::from_file;
 
-pub trait Pack: Debug
+pub trait Pack: Debug + YaDeserialize
 {
   type Operation: Operation;
 
@@ -40,12 +41,13 @@ pub trait Pack: Debug
   }
 }
 
-pub trait ProvidePack<P>
+pub trait ProvidePack<P>: GetNamespace
   where P: Pack
 {
   fn packs(&self) -> &HashMap<Namespace, P>;
 
-  fn pack(&self, namespace: &Namespace) -> Result<&P, BuildError> {
+  fn pack(&self) -> Result<&P, BuildError> {
+    let namespace = self.get_namespace();
     match self.packs().get(namespace) {
       Some(pack) => Ok(pack),
       None => Err(BuildError::new_pack(namespace.to_owned())),

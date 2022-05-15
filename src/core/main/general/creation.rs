@@ -33,9 +33,10 @@ impl<R> Buildable<StringValue, R> for GeneralCreation
   where R: ProvidePack<StringPack>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
-    let pack = requirements.pack(self.get_namespace())?;
+    let next_requirements = requirements;
+    let pack = next_requirements.pack()?;
     let operation = pack.operation();
-    operation.build(&self)
+    operation.build(requirements)
   }
 }
 
