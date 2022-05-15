@@ -6,7 +6,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::creation::{Creation, CreationValue};
 use crate::core::traits::operation::Operation;
-use crate::core::traits::pack::ProvidePack;
+use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralPackProvider;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -37,7 +37,8 @@ impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation
   fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
     let pack: &StringPack = requirements.pack(self.namespace())?;
     let container = self.container(requirements)?;
-    todo!("{:?} {:?}", pack, container)
+    let operation = pack.operation();
+    operation.build(&container)
   }
 }
 

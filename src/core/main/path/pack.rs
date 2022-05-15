@@ -15,9 +15,15 @@ pub struct PathPack {
 }
 
 impl Pack for PathPack {
+  type Operation = PathOperation;
+
   const SUFFIX: &'static str = "*.path.xml";
 
   fn namespace(&self) -> &Namespace {
     &self.namespace
+  }
+
+  fn operation(&self) -> &Self::Operation {
+    &self.operation
   }
 }

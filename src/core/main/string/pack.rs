@@ -15,9 +15,15 @@ pub struct StringPack {
 }
 
 impl Pack for StringPack {
+  type Operation = StringOperation;
+
   const SUFFIX: &'static str = ".string.xml";
 
   fn namespace(&self) -> &Namespace {
     &self.namespace
+  }
+
+  fn operation(&self) -> &Self::Operation {
+    &self.operation
   }
 }

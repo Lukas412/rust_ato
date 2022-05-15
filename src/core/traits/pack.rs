@@ -8,13 +8,18 @@ use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
 use crate::core::main::namespace::Namespace;
+use crate::core::traits::operation::Operation;
 use crate::from_file;
 
 pub trait Pack: Debug + YaDeserialize
 {
+  type Operation: Operation;
+
   const SUFFIX: &'static str;
 
   fn namespace(&self) -> &Namespace;
+
+  fn operation(&self) -> &Self::Operation;
 
   fn from_root<P: AsRef<Path>>(root: P) -> HashMap<Namespace, Self> {
     let packs =
