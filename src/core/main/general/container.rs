@@ -12,6 +12,7 @@ use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::Pack;
 use crate::core::traits::parameter::Parameter;
 
+#[derive(Debug)]
 pub struct GeneralContainer {
   namespace: String,
   elements: HashMap<String, CombinedGeneralOperation>,
@@ -21,7 +22,7 @@ impl Container for GeneralContainer {
   type Operation = CombinedGeneralOperation;
   type Parameter = GeneralParameter;
 
-  fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self {
+  fn from_pack<P: Pack>(pack: &P, elements: Vec<(String, Self::Operation)>) -> Self {
     let namespace = pack.namespace().to_owned();
     let elements = HashMap::from_iter(elements.into_iter());
     Self { namespace, elements }

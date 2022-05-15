@@ -20,6 +20,7 @@ pub struct GeneralCreation {
 
 impl Creation<StringValue> for GeneralCreation {
   type Container = GeneralContainer;
+  type Pack = StringPack;
   type Value = GeneralCreationValue;
 
   fn namespace(&self) -> &Namespace {
@@ -35,8 +36,8 @@ impl Buildable<StringValue, GeneralPackProvider> for GeneralCreation
 {
   fn build(&self, requirements: &GeneralPackProvider) -> Result<StringValue, BuildError> {
     let pack: &StringPack = requirements.pack(self.namespace())?;
-    let container = self.container(requirements);
-    pack.build(&container)
+    let container = self.container(requirements)?;
+    todo!("{:?} {:?}", pack, container)
   }
 }
 

@@ -7,6 +7,7 @@ use crate::core::traits::operation::Operation;
 
 pub mod empty;
 
+#[derive(Debug)]
 pub enum CombinedGeneralOperation {
   None,
   Action,

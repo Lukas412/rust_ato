@@ -19,7 +19,7 @@ impl<C> Buildable<StringValue, C> for StringGetArgumentOperation
 {
   fn build(&self, requirements: &C) -> Result<StringValue, BuildError> {
     match requirements.operation(&self.name) {
-      Some(&operation) => operation.build(requirements),
+      Some(operation) => operation.build(requirements),
       None => Err(BuildError::new_value(self.name.to_owned(), requirements.namespace().to_owned())),
     }
   }

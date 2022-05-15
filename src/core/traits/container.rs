@@ -6,7 +6,7 @@ pub trait Container {
   type Operation: Operation;
   type Parameter: Parameter;
 
-  fn from_pack<P: Pack>(pack: P, elements: Vec<(String, Self::Operation)>) -> Self;
+  fn from_pack<P: Pack>(pack: &P, elements: Vec<(String, Self::Operation)>) -> Self;
   fn namespace(&self) -> &String;
   fn includes(&self, parameter: &Self::Parameter) -> bool;
   fn get_element(&self, name: &String) -> Option<&Self::Operation>;

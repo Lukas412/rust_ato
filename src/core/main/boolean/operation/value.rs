@@ -4,8 +4,10 @@ use crate::core::main::boolean::value::BooleanValue;
 use crate::core::traits::container::Container;
 use crate::core::traits::value::Value;
 
-#[derive(Debug)]
+#[derive(Debug, YaDeserialize)]
+#[yaserde(rename = "value", prefix = "boolean", namespace = "boolean: http://www.ato.net/xmlns/boolean")]
 pub struct BooleanValueOperation {
+  #[yaserde(text)]
   text: String,
 }
 
