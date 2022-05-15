@@ -10,7 +10,6 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::namespace::{Namespace, GetNamespace};
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralRequirements;
 
