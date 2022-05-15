@@ -10,9 +10,9 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::creation::CreationValue;
 use crate::core::traits::namespace::{Namespace, GetNamespace};
 use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::GeneralRequirements;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -23,9 +23,11 @@ pub struct GeneralCreation {
   values: Vec<GeneralCreationValue>,
 }
 
-impl GetNamespace for GeneralCreation {
-  fn get_namespace(&self) -> &Namespace {
-    &self.namespace
+impl GeneralCreation {
+  fn next_requirements(&self, requirements: &'static GeneralRequirements) -> GeneralRequirements {
+    let namespace = &self.namespace;
+    let values = &self.values;
+    requirements.next(namespace, values)
   }
 }
 
@@ -55,11 +57,11 @@ pub enum GeneralCreationValue {
   },
 }
 
-impl CreationValue<StringOperation> for GeneralCreationValue {
-  fn to_operation(self) -> StringOperation {
+impl GeneralCreationValue {
+  fn to_name_and_operation(self) -> (String, StringOperation) {
     match self {
-      Self::Empty { .. } => StringOperation::Empty,
-      Self::Value { value, .. } => StringValueOperation::new(value),
+      Self::Empty { name } => (name, StringOperation::Empty),
+      Self::Value { name, value } => (name, StringValueOperation::new(value)),
       Self::Operation { .. } => todo!(),
     }
   }

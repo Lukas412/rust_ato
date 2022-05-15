@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use crate::core::main::general::creation::GeneralCreationValue;
 use crate::core::main::general::operation::GeneralOperationProvider;
 use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
@@ -10,6 +11,21 @@ pub struct GeneralRequirements<'a> {
   namespace: &'a Namespace,
   pack_provider: &'a GeneralPackProvider,
   operation_provider: GeneralOperationProvider,
+}
+
+impl GeneralRequirements<'_> {
+  pub fn next(&self, namespace: &Namespace, values: &Vec<GeneralCreationValue>) -> Self {
+    let operation_provider = self.next_operation_provider(values);
+    Self {
+      namespace,
+      pack_provider: self.pack_provider,
+      operation_provider,
+    }
+  }
+
+  pub fn next_operation_provider(&self, values: &Vec<GeneralCreationValue>) -> GeneralOperationProvider {
+    todo!()
+  }
 }
 
 impl GeneralRequirements<'_> {
@@ -34,12 +50,12 @@ impl GetNamespace for GeneralRequirements<'_> {
 
 impl ProvidePack<PathPack> for GeneralRequirements<'_> {
   fn packs(&self) -> &HashMap<Namespace, PathPack> {
-    &self.pack_provider.path_packs()
+    self.pack_provider.path_packs()
   }
 }
 
 impl ProvidePack<StringPack> for GeneralRequirements<'_> {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
-    &self.pack_provider.string_packs()
+    self.pack_provider.string_packs()
   }
 }
