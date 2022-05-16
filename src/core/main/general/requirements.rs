@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use yaserde::__xml::name::Name;
 use crate::core::main::general::creation::GeneralCreationValue;
 use crate::core::main::general::operation::GeneralOperationProvider;
 use crate::core::main::path::pack::PathPack;
@@ -15,8 +14,8 @@ pub struct GeneralRequirements {
 }
 
 impl GeneralRequirements {
-  pub fn next(&self, namespace: Namespace, values: &Vec<GeneralCreationValue>) -> Self {
-    let operation_provider = self.next_operation_provider(values);
+  pub fn next(&self, namespace: Namespace, values: Vec<GeneralCreationValue>) -> Self {
+    let operation_provider = self.operation_provider.next(values);
     Self {
       pack_provider: self.pack_provider,
       namespace,

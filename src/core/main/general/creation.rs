@@ -10,7 +10,7 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::operation::ProvideOperation;
+use crate::core::traits::operation::{ProvideOperation, ToOperation};
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralRequirements;
 
@@ -24,7 +24,7 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  fn next_requirements(&self, requirements: &'static GeneralRequirements) -> GeneralRequirements {
+  fn next_requirements(&self, requirements: &GeneralRequirements) -> GeneralRequirements {
     let namespace = self.namespace.to_owned();
     let values = &self.values;
     requirements.next(namespace, values)
@@ -43,26 +43,34 @@ impl<R> Buildable<StringValue, R> for GeneralCreation
 }
 
 #[derive(Debug)]
-pub enum GeneralCreationValue {
-  Empty {
-    name: String,
-  },
-  Value {
-    name: String,
-    value: String,
-  },
-  Operation {
-    name: String,
-    elements: Vec<GeneralCreation>,
-  },
+pub struct GeneralCreationValue {
+  name: String,
+  operation: GeneralCreationOperation,
 }
 
 impl GeneralCreationValue {
-  fn to_name_and_operation(self) -> (String, StringOperation) {
+  fn new(name: String, operation: GeneralCreationOperation) -> Self {
+    Self { name, operation }
+  }
+
+  pub fn to_name_and_operation(self) -> (String, GeneralCreationOperation) {
+    (self.name, self.operation)
+  }
+}
+
+#[derive(Debug)]
+pub enum GeneralCreationOperation {
+  Empty,
+  Value(String),
+  Operation(Vec<GeneralCreation>),
+}
+
+impl ToOperation<StringOperation> for GeneralCreationOperation {
+  fn to_operation(self) -> StringOperation {
     match self {
-      Self::Empty { name } => (name, StringOperation::Empty),
-      Self::Value { name, value } => (name, StringValueOperation::new(value)),
-      Self::Operation { .. } => todo!(),
+      Self::Empty => StringOperation::Empty,
+      Self::Value(value) => StringValueOperation::new(value),
+      Self::Operation(..) => todo!(),
     }
   }
 }
@@ -70,14 +78,17 @@ impl GeneralCreationValue {
 impl YaDeserialize for GeneralCreationValue {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let inner: InnerGeneralCreationValue = from_deserializer(reader)?;
-    match inner {
-      InnerGeneralCreationValue { name, value: Some(value), .. } =>
-        Ok(Self::Value { name, value }),
-      InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
-        Ok(Self::Operation { name, elements }),
-      InnerGeneralCreationValue { name, .. } =>
-        Ok(Self::Empty { name })
-    }
+    let name = inner.name;
+    let operation =
+      match inner {
+      InnerGeneralCreationValue { value: Some(value), .. } =>
+        GeneralCreationOperation::Value(value),
+      InnerGeneralCreationValue { elements, .. } if !elements.is_empty() =>
+        GeneralCreationOperation::Operation(elements),
+      InnerGeneralCreationValue { .. } =>
+        GeneralCreationOperation::Empty
+    };
+    Ok(Self::new(name, operation))
   }
 }
 
