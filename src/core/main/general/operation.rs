@@ -9,11 +9,8 @@ use crate::core::traits::operation::Operation;
 pub mod empty;
 
 #[derive(Debug, Default)]
-pub struct GeneralOperationProvider {
-  boolean_operations: HashMap<String, BooleanOperation>,
-  number_operations: HashMap<String, NumberOperation>,
-  path_operations: HashMap<String, PathOperation>,
-  string_operations: HashMap<String, StringOperation>,
+pub struct GeneralOperationProvider<'a> {
+  previous_operation_provider: &'a GeneralOperationProvider<'a>
 }
 
 #[derive(Debug)]
