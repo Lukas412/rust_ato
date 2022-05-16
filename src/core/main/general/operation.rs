@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use crate::core::main::boolean::operation::BooleanOperation;
+use crate::core::main::general::creation::GeneralCreationValue;
 use crate::core::main::general::value::CombinedGeneralValue;
 use crate::core::main::number::operation::NumberOperation;
 use crate::core::main::path::operation::PathOperation;
@@ -9,8 +10,8 @@ use crate::core::traits::operation::Operation;
 pub mod empty;
 
 #[derive(Debug, Default)]
-pub struct GeneralOperationProvider<'a> {
-  previous_operation_provider: &'a GeneralOperationProvider<'a>
+pub struct GeneralOperationProvider {
+  values: HashMap<String, GeneralCreationValue>,
 }
 
 #[derive(Debug)]
