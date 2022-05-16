@@ -10,6 +10,7 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::GeneralRequirements;
 
@@ -24,20 +25,20 @@ pub struct GeneralCreation {
 
 impl GeneralCreation {
   fn next_requirements(&self, requirements: &'static GeneralRequirements) -> GeneralRequirements {
-    let namespace = &self.namespace;
+    let namespace = self.namespace.to_owned();
     let values = &self.values;
     requirements.next(namespace, values)
   }
 }
 
 impl<R> Buildable<StringValue, R> for GeneralCreation
-  where R: ProvidePack<StringPack>
+  where R: ProvidePack<StringPack> + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
     let next_requirements = requirements;
     let pack = next_requirements.pack()?;
     let operation = pack.operation();
-    operation.build(requirements)
+    operation.build(next_requirements)
   }
 }
 

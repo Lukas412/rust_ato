@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use yaserde::__xml::name::Name;
 use crate::core::main::general::creation::GeneralCreationValue;
 use crate::core::main::general::operation::GeneralOperationProvider;
 use crate::core::main::path::pack::PathPack;
@@ -7,54 +8,48 @@ use crate::core::traits::namespace::{Namespace, GetNamespace};
 use crate::core::traits::pack::ProvidePack;
 use crate::GeneralPackProvider;
 
-pub struct GeneralRequirements<'a> {
-  namespace: &'a Namespace,
-  pack_provider: &'a GeneralPackProvider,
+pub struct GeneralRequirements {
+  pack_provider: &'static GeneralPackProvider,
+  namespace: Namespace,
   operation_provider: GeneralOperationProvider,
 }
 
-impl GeneralRequirements<'_> {
-  pub fn next(&self, namespace: &Namespace, values: &Vec<GeneralCreationValue>) -> Self {
+impl GeneralRequirements {
+  pub fn next(&self, namespace: Namespace, values: &Vec<GeneralCreationValue>) -> Self {
     let operation_provider = self.next_operation_provider(values);
     Self {
-      namespace,
       pack_provider: self.pack_provider,
+      namespace,
       operation_provider,
     }
   }
-
-  pub fn next_operation_provider(&self, values: &Vec<GeneralCreationValue>) -> GeneralOperationProvider {
-    todo!()
-  }
 }
 
-impl GeneralRequirements<'_> {
-  const DEFAULT_NAMESPACE: Namespace = "__namespace__".to_owned();
-
+impl GeneralRequirements {
   pub fn new(pack_provider: &'static GeneralPackProvider) -> Self {
-    let namespace = &Self::DEFAULT_NAMESPACE;
+    let namespace = Namespace::default();
     let operation_provider = GeneralOperationProvider::default();
     Self {
-      namespace,
       pack_provider,
+      namespace,
       operation_provider,
     }
   }
 }
 
-impl GetNamespace for GeneralRequirements<'_> {
+impl GetNamespace for GeneralRequirements {
   fn get_namespace(&self) -> &Namespace {
     &self.namespace
   }
 }
 
-impl ProvidePack<PathPack> for GeneralRequirements<'_> {
+impl ProvidePack<PathPack> for GeneralRequirements {
   fn packs(&self) -> &HashMap<Namespace, PathPack> {
     self.pack_provider.path_packs()
   }
 }
 
-impl ProvidePack<StringPack> for GeneralRequirements<'_> {
+impl ProvidePack<StringPack> for GeneralRequirements {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
     self.pack_provider.string_packs()
   }
