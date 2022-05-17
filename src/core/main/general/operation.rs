@@ -16,7 +16,7 @@ pub struct GeneralOperationProvider {
 }
 
 impl GeneralOperationProvider {
-  pub fn new(&self, values: Vec<GeneralCreationValue>) -> Self {
+  pub fn new(values: Vec<GeneralCreationValue>) -> Self {
     let values_iter = values.iter().map(GeneralCreationValue::to_name_and_operation);
     Self {
       values: HashMap::from_iter(values_iter),

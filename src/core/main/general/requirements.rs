@@ -9,29 +9,19 @@ use crate::GeneralPackProvider;
 
 pub struct GeneralRequirements {
   pack_provider: &'static GeneralPackProvider,
+  stack: Vec<RequirementBox>
+}
+
+pub struct RequirementBox {
   namespace: Namespace,
   operation_provider: GeneralOperationProvider,
 }
 
-impl GeneralRequirements {
-  pub fn next(&self, namespace: Namespace, values: Vec<GeneralCreationValue>) -> Self {
-    let operation_provider = self.operation_provider.next(values);
+impl RequirementBox {
+  pub fn new(namespace: Namespace, values: Vec<GeneralCreationValue>) -> Self {
     Self {
-      pack_provider: self.pack_provider,
       namespace,
-      operation_provider,
-    }
-  }
-}
-
-impl GeneralRequirements {
-  pub fn new(pack_provider: &'static GeneralPackProvider) -> Self {
-    let namespace = Namespace::default();
-    let operation_provider = GeneralOperationProvider::default();
-    Self {
-      pack_provider,
-      namespace,
-      operation_provider,
+      operation_provider: GeneralOperationProvider::new(values),
     }
   }
 }

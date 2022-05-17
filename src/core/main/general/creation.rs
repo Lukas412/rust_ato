@@ -24,10 +24,10 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  fn next_requirements(&self, requirements: &GeneralRequirements) -> GeneralRequirements {
+  fn to_requirement(self, requirements: &GeneralRequirements) -> GeneralRequirements {
     let namespace = self.namespace.to_owned();
     let values = &self.values;
-    requirements.next(namespace, values)
+    GeneralRequirements::new(namespace, values.to_vec())
   }
 }
 
