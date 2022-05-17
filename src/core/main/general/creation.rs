@@ -1,9 +1,12 @@
+use std::collections::HashMap;
 use std::io::Read;
+use std::iter::FromIterator;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
+use crate::core::main::general::requirements::RequirementBox;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
@@ -12,7 +15,6 @@ use crate::core::parse::from_deserializer;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::{ProvideOperation, ToOperation};
 use crate::core::traits::pack::{Pack, ProvidePack};
-use crate::GeneralRequirements;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -24,10 +26,10 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  fn to_requirement(self, requirements: &GeneralRequirements) -> GeneralRequirements {
-    let namespace = self.namespace.to_owned();
-    let values = &self.values;
-    GeneralRequirements::new(namespace, values.to_vec())
+  fn to_requirement(self) -> RequirementBox {
+    let namespace = self.namespace;
+    let operations = HashMap::from_iter(self.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
+    RequirementBox::new(namespace, operations)
   }
 }
 

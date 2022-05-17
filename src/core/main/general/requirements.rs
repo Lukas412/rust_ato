@@ -1,44 +1,53 @@
 use std::collections::HashMap;
-use crate::core::main::general::creation::GeneralCreationValue;
-use crate::core::main::general::operation::GeneralOperationProvider;
+
+use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
-use crate::core::traits::namespace::{Namespace, GetNamespace};
+use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::pack::ProvidePack;
 use crate::GeneralPackProvider;
 
-pub struct GeneralRequirements {
+pub struct Requirements {
   pack_provider: &'static GeneralPackProvider,
-  stack: Vec<RequirementBox>
+  stack: Vec<RequirementBox>,
 }
 
-pub struct RequirementBox {
-  namespace: Namespace,
-  operation_provider: GeneralOperationProvider,
-}
-
-impl RequirementBox {
-  pub fn new(namespace: Namespace, values: Vec<GeneralCreationValue>) -> Self {
+impl Requirements {
+  pub fn new(pack_provider: &'static GeneralPackProvider) -> Self {
     Self {
-      namespace,
-      operation_provider: GeneralOperationProvider::new(values),
+      pack_provider,
+      stack: Vec::default()
     }
   }
 }
 
-impl GetNamespace for GeneralRequirements {
+pub struct RequirementBox {
+  namespace: Namespace,
+  operations: HashMap<String, GeneralCreationOperation>,
+}
+
+impl RequirementBox {
+  pub fn new(namespace: Namespace, operations: HashMap<String, GeneralCreationOperation>) -> Self {
+    Self {
+      namespace,
+      operations,
+    }
+  }
+}
+
+impl GetNamespace for RequirementBox {
   fn get_namespace(&self) -> &Namespace {
     &self.namespace
   }
 }
 
-impl ProvidePack<PathPack> for GeneralRequirements {
+impl ProvidePack<PathPack> for RequirementBox {
   fn packs(&self) -> &HashMap<Namespace, PathPack> {
     self.pack_provider.path_packs()
   }
 }
 
-impl ProvidePack<StringPack> for GeneralRequirements {
+impl ProvidePack<StringPack> for RequirementBox {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
     self.pack_provider.string_packs()
   }

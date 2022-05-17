@@ -4,7 +4,7 @@ extern crate yaserde_derive;
 
 use std::path::Path;
 use crate::core::main::general::pack::GeneralPackProvider;
-use crate::core::main::general::requirements::GeneralRequirements;
+use crate::core::main::general::requirements::Requirements;
 use crate::core::parse::from_file;
 use crate::core::traits::build::Buildable;
 
@@ -19,7 +19,7 @@ fn main() {
 
 fn build<P: AsRef<Path>>(file: P) {
   let pack_provider = GeneralPackProvider::from_root("src/bundles");
-  let requirements = GeneralRequirements::new(&pack_provider);
+  let requirements = Requirements::new(&pack_provider);
   let creation: GeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 
