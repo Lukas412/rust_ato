@@ -9,6 +9,7 @@ use crate::GeneralPackProvider;
 
 pub struct Requirements {
   pack_provider: &'static GeneralPackProvider,
+  namespace: Namespace,
   stack: Vec<RequirementBox>,
 }
 
@@ -16,8 +17,30 @@ impl Requirements {
   pub fn new(pack_provider: &'static GeneralPackProvider) -> Self {
     Self {
       pack_provider,
-      stack: Vec::default()
+      namespace: Namespace::default(),
+      stack: Vec::default(),
     }
+  }
+}
+
+impl GetNamespace for Requirements {
+  fn get_namespace(&self) -> &Namespace {
+    match self.stack.last() {
+      Some(last) => last.get_namespace(),
+      None => &self.namespace,
+    }
+  }
+}
+
+impl ProvidePack<PathPack> for Requirements {
+  fn packs(&self) -> &HashMap<Namespace, PathPack> {
+    self.pack_provider.path_packs()
+  }
+}
+
+impl ProvidePack<StringPack> for Requirements {
+  fn packs(&self) -> &HashMap<Namespace, StringPack> {
+    self.pack_provider.string_packs()
   }
 }
 
@@ -38,17 +61,5 @@ impl RequirementBox {
 impl GetNamespace for RequirementBox {
   fn get_namespace(&self) -> &Namespace {
     &self.namespace
-  }
-}
-
-impl ProvidePack<PathPack> for RequirementBox {
-  fn packs(&self) -> &HashMap<Namespace, PathPack> {
-    self.pack_provider.path_packs()
-  }
-}
-
-impl ProvidePack<StringPack> for RequirementBox {
-  fn packs(&self) -> &HashMap<Namespace, StringPack> {
-    self.pack_provider.string_packs()
   }
 }
