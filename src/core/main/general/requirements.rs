@@ -1,16 +1,18 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, LinkedList};
 
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::path::pack::PathPack;
+use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::ProvidePack;
 use crate::GeneralPackProvider;
 
 pub struct Requirements {
   pack_provider: &'static GeneralPackProvider,
   namespace: Namespace,
-  stack: Vec<RequirementBox>,
+  stack: LinkedList<RequirementBox>,
 }
 
 impl Requirements {
@@ -18,7 +20,7 @@ impl Requirements {
     Self {
       pack_provider,
       namespace: Namespace::default(),
-      stack: Vec::default(),
+      stack: LinkedList::default(),
     }
   }
 }
