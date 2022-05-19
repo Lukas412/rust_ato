@@ -16,16 +16,28 @@ use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::{ProvideOperation, ToOperation};
 use crate::core::traits::pack::{Pack, ProvidePack};
 
+#[derive(Debug, Default)]
+pub struct GeneralCreation {
+  requirement: RequirementBox,
+}
+
+impl YaDeserialize for GeneralCreation {
+  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
+    let inner: InnerGeneralCreation = from_deserializer(reader)?;
+    Ok(Self { requirement: inner.to_requirement() })
+  }
+}
+
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-pub struct GeneralCreation {
+struct InnerGeneralCreation {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(rename = "value")]
   values: Vec<GeneralCreationValue>,
 }
 
-impl GeneralCreation {
+impl InnerGeneralCreation {
   fn to_requirement(self) -> RequirementBox {
     let namespace = self.namespace;
     let operations = HashMap::from_iter(self.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
@@ -33,7 +45,7 @@ impl GeneralCreation {
   }
 }
 
-impl<R> Buildable<StringValue, R> for GeneralCreation
+impl<R> Buildable<StringValue, R> for InnerGeneralCreation
   where R: ProvidePack<StringPack> + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {
@@ -64,7 +76,7 @@ impl GeneralCreationValue {
 pub enum GeneralCreationOperation {
   Empty,
   Value(String),
-  Operation(Vec<GeneralCreation>),
+  Operation(Vec<InnerGeneralCreation>),
 }
 
 impl ToOperation<StringOperation> for GeneralCreationOperation {
@@ -96,11 +108,11 @@ impl YaDeserialize for GeneralCreationValue {
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value")]
-pub struct InnerGeneralCreationValue {
+struct InnerGeneralCreationValue {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]
   value: Option<String>,
   #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-  elements: Vec<GeneralCreation>,
+  elements: Vec<InnerGeneralCreation>,
 }

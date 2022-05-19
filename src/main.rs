@@ -9,7 +9,7 @@ use crate::core::parse::from_file;
 use crate::core::traits::build::Buildable;
 
 
-use self::core::main::general::creation::GeneralCreation;
+use self::core::main::general::creation::InnerGeneralCreation;
 
 mod core;
 
@@ -20,7 +20,7 @@ fn main() {
 fn build<P: AsRef<Path>>(file: P) {
   let pack_provider = GeneralPackProvider::from_root("src/bundles");
   let requirements = Requirements::new(&pack_provider);
-  let creation: GeneralCreation = from_file(file).unwrap();
+  let creation: InnerGeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 
   let value = creation.build(&requirements).unwrap();

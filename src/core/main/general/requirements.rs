@@ -23,6 +23,8 @@ impl Requirements {
       stack: LinkedList::default(),
     }
   }
+
+  fn push<>()
 }
 
 impl GetNamespace for Requirements {
