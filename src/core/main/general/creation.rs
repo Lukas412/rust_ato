@@ -12,7 +12,7 @@ use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::operation::{ProvideOperation, ToOperation};
 use crate::core::traits::pack::{Pack, ProvidePack};
 
@@ -45,7 +45,7 @@ impl InnerGeneralCreation {
   }
 }
 
-impl<R> Buildable<StringValue, R> for InnerGeneralCreation
+impl<R> BuildableWithRequirements<StringValue, R> for InnerGeneralCreation
   where R: ProvidePack<StringPack> + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {

@@ -3,7 +3,7 @@ use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::string::value::StringValue;
 use crate::core::main::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
@@ -31,7 +31,7 @@ impl Operation for StringOperation {
   type Value = StringValue;
 }
 
-impl<R> Buildable<StringValue, R> for StringOperation
+impl<R> BuildableWithRequirements<StringValue, R> for StringOperation
   where R: GetNamespace + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {

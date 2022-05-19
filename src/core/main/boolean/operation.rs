@@ -2,7 +2,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::boolean::operation::value::BooleanValueOperation;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
@@ -27,7 +27,7 @@ impl Operation for BooleanOperation {
   type Value = BooleanValue;
 }
 
-impl<R> Buildable<BooleanValue, R> for BooleanOperation
+impl<R> BuildableWithRequirements<BooleanValue, R> for BooleanOperation
   where R: GetNamespace + ProvideOperation<BooleanOperation>
 {
   fn build(&self, requirements: &R) -> Result<BooleanValue, BuildError> {

@@ -1,4 +1,4 @@
-use std::collections::{HashMap, LinkedList};
+use std::collections::HashMap;
 
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::path::pack::PathPack;
@@ -7,12 +7,13 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::ProvidePack;
-use crate::GeneralPackProvider;
+use crate::core::traits::requirements::RunWithRequirements;
+use crate::{BuildableWithRequirements, GeneralPackProvider};
 
 pub struct Requirements {
   pack_provider: &'static GeneralPackProvider,
   namespace: Namespace,
-  stack: LinkedList<RequirementBox>,
+  stack: Vec<RequirementBox>,
 }
 
 impl Requirements {
@@ -20,11 +21,9 @@ impl Requirements {
     Self {
       pack_provider,
       namespace: Namespace::default(),
-      stack: LinkedList::default(),
+      stack: Vec::default(),
     }
   }
-
-  fn push<>()
 }
 
 impl GetNamespace for Requirements {

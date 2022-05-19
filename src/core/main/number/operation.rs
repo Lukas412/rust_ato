@@ -1,4 +1,4 @@
-use crate::Buildable;
+use crate::BuildableWithRequirements;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
@@ -27,7 +27,7 @@ impl Operation for NumberOperation {
   type Value = NumberValue;
 }
 
-impl<R> Buildable<NumberValue, R> for NumberOperation
+impl<R> BuildableWithRequirements<NumberValue, R> for NumberOperation
   where R: GetNamespace + ProvideOperation<NumberOperation>
 {
   fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {

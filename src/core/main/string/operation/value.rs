@@ -1,7 +1,7 @@
 use crate::core::build::error::BuildError;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
@@ -20,7 +20,7 @@ impl StringValueOperation {
   }
 }
 
-impl<R> Buildable<StringValue, R> for StringValueOperation
+impl<R> BuildableWithRequirements<StringValue, R> for StringValueOperation
   where
     R: GetNamespace + ProvideOperation<StringOperation>
 {

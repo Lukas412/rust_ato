@@ -1,6 +1,6 @@
 use std::str::FromStr;
 use rust_decimal::Decimal;
-use crate::Buildable;
+use crate::BuildableWithRequirements;
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::namespace::GetNamespace;
@@ -13,7 +13,7 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl<R> Buildable<NumberValue, R> for NumberValueOperation
+impl<R> BuildableWithRequirements<NumberValue, R> for NumberValueOperation
   where R: GetNamespace
 {
   fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {

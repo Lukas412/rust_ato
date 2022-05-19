@@ -1,7 +1,7 @@
 use crate::core::build::error::BuildError;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::BuildableWithRequirements;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::ProvideOperation;
 
@@ -14,7 +14,7 @@ pub struct StringGetArgumentOperation {
   namespace: Option<String>,
 }
 
-impl<R> Buildable<StringValue, R> for StringGetArgumentOperation
+impl<R> BuildableWithRequirements<StringValue, R> for StringGetArgumentOperation
   where R: GetNamespace + ProvideOperation<StringOperation>
 {
   fn build(&self, requirements: &R) -> Result<StringValue, BuildError> {

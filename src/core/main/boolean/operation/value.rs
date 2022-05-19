@@ -1,4 +1,4 @@
-use crate::Buildable;
+use crate::BuildableWithRequirements;
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::traits::namespace::GetNamespace;
@@ -11,7 +11,7 @@ pub struct BooleanValueOperation {
   text: String,
 }
 
-impl<R> Buildable<BooleanValue, R> for BooleanValueOperation
+impl<R> BuildableWithRequirements<BooleanValue, R> for BooleanValueOperation
   where R: GetNamespace
 {
   fn build(&self, requirements: &R) -> Result<BooleanValue, BuildError> {
