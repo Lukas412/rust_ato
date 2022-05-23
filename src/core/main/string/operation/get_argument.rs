@@ -2,7 +2,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
-use crate::core::traits::operation::ProvideOperationWithNamespace;
+use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 use crate::Requirements;
 
 #[derive(Debug, YaDeserialize)]

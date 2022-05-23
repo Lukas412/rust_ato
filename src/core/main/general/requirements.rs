@@ -24,7 +24,7 @@ impl Requirements {
     }
   }
 
-  pub fn requirement_box(self, namespace: &Namespace) -> Option<&RequirementBox> {
+  fn requirement_box(&self, namespace: &Namespace) -> Option<&RequirementBox> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
       .next()
@@ -49,6 +49,12 @@ impl ProvidePack<PathPack> for Requirements {
 impl ProvidePack<StringPack> for Requirements {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
     self.pack_provider.string_packs()
+  }
+}
+
+impl ProvideOperationWithNamespace<StringOperation> for Requirements {
+  fn operation(&self, namespace: &Namespace, name: &String) -> Option<&StringOperation> {
+    self.requirement_box(namespace)?.operation(name)
   }
 }
 
