@@ -9,5 +9,5 @@ pub trait Buildable<B> {
 pub trait BuildableWithRequirements<B> {
   fn to_requirement_box(self) -> RequirementBox;
 
-  fn build(&self, requirements: &Requirements) -> Result<B, BuildError>;
+  fn build(self, requirements: &Requirements) -> Result<B, BuildError>;
 }

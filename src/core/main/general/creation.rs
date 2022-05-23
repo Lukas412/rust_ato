@@ -12,42 +12,29 @@ use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::build::Buildable;
+use crate::core::traits::build::{Buildable, BuildableWithRequirements};
 use crate::core::traits::operation::ToOperation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::Requirements;
 
-#[derive(Debug, Default)]
-pub struct GeneralCreation {
-  requirement: RequirementBox,
-}
-
-impl YaDeserialize for GeneralCreation {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner: InnerGeneralCreation = from_deserializer(reader)?;
-    Ok(Self { requirement: inner.to_requirement() })
-  }
-}
-
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-struct InnerGeneralCreation {
+pub struct GeneralCreation {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(rename = "value")]
   values: Vec<GeneralCreationValue>,
 }
 
-impl InnerGeneralCreation {
-  fn to_requirement(self) -> RequirementBox {
+impl BuildableWithRequirements<StringValue> for GeneralCreation {
+  fn to_requirement_box(self) -> RequirementBox {
     let namespace = self.namespace;
-    let operations = HashMap::from_iter(self.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
+    let operations =
+      HashMap::from_iter(self.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
     RequirementBox::new(namespace, operations)
   }
-}
 
-impl Buildable<StringValue> for InnerGeneralCreation {
-  fn build(&self, requirements: &Requirements) -> Result<StringValue, BuildError> {
+  fn build(self, requirements: &Requirements) -> Result<StringValue, BuildError> {
     let next_requirements = requirements;
     let pack: &StringPack = next_requirements.pack()?;
     let operation = pack.operation();
@@ -75,7 +62,7 @@ impl GeneralCreationValue {
 pub enum GeneralCreationOperation {
   Empty,
   Value(String),
-  Operation(Vec<InnerGeneralCreation>),
+  Operation(Vec<GeneralCreation>),
 }
 
 impl ToOperation<StringOperation> for GeneralCreationOperation {
@@ -113,5 +100,5 @@ struct InnerGeneralCreationValue {
   #[yaserde(attribute)]
   value: Option<String>,
   #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-  elements: Vec<InnerGeneralCreation>,
+  elements: Vec<GeneralCreation>,
 }
