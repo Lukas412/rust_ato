@@ -3,8 +3,10 @@ use std::collections::HashMap;
 use crate::GeneralPackProvider;
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::path::pack::PathPack;
+use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
+use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::ProvidePack;
 
 pub struct Requirements {
@@ -20,6 +22,12 @@ impl Requirements {
       namespace: Namespace::default(),
       stack: Vec::default(),
     }
+  }
+
+  fn requirement_box(self, namespace: &Namespace) -> Option<&RequirementBox> {
+    self.stack.iter()
+      .filter(|requirement_box| requirement_box.get_namespace() == namespace)
+      .next()
   }
 }
 
@@ -41,6 +49,13 @@ impl ProvidePack<PathPack> for Requirements {
 impl ProvidePack<StringPack> for Requirements {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
     self.pack_provider.string_packs()
+  }
+}
+
+impl ProvideOperation<StringOperation> for Requirements {
+  fn operation(&self, namespace: &String, name: &String) -> Option<&StringOperation> {
+    let requirement_box = self.requirement_box(namespace);
+    requirement_box.op
   }
 }
 

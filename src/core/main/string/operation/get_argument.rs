@@ -2,6 +2,7 @@ use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
+use crate::core::traits::operation::ProvideOperation;
 use crate::Requirements;
 
 #[derive(Debug, YaDeserialize)]
@@ -15,11 +16,13 @@ pub struct StringGetArgumentOperation {
 
 impl Buildable<StringValue> for StringGetArgumentOperation {
   fn build(&self, requirements: &Requirements) -> Result<StringValue, BuildError> {
-    match requirements.operation(&self.name) {
+    let namespace = requirements.get_namespace();
+    let operation = requirements.operation(namespace, &self.name);
+    match operation {
       Some(operation) => operation.build(requirements),
       None => {
         let name = self.name.to_owned();
-        let namespace = requirements.get_owned_namespace();
+        let namespace = namespace.to_owned();
         Err(BuildError::new_value(name, namespace))
       }
     }
