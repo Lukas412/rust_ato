@@ -1,4 +1,4 @@
-use crate::{BuildableWithRequirements, Requirements};
+use crate::Requirements;
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::traits::build::Buildable;

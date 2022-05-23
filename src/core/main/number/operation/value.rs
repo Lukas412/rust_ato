@@ -1,6 +1,8 @@
 use std::str::FromStr;
+
 use rust_decimal::Decimal;
-use crate::{BuildableWithRequirements, Requirements};
+
+use crate::Requirements;
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::build::Buildable;

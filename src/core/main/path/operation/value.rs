@@ -1,10 +1,9 @@
 use std::path::PathBuf;
+
 use crate::core::build::error::BuildError;
-use crate::core::main::path::operation::PathOperation;
 use crate::core::main::path::value::PathValue;
-use crate::core::traits::build::{Buildable, BuildableWithRequirements};
+use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
-use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::value::Value;
 use crate::Requirements;
 

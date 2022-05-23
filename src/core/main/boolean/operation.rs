@@ -2,9 +2,8 @@ use crate::core::build::error::BuildError;
 use crate::core::main::boolean::operation::value::BooleanValueOperation;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
-use crate::core::traits::build::{Buildable, BuildableWithRequirements};
-use crate::core::traits::namespace::GetNamespace;
-use crate::core::traits::operation::{Operation, ProvideOperation};
+use crate::core::traits::build::Buildable;
+use crate::core::traits::operation::Operation;
 use crate::Requirements;
 
 pub mod value;

@@ -1,13 +1,11 @@
 use std::collections::HashMap;
 
+use crate::GeneralPackProvider;
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::path::pack::PathPack;
-use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
-use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::ProvidePack;
-use crate::{BuildableWithRequirements, GeneralPackProvider};
 
 pub struct Requirements {
   pack_provider: &'static GeneralPackProvider,
@@ -46,6 +44,7 @@ impl ProvidePack<StringPack> for Requirements {
   }
 }
 
+#[derive(Debug, Default)]
 pub struct RequirementBox {
   namespace: Namespace,
   operations: HashMap<String, GeneralCreationOperation>,

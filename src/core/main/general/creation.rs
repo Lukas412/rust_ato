@@ -12,8 +12,8 @@ use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::build::{Buildable, BuildableWithRequirements};
-use crate::core::traits::operation::{ProvideOperation, ToOperation};
+use crate::core::traits::build::Buildable;
+use crate::core::traits::operation::ToOperation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::Requirements;
 
@@ -49,7 +49,7 @@ impl InnerGeneralCreation {
 impl Buildable<StringValue> for InnerGeneralCreation {
   fn build(&self, requirements: &Requirements) -> Result<StringValue, BuildError> {
     let next_requirements = requirements;
-    let pack = next_requirements.pack()?;
+    let pack: &StringPack = next_requirements.pack()?;
     let operation = pack.operation();
     operation.build(next_requirements)
   }
@@ -94,13 +94,13 @@ impl YaDeserialize for GeneralCreationValue {
     let name = inner.name;
     let operation =
       match inner {
-      InnerGeneralCreationValue { value: Some(value), .. } =>
-        GeneralCreationOperation::Value(value),
-      InnerGeneralCreationValue { elements, .. } if !elements.is_empty() =>
-        GeneralCreationOperation::Operation(elements),
-      InnerGeneralCreationValue { .. } =>
-        GeneralCreationOperation::Empty
-    };
+        InnerGeneralCreationValue { value: Some(value), .. } =>
+          GeneralCreationOperation::Value(value),
+        InnerGeneralCreationValue { elements, .. } if !elements.is_empty() =>
+          GeneralCreationOperation::Operation(elements),
+        InnerGeneralCreationValue { .. } =>
+          GeneralCreationOperation::Empty
+      };
     Ok(Self::new(name, operation))
   }
 }

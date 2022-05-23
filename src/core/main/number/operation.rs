@@ -1,11 +1,10 @@
-use crate::{BuildableWithRequirements, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::namespace::GetNamespace;
-use crate::core::traits::operation::{Operation, ProvideOperation};
+use crate::core::traits::operation::Operation;
+use crate::Requirements;
 
 pub mod value;
 
