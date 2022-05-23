@@ -1,8 +1,9 @@
-use crate::BuildableWithRequirements;
+use crate::{BuildableWithRequirements, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
+use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::{Operation, ProvideOperation};
 
@@ -27,10 +28,8 @@ impl Operation for NumberOperation {
   type Value = NumberValue;
 }
 
-impl<R> BuildableWithRequirements<NumberValue, R> for NumberOperation
-  where R: GetNamespace + ProvideOperation<NumberOperation>
-{
-  fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {
+impl Buildable<NumberValue> for NumberOperation {
+  fn build(&self, requirements: &Requirements) -> Result<NumberValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(requirements),

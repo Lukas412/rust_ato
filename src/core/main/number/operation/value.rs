@@ -1,8 +1,9 @@
 use std::str::FromStr;
 use rust_decimal::Decimal;
-use crate::BuildableWithRequirements;
+use crate::{BuildableWithRequirements, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
+use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::value::Value;
 
@@ -13,10 +14,8 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl<R> BuildableWithRequirements<NumberValue, R> for NumberValueOperation
-  where R: GetNamespace
-{
-  fn build(&self, requirements: &R) -> Result<NumberValue, BuildError> {
+impl Buildable<NumberValue> for NumberValueOperation {
+  fn build(&self, requirements: &Requirements) -> Result<NumberValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, namespace)),

@@ -7,7 +7,6 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::ProvideOperation;
 use crate::core::traits::pack::ProvidePack;
-use crate::core::traits::requirements::RunWithRequirements;
 use crate::{BuildableWithRequirements, GeneralPackProvider};
 
 pub struct Requirements {
