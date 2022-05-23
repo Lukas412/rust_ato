@@ -6,7 +6,7 @@ use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
-use crate::core::traits::operation::ProvideOperationWithNamespace;
+use crate::core::traits::operation::{GetOperation, ProvideOperation, ProvideOperationWithNamespace};
 use crate::core::traits::pack::ProvidePack;
 
 pub struct Requirements {
@@ -24,7 +24,7 @@ impl Requirements {
     }
   }
 
-  fn requirement_box(self, namespace: &Namespace) -> Option<&RequirementBox> {
+  pub fn requirement_box(self, namespace: &Namespace) -> Option<&RequirementBox> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
       .next()
@@ -52,13 +52,6 @@ impl ProvidePack<StringPack> for Requirements {
   }
 }
 
-impl ProvideOperationWithNamespace<StringOperation> for Requirements {
-  fn operation(&self, namespace: &String, name: &String) -> Option<&StringOperation> {
-    let requirement_box = self.requirement_box(namespace);
-    requirement_box
-  }
-}
-
 #[derive(Debug, Default)]
 pub struct RequirementBox {
   namespace: Namespace,
@@ -77,5 +70,12 @@ impl RequirementBox {
 impl GetNamespace for RequirementBox {
   fn get_namespace(&self) -> &Namespace {
     &self.namespace
+  }
+}
+
+impl ProvideOperation<StringOperation> for RequirementBox {
+  fn operation(&self, name: &String) -> Option<&StringOperation> {
+    let general_operation = self.operations.get(name)?;
+    Some(&general_operation.get_operation())
   }
 }

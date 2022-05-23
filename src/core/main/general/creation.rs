@@ -13,7 +13,7 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::{Buildable, BuildableWithRequirements};
-use crate::core::traits::operation::ToOperation;
+use crate::core::traits::operation::GetOperation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::Requirements;
 
@@ -65,11 +65,11 @@ pub enum GeneralCreationOperation {
   Operation(Vec<GeneralCreation>),
 }
 
-impl ToOperation<StringOperation> for GeneralCreationOperation {
-  fn to_operation(self) -> StringOperation {
+impl GetOperation<StringOperation> for GeneralCreationOperation {
+  fn get_operation(&self) -> StringOperation {
     match self {
       Self::Empty => StringOperation::Empty,
-      Self::Value(value) => StringValueOperation::new(value),
+      Self::Value(value) => StringValueOperation::new(value.to_owned()),
       Self::Operation(..) => todo!(),
     }
   }

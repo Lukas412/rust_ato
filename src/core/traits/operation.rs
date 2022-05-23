@@ -10,8 +10,8 @@ pub trait ProvideOperationWithNamespace<O: Operation> {
   fn operation(&self, namespace: &String, name: &String) -> Option<&O>;
 }
 
-pub trait ToOperation<O>
+pub trait GetOperation<O>
   where O: Operation
 {
-  fn to_operation(self) -> O;
+  fn get_operation(&self) -> O;
 }

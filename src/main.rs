@@ -6,6 +6,7 @@ use std::path::Path;
 use crate::core::main::general::pack::GeneralPackProvider;
 use crate::core::main::general::requirements::Requirements;
 use crate::core::parse::from_file;
+use crate::core::traits::build::BuildableWithRequirements;
 
 
 use self::core::main::general::creation::GeneralCreation;
