@@ -1,13 +1,9 @@
 use std::collections::HashMap;
 
-use crate::GeneralPackProvider;
 use crate::core::main::general::creation::GeneralCreationOperation;
-use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::operation::StringOperation;
-use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::{GetOperation, ProvideOperation, ProvideOperationWithNamespace};
-use crate::core::traits::pack::ProvidePack;
 
 pub struct Requirements {
   namespace: Namespace,

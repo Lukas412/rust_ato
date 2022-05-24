@@ -14,7 +14,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::{Buildable, BuildableWithRequirements};
 use crate::core::traits::operation::GetOperation;
-use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::core::traits::pack::Pack;
 use crate::Requirements;
 
 #[derive(Debug, Default, YaDeserialize)]

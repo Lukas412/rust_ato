@@ -7,7 +7,7 @@ use walkdir::{DirEntry, WalkDir};
 use yaserde::YaDeserialize;
 
 use crate::core::build::error::BuildError;
-use crate::core::traits::namespace::{GetNamespace, Namespace};
+use crate::core::traits::namespace::Namespace;
 use crate::core::traits::operation::Operation;
 use crate::from_file;
 
