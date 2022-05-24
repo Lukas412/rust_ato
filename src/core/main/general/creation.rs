@@ -78,15 +78,14 @@ impl GetOperation<StringOperation> for GeneralCreationOperation {
 impl YaDeserialize for GeneralCreationValue {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let inner: InnerGeneralCreationValue = from_deserializer(reader)?;
-    let name = inner.name;
-    let operation =
+    let (name, operation) =
       match inner {
-        InnerGeneralCreationValue { value: Some(value), .. } =>
-          GeneralCreationOperation::Value(value),
-        InnerGeneralCreationValue { elements, .. } if !elements.is_empty() =>
-          GeneralCreationOperation::Operation(elements),
-        InnerGeneralCreationValue { .. } =>
-          GeneralCreationOperation::Empty
+        InnerGeneralCreationValue { name, value: Some(value), .. } =>
+          (name, GeneralCreationOperation::Value(value)),
+        InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
+          (name, GeneralCreationOperation::Operation(elements)),
+        InnerGeneralCreationValue { name, .. } =>
+          (name, GeneralCreationOperation::Empty)
       };
     Ok(Self::new(name, operation))
   }
