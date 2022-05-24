@@ -14,8 +14,8 @@ use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::{Buildable, BuildableWithRequirements};
 use crate::core::traits::operation::GetOperation;
-use crate::core::traits::pack::Pack;
-use crate::Requirements;
+use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::{PackProvider, Requirements};
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -34,11 +34,10 @@ impl BuildableWithRequirements<StringValue> for GeneralCreation {
     RequirementBox::new(namespace, operations)
   }
 
-  fn build(self, requirements: &Requirements) -> Result<StringValue, BuildError> {
-    let next_requirements = requirements;
-    let pack: &StringPack = next_requirements.pack()?;
+  fn build(self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<StringValue, BuildError> {
+    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
     let operation = pack.operation();
-    operation.build(next_requirements)
+    operation.build(pack_provider, requirements)
   }
 }
 

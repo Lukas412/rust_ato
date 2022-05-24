@@ -3,7 +3,7 @@ use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::ProvideOperationWithNamespace;
-use crate::Requirements;
+use crate::{PackProvider, Requirements};
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
@@ -15,11 +15,11 @@ pub struct StringGetArgumentOperation {
 }
 
 impl Buildable<StringValue> for StringGetArgumentOperation {
-  fn build(&self, requirements: &Requirements) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<StringValue, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);
     match operation {
-      Some(operation) => operation.build(requirements),
+      Some(operation) => operation.build(pack_provider, requirements),
       None => {
         let name = self.name.to_owned();
         let namespace = namespace.to_owned();

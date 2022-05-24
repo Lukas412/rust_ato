@@ -5,7 +5,7 @@ use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::Operation;
-use crate::Requirements;
+use crate::{PackProvider, Requirements};
 
 pub mod value;
 pub mod get_argument;
@@ -32,11 +32,11 @@ impl Operation for StringOperation {
 }
 
 impl Buildable<StringValue> for StringOperation {
-  fn build(&self, requirements: &Requirements) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
-      Self::Value(operation) => operation.build(requirements),
-      Self::GetArgument(operation) => operation.build(requirements),
+      Self::Value(operation) => operation.build(pack_provider, requirements),
+      Self::GetArgument(operation) => operation.build(pack_provider, requirements),
     }
   }
 }

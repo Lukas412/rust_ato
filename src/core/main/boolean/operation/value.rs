@@ -1,4 +1,4 @@
-use crate::Requirements;
+use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::traits::build::Buildable;
@@ -13,7 +13,7 @@ pub struct BooleanValueOperation {
 }
 
 impl Buildable<BooleanValue> for BooleanValueOperation {
-  fn build(&self, requirements: &Requirements) -> Result<BooleanValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<BooleanValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, namespace)),

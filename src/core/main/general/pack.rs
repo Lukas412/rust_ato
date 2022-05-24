@@ -6,12 +6,12 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::Namespace;
 use crate::core::traits::pack::{Pack, ProvidePack};
 
-pub struct GeneralPackProvider {
+pub struct PackProvider {
   path_packs: HashMap<Namespace, PathPack>,
   string_packs: HashMap<Namespace, StringPack>,
 }
 
-impl GeneralPackProvider {
+impl PackProvider {
   pub fn from_root<P: AsRef<Path> + ?Sized>(root: &P) -> Self {
     Self {
       path_packs: PathPack::from_root(root),
@@ -20,13 +20,13 @@ impl GeneralPackProvider {
   }
 }
 
-impl ProvidePack<PathPack> for GeneralPackProvider {
+impl ProvidePack<PathPack> for PackProvider {
   fn packs(&self) -> &HashMap<Namespace, PathPack> {
     &self.path_packs
   }
 }
 
-impl ProvidePack<StringPack> for GeneralPackProvider {
+impl ProvidePack<StringPack> for PackProvider {
   fn packs(&self) -> &HashMap<Namespace, StringPack> {
     &self.string_packs
   }

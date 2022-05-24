@@ -4,7 +4,7 @@ use crate::core::main::path::operation::value::PathValueOperation;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::Operation;
-use crate::Requirements;
+use crate::{PackProvider, Requirements};
 
 pub mod value;
 
@@ -28,10 +28,10 @@ impl Operation for PathOperation {
 }
 
 impl Buildable<PathValue> for PathOperation {
-  fn build(&self, requirements: &Requirements) -> Result<PathValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<PathValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
-      Self::Value(operation) => operation.build(requirements),
+      Self::Value(operation) => operation.build(pack_provider, requirements),
     }
   }
 }
