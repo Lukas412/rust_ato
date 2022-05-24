@@ -10,15 +10,13 @@ use crate::core::traits::operation::{GetOperation, ProvideOperation, ProvideOper
 use crate::core::traits::pack::ProvidePack;
 
 pub struct Requirements {
-  pack_provider: &'static GeneralPackProvider,
   namespace: Namespace,
   stack: Vec<RequirementBox>,
 }
 
 impl Requirements {
-  pub fn new(pack_provider: &'static GeneralPackProvider) -> Self {
+  pub fn new() -> Self {
     Self {
-      pack_provider,
       namespace: Namespace::default(),
       stack: Vec::default(),
     }
@@ -37,18 +35,6 @@ impl GetNamespace for Requirements {
       Some(last) => last.get_namespace(),
       None => &self.namespace,
     }
-  }
-}
-
-impl ProvidePack<PathPack> for Requirements {
-  fn packs(&self) -> &HashMap<Namespace, PathPack> {
-    self.pack_provider.path_packs()
-  }
-}
-
-impl ProvidePack<StringPack> for Requirements {
-  fn packs(&self) -> &HashMap<Namespace, StringPack> {
-    self.pack_provider.string_packs()
   }
 }
 

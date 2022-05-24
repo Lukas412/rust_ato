@@ -41,13 +41,12 @@ pub trait Pack: Debug + YaDeserialize
   }
 }
 
-pub trait ProvidePack<P>: GetNamespace
+pub trait ProvidePack<P>
   where P: Pack
 {
   fn packs(&self) -> &HashMap<Namespace, P>;
 
-  fn pack(&self) -> Result<&P, BuildError> {
-    let namespace = self.get_namespace();
+  fn pack(&self, namespace: &Namespace) -> Result<&P, BuildError> {
     match self.packs().get(namespace) {
       Some(pack) => Ok(pack),
       None => Err(BuildError::new_pack(namespace.to_owned())),

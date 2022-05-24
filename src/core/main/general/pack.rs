@@ -4,7 +4,7 @@ use std::path::Path;
 use crate::core::main::path::pack::PathPack;
 use crate::core::main::string::pack::StringPack;
 use crate::core::traits::namespace::Namespace;
-use crate::core::traits::pack::Pack;
+use crate::core::traits::pack::{Pack, ProvidePack};
 
 pub struct GeneralPackProvider {
   path_packs: HashMap<Namespace, PathPack>,
@@ -18,12 +18,16 @@ impl GeneralPackProvider {
       string_packs: StringPack::from_root(root),
     }
   }
+}
 
-  pub(crate) fn path_packs(&self) -> &HashMap<Namespace, PathPack> {
+impl ProvidePack<PathPack> for GeneralPackProvider {
+  fn packs(&self) -> &HashMap<Namespace, PathPack> {
     &self.path_packs
   }
+}
 
-  pub fn string_packs(&self) -> &HashMap<Namespace, StringPack> {
+impl ProvidePack<StringPack> for GeneralPackProvider {
+  fn packs(&self) -> &HashMap<Namespace, StringPack> {
     &self.string_packs
   }
 }
