@@ -13,13 +13,14 @@ use self::core::main::general::creation::GeneralCreation;
 
 mod core;
 
+static PACK_PROVIDER: GeneralPackProvider = GeneralPackProvider::from_root("src/bundles");
+
 fn main() {
   build("src/creations/test2.creation.xml");
 }
 
 fn build<P: AsRef<Path>>(file: P) {
-  let pack_provider = GeneralPackProvider::from_root("src/bundles");
-  let requirements = Requirements::new(&pack_provider);
+  let requirements = Requirements::new(&PACK_PROVIDER);
   let creation: GeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 

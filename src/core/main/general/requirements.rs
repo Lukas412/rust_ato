@@ -53,7 +53,7 @@ impl ProvidePack<StringPack> for Requirements {
 }
 
 impl ProvideOperationWithNamespace<StringOperation> for Requirements {
-  fn operation(&self, namespace: &Namespace, name: &String) -> Option<&StringOperation> {
+  fn operation(&self, namespace: &Namespace, name: &String) -> Option<StringOperation> {
     self.requirement_box(namespace)?.operation(name)
   }
 }
@@ -80,8 +80,8 @@ impl GetNamespace for RequirementBox {
 }
 
 impl ProvideOperation<StringOperation> for RequirementBox {
-  fn operation(&self, name: &String) -> Option<&StringOperation> {
+  fn operation(&self, name: &String) -> Option<StringOperation> {
     let general_operation = self.operations.get(name)?;
-    Some(&general_operation.get_operation())
+    Some(general_operation.get_operation())
   }
 }
