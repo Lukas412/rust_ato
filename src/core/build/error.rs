@@ -1,10 +1,15 @@
 use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, write};
+use crate::BuildError::OperationNotFound;
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 
 pub enum BuildError {
-  Value {
+  OperationNotFound {
     name: String,
+    namespace: String,
+    backtrace: Backtrace,
+  },
+  Pack {
     namespace: String,
     backtrace: Backtrace,
   },
@@ -13,23 +18,28 @@ pub enum BuildError {
     namespace: String,
     backtrace: Backtrace,
   },
-  Pack {
+  Value {
+    name: String,
     namespace: String,
     backtrace: Backtrace,
-  }
+  },
 }
 
 impl BuildError {
-  pub fn new_value(name: String, namespace: String) -> Self {
-    Value { name, namespace, backtrace: Backtrace::default() }
+  pub fn new_operation_not_found_error(name: String, namespace: String) -> Self {
+    OperationNotFound { name, namespace, backtrace: Backtrace::default() }
+  }
+
+  pub fn new_pack(namespace: String) -> Self {
+    Pack { namespace, backtrace: Backtrace::default() }
   }
 
   pub fn new_requirement(name: String, namespace: String) -> Self {
     Requirement { name, namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn new_pack(namespace: String) -> Self {
-    Pack { namespace, backtrace: Backtrace::default() }
+  pub fn new_value(name: String, namespace: String) -> Self {
+    Value { name, namespace, backtrace: Backtrace::default() }
   }
 }
 
