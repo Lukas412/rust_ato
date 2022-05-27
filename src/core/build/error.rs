@@ -2,6 +2,7 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, write};
 use crate::BuildError::OperationNotFound;
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
+use crate::core::traits::error::GetBacktrace;
 
 pub enum BuildError {
   OperationNotFound {
@@ -41,6 +42,11 @@ impl BuildError {
   pub fn new_value(name: String, namespace: String) -> Self {
     Value { name, namespace, backtrace: Backtrace::default() }
   }
+
+  pub fn add_backtrace<T: GetBacktrace>(&mut self, from: &T) {
+    let trace = from.backtrace();
+    self.mut_backtrace().add(trace)
+  }
 }
 
 impl BuildError {
@@ -66,6 +72,15 @@ impl BuildError {
       Pack { backtrace,.. } => backtrace,
     }
   }
+
+   fn mut_backtrace(&mut self) -> &mut Backtrace {
+    match self {
+      OperationNotFound { backtrace, .. } => backtrace,
+      Value { backtrace, .. } => backtrace,
+      Requirement { backtrace,.. } => backtrace,
+      Pack { backtrace,.. } => backtrace,
+    }
+  }
 }
 
 impl Display for BuildError {
@@ -78,6 +93,12 @@ impl Display for BuildError {
 
 #[derive(Default)]
 pub struct Backtrace(Vec<String>);
+
+impl Backtrace {
+  fn add(&mut self, trace: String) {
+    self.0.push(trace)
+  }
+}
 
 impl Display for Backtrace {
   fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
