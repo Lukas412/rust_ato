@@ -46,7 +46,12 @@ impl BuildError {
 impl BuildError {
   fn message(&self) -> String {
     match self {
-      OperationNotFound { name, namespace, .. } => format!(""),
+      OperationNotFound { name, namespace, .. } => {
+        match namespace {
+          Some(namespace) => format!("OperationNotFound: '{} from {}'", name, namespace),
+          None => format!("OperationNotFound: '{}", name),
+        }
+      },
       Value { .. } => format!(""),
       Requirement { .. } => format!(""),
       Pack { .. } => format!(""),

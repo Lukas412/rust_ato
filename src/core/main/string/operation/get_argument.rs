@@ -1,9 +1,10 @@
+use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
+use crate::core::traits::error::GetBuildError;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::ProvideOperationWithNamespace;
-use crate::{PackProvider, Requirements};
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
@@ -20,11 +21,15 @@ impl Buildable<StringValue> for StringGetArgumentOperation {
     let operation = requirements.operation(namespace, &self.name);
     match operation {
       Some(operation) => operation.build(pack_provider, requirements),
-      None => {
-        let name = self.name.to_owned();
-        let namespace = namespace.to_owned();
-        Err(BuildError::new_value(name, namespace))
-      }
+      None => Err(self.build_error()),
     }
+  }
+}
+
+impl GetBuildError for StringGetArgumentOperation {
+  fn build_error(&self) -> BuildError {
+    let name = self.name.to_owned();
+    let namespace = self.namespace.to_owned();
+    BuildError::new_operation_not_found_error(name, namespace)
   }
 }
