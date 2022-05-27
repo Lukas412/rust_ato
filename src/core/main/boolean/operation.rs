@@ -28,7 +28,7 @@ impl Operation for BooleanOperation {
 }
 
 impl Buildable<BooleanValue> for BooleanOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<BooleanValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(pack_provider, requirements),

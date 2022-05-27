@@ -28,7 +28,7 @@ impl Operation for PathOperation {
 }
 
 impl Buildable<PathValue> for PathOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<PathValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(pack_provider, requirements),

@@ -21,7 +21,7 @@ impl StringValueOperation {
 }
 
 impl Buildable<StringValue> for StringValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
     let value = self.text.to_owned();
     let namespace = requirements.get_owned_namespace();
     Ok(StringValue::new(value, namespace))

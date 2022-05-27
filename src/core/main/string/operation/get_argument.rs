@@ -18,7 +18,7 @@ pub struct StringGetArgumentOperation {
 }
 
 impl Buildable<StringValue> for StringGetArgumentOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);
     match operation {

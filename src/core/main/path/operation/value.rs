@@ -15,7 +15,7 @@ pub struct PathValueOperation {
 }
 
 impl Buildable<PathValue> for PathValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &Requirements) -> Result<PathValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
     let value = PathBuf::from(&self.text);
     let namespace = requirements.get_owned_namespace();
     Ok(PathValue::new(value, namespace))

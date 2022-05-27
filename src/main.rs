@@ -21,7 +21,7 @@ fn main() {
 }
 
 fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
-  let requirements = Requirements::new();
+  let mut requirements = Requirements::new();
   let creation: GeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 
