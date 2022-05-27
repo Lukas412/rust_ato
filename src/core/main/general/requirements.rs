@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::string::operation::StringOperation;
-use crate::core::traits::namespace::{GetNamespace, Namespace};
+use crate::core::traits::namespace::{default_namespace, GetNamespace, Namespace};
 use crate::core::traits::operation::{GetOperation, ProvideOperation, ProvideOperationWithNamespace};
 
 pub struct Requirements {
@@ -13,7 +13,7 @@ pub struct Requirements {
 impl Requirements {
   pub fn new() -> Self {
     Self {
-      namespace: Namespace::default(),
+      namespace: default_namespace(),
       stack: Vec::default(),
     }
   }
