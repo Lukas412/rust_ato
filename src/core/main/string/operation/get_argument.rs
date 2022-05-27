@@ -21,7 +21,11 @@ impl Buildable<StringValue> for StringGetArgumentOperation {
     let operation = requirements.operation(namespace, &self.name);
     match operation {
       Some(operation) => operation.build(pack_provider, requirements),
-      None => Err(self.build_error()),
+      None => {
+        let mut error = self.build_error();
+        error.add_backtrace(requirements.backtrace("StringGetArgumentOperation"));
+        Err(error)
+      },
     }
   }
 }
