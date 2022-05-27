@@ -1,3 +1,5 @@
+use std::fmt::{Debug, Display, Formatter};
+use std::ptr::write;
 use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
@@ -12,7 +14,7 @@ pub struct StringGetArgumentOperation {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]
-  namespace: Option<String>,
+  namespace: String,
 }
 
 impl Buildable<StringValue> for StringGetArgumentOperation {
@@ -23,10 +25,16 @@ impl Buildable<StringValue> for StringGetArgumentOperation {
       Some(operation) => operation.build(pack_provider, requirements),
       None => {
         let mut error = self.build_error();
-        error.add_backtrace(requirements.backtrace("StringGetArgumentOperation"));
+        error.add_backtrace(requirements.backtrace(self));
         Err(error)
       },
     }
+  }
+}
+
+impl Display for StringGetArgumentOperation {
+  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    write!(f, "<string:get_argument namespace=\"{}\" name=\"{}\"/>", &self.namespace, &self.name)
   }
 }
 

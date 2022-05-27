@@ -6,7 +6,7 @@ use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 pub enum BuildError {
   OperationNotFound {
     name: String,
-    namespace: Option<String>,
+    namespace: String,
     backtrace: Backtrace,
   },
   Pack {
@@ -26,7 +26,7 @@ pub enum BuildError {
 }
 
 impl BuildError {
-  pub fn new_operation_not_found_error(name: String, namespace: Option<String>) -> Self {
+  pub fn new_operation_not_found_error(name: String, namespace: String) -> Self {
     OperationNotFound { name, namespace, backtrace: Backtrace::default() }
   }
 
@@ -50,12 +50,7 @@ impl BuildError {
 impl BuildError {
   fn message(&self) -> String {
     match self {
-      OperationNotFound { name, namespace, .. } => {
-        match namespace {
-          Some(namespace) => format!("OperationNotFound: '{} from {}'", name, namespace),
-          None => format!("OperationNotFound: '{}", name),
-        }
-      },
+      OperationNotFound { name, namespace, .. } => format!("OperationNotFound: '{} -> {}'", namespace, name),
       Value { .. } => format!(""),
       Requirement { .. } => format!(""),
       Pack { .. } => format!(""),

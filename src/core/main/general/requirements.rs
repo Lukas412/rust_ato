@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::{Debug, Display};
 
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::string::operation::StringOperation;
@@ -18,9 +19,9 @@ impl Requirements {
     }
   }
 
-  pub fn backtrace(&self, name: &str) -> String {
+  pub fn backtrace<T: Display>(&self, element: T) -> String {
     let namespace = self.get_namespace();
-    format!("at {} in {}", name, namespace)
+    format!("at {} in {}", element, namespace)
   }
 }
 
