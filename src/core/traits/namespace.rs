@@ -1,6 +1,6 @@
 pub type Namespace = String;
 
-pub fn default_namespace() -> Self {
+pub fn default_namespace() -> Namespace {
   "__default__".to_owned()
 }
 
