@@ -13,7 +13,7 @@ use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::{Buildable, BuildableWithRequirements};
-use crate::core::traits::operation::GetOperation;
+use crate::core::traits::operation::{GetOperation, Operation};
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::{PackProvider, Requirements};
 
@@ -24,6 +24,15 @@ pub struct GeneralCreation {
   namespace: String,
   #[yaserde(rename = "value")]
   values: Vec<GeneralCreationValue>,
+}
+
+impl GeneralCreation {
+  fn get_operation<'a, P, O: Operation>(&self, pack_provider: &'a PackProvider) -> Result<&'a O, BuildError>
+    where PackProvider: ProvidePack<P>, P: 'a + Pack<Operation = O>
+  {
+    let pack: &P = pack_provider.pack(&self.namespace)?;
+    Ok(pack.operation())
+  }
 }
 
 impl BuildableWithRequirements<StringValue> for GeneralCreation {
