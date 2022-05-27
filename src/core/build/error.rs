@@ -2,7 +2,6 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, write};
 use crate::BuildError::OperationNotFound;
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
-use crate::core::traits::error::GetBacktrace;
 
 pub enum BuildError {
   OperationNotFound {
@@ -43,8 +42,7 @@ impl BuildError {
     Value { name, namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn add_backtrace<T: GetBacktrace>(&mut self, from: &T) {
-    let trace = from.backtrace();
+  pub fn add_backtrace(&mut self, trace: String) {
     self.mut_backtrace().add(trace)
   }
 }
