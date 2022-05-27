@@ -18,6 +18,13 @@ impl Requirements {
     }
   }
 
+  pub fn backtrace(&self, name: &str) -> String {
+    let namespace = self.get_namespace();
+    format!("at {} in {}", name, namespace)
+  }
+}
+
+impl Requirements {
   fn requirement_box(&self, namespace: &Namespace) -> Option<&RequirementBox> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
