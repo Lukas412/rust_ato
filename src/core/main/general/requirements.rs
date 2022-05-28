@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::fmt::{Debug, Display};
+use crate::BuildError;
 
 use crate::core::main::general::creation::GeneralCreationOperation;
 use crate::core::main::string::operation::StringOperation;
@@ -43,8 +44,11 @@ impl GetNamespace for Requirements {
 }
 
 impl ProvideOperationWithNamespace<StringOperation> for Requirements {
-  fn operation(&self, namespace: &Namespace, name: &String) -> Option<StringOperation> {
-    self.requirement_box(namespace)?.operation(name)
+  fn operation(&self, namespace: &Namespace, name: &String) -> Result<StringOperation, BuildError> {
+    match self.requirement_box(namespace) {
+      Some(requirement_box) => requirement_box.operation(name),
+      None => Err(BuildError::new_operation_not_found_error(name.to_owned(), namespace.to_owned())),
+    }
   }
 }
 
@@ -70,8 +74,10 @@ impl GetNamespace for RequirementBox {
 }
 
 impl ProvideOperation<StringOperation> for RequirementBox {
-  fn operation(&self, name: &String) -> Option<StringOperation> {
-    let general_operation = self.operations.get(name)?;
-    Some(general_operation.get_operation())
+  fn operation(&self, name: &String) -> Result<StringOperation, BuildError> {
+    match self.operations.get(name) {
+      Some(operation) => Ok(operation.get_operation()),
+      None => Err(BuildError::new_operation_not_found_error(name.to_owned(), self.namespace.to_owned())),
+    }
   }
 }

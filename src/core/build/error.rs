@@ -1,5 +1,4 @@
-use std::error::Error;
-use std::fmt::{Debug, Display, Formatter, write};
+use std::fmt::{Display, Formatter};
 use crate::BuildError::OperationNotFound;
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 

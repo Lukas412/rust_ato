@@ -13,7 +13,7 @@ pub struct BooleanValueOperation {
 }
 
 impl Buildable<BooleanValue> for BooleanValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<BooleanValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, namespace)),

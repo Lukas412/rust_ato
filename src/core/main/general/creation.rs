@@ -43,7 +43,7 @@ impl BuildableWithRequirements<StringValue> for GeneralCreation {
     RequirementBox::new(namespace, operations)
   }
 
-  fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
+  fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
     let pack: &StringPack = pack_provider.pack(&self.namespace)?;
     let operation = pack.operation();
     operation.build(pack_provider, requirements)

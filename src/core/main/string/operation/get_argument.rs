@@ -1,5 +1,4 @@
 use std::fmt::{Debug, Display, Formatter};
-use std::ptr::write;
 use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
@@ -18,13 +17,12 @@ pub struct StringGetArgumentOperation {
 }
 
 impl Buildable<StringValue> for StringGetArgumentOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);
     match operation {
-      Some(operation) => operation.build(pack_provider, requirements),
-      None => {
-        let mut error = self.build_error();
+      Ok(operation) => operation.build(pack_provider, requirements),
+      Err(mut error) => {
         error.add_backtrace(requirements.backtrace(self));
         Err(error)
       },

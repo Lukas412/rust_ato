@@ -6,7 +6,6 @@ use std::path::Path;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::pack::PackProvider;
 use crate::core::main::general::requirements::Requirements;
-use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_file;
 use crate::core::traits::build::BuildableWithRequirements;
 
@@ -25,7 +24,7 @@ fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
   let creation: GeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 
-  let value = creation.build(&pack_provider, &requirements);
+  let value = creation.build(&pack_provider, &mut requirements);
   match value {
     Ok(value) => println!("{:?}", value),
     Err(error) => println!("{}", error)

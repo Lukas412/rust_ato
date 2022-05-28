@@ -17,7 +17,7 @@ pub struct NumberValueOperation {
 }
 
 impl Buildable<NumberValue> for NumberValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<NumberValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, namespace)),
