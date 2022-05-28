@@ -16,6 +16,7 @@ use crate::core::traits::build::{Buildable, BuildableWithRequirements};
 use crate::core::traits::operation::{GetOperation, Operation};
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::{PackProvider, Requirements};
+use crate::core::main::general::operation::GeneralOperation;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -53,33 +54,16 @@ impl BuildableWithRequirements<StringValue> for GeneralCreation {
 #[derive(Debug)]
 pub struct GeneralCreationValue {
   name: String,
-  operation: GeneralCreationOperation,
+  operation: GeneralOperation,
 }
 
 impl GeneralCreationValue {
-  fn new(name: String, operation: GeneralCreationOperation) -> Self {
+  fn new(name: String, operation: GeneralOperation) -> Self {
     Self { name, operation }
   }
 
-  pub fn to_name_and_operation(self) -> (String, GeneralCreationOperation) {
+  pub fn to_name_and_operation(self) -> (String, GeneralOperation) {
     (self.name, self.operation)
-  }
-}
-
-#[derive(Debug)]
-pub enum GeneralCreationOperation {
-  Empty,
-  Value(String),
-  Operation(Vec<GeneralCreation>),
-}
-
-impl GetOperation<StringOperation> for GeneralCreationOperation {
-  fn get_operation(&self) -> StringOperation {
-    match self {
-      Self::Empty => StringOperation::Empty,
-      Self::Value(value) => StringValueOperation::new(value.to_owned()),
-      Self::Operation(..) => todo!(),
-    }
   }
 }
 
@@ -89,11 +73,11 @@ impl YaDeserialize for GeneralCreationValue {
     let (name, operation) =
       match inner {
         InnerGeneralCreationValue { name, value: Some(value), .. } =>
-          (name, GeneralCreationOperation::Value(value)),
+          (name, GeneralOperation::Value(value)),
         InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
-          (name, GeneralCreationOperation::Operation(elements)),
+          (name, GeneralOperation::Operation(elements)),
         InnerGeneralCreationValue { name, .. } =>
-          (name, GeneralCreationOperation::Empty)
+          (name, GeneralOperation::Empty)
       };
     Ok(Self::new(name, operation))
   }
