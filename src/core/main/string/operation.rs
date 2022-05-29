@@ -3,7 +3,6 @@ use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::string::operation::get_argument::StringGetArgumentOperation;
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::Operation;
 use crate::{PackProvider, Requirements};
 
@@ -27,11 +26,7 @@ impl Default for StringOperation {
   }
 }
 
-impl Operation for StringOperation {
-  type Value = StringValue;
-}
-
-impl Buildable<StringValue> for StringOperation {
+impl Operation<StringValue> for StringOperation {
   fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),

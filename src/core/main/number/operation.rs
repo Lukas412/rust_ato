@@ -2,7 +2,6 @@ use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::Operation;
 use crate::{PackProvider, Requirements};
 
@@ -23,11 +22,7 @@ impl Default for NumberOperation {
   }
 }
 
-impl Operation for NumberOperation {
-  type Value = NumberValue;
-}
-
-impl Buildable<NumberValue> for NumberOperation {
+impl Operation<NumberValue> for NumberOperation {
   fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<NumberValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),

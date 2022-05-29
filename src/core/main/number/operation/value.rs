@@ -5,8 +5,8 @@ use rust_decimal::Decimal;
 use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::namespace::GetNamespace;
+use crate::core::traits::operation::Operation;
 use crate::core::traits::value::Value;
 
 #[derive(Debug, YaDeserialize)]
@@ -16,7 +16,7 @@ pub struct NumberValueOperation {
   text: String,
 }
 
-impl Buildable<NumberValue> for NumberValueOperation {
+impl Operation<NumberValue> for NumberValueOperation {
   fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<NumberValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {

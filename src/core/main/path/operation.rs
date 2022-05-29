@@ -2,7 +2,6 @@ use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::path::operation::value::PathValueOperation;
 use crate::core::main::path::value::PathValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::operation::Operation;
 use crate::{PackProvider, Requirements};
 
@@ -23,11 +22,7 @@ impl Default for PathOperation {
   }
 }
 
-impl Operation for PathOperation {
-  type Value = PathValue;
-}
-
-impl Buildable<PathValue> for PathOperation {
+impl Operation<PathValue> for PathOperation {
   fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<PathValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),

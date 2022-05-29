@@ -1,6 +1,7 @@
 use crate::core::main::general::parameter::GeneralParameters;
 use crate::core::traits::namespace::Namespace;
 use crate::core::main::string::operation::StringOperation;
+use crate::core::main::string::value::StringValue;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -14,7 +15,7 @@ pub struct StringPack {
   operation: StringOperation,
 }
 
-impl Pack for StringPack {
+impl Pack<StringValue> for StringPack {
   type Operation = StringOperation;
 
   const SUFFIX: &'static str = ".string.xml";

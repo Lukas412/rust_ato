@@ -2,10 +2,9 @@ use std::fmt::{Debug, Display, Formatter};
 use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::build::Buildable;
 use crate::core::traits::error::GetBuildError;
 use crate::core::traits::namespace::GetNamespace;
-use crate::core::traits::operation::ProvideOperationWithNamespace;
+use crate::core::traits::operation::{Operation, ProvideOperationWithNamespace};
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "get_argument", prefix = "string", namespace = "string: http://www.ato.net/xmlns/string")]
@@ -16,7 +15,7 @@ pub struct StringGetArgumentOperation {
   namespace: String,
 }
 
-impl Buildable<StringValue> for StringGetArgumentOperation {
+impl Operation<StringValue> for StringGetArgumentOperation {
   fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);

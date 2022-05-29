@@ -12,9 +12,10 @@ use crate::core::main::general::requirements::RequirementBox;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::build::{Buildable, BuildableWithRequirements};
+use crate::core::traits::build::{BuildableWithRequirements};
 use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::core::traits::value::Value;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -26,8 +27,8 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  fn get_operation<'a, P, O: Operation>(&self, pack_provider: &'a PackProvider) -> Result<&'a O, BuildError>
-    where PackProvider: ProvidePack<P>, P: 'a + Pack<Operation=O>
+  fn get_operation<'a, P, O: Operation<V>, V>(&self, pack_provider: &'a PackProvider) -> Result<&'a O, BuildError>
+    where PackProvider: ProvidePack<P, V>, P: 'a + Pack<V, Operation=O>, V: Value
   {
     let pack: &P = pack_provider.pack(&self.namespace)?;
     Ok(pack.operation())

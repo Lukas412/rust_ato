@@ -9,11 +9,13 @@ use yaserde::YaDeserialize;
 use crate::core::build::error::BuildError;
 use crate::core::traits::namespace::Namespace;
 use crate::core::traits::operation::Operation;
+use crate::core::traits::value::Value;
 use crate::from_file;
 
-pub trait Pack: Debug + YaDeserialize
+pub trait Pack<V>: Debug + YaDeserialize
+  where V: Value
 {
-  type Operation: Operation;
+  type Operation: Operation<V>;
 
   const SUFFIX: &'static str;
 
@@ -41,8 +43,8 @@ pub trait Pack: Debug + YaDeserialize
   }
 }
 
-pub trait ProvidePack<P>
-  where P: Pack
+pub trait ProvidePack<P, V>
+  where P: Pack<V>, V: Value
 {
   fn packs(&self) -> &HashMap<Namespace, P>;
 

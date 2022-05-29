@@ -1,6 +1,7 @@
 use crate::core::main::general::parameter::GeneralParameters;
 use crate::core::traits::namespace::Namespace;
 use crate::core::main::path::operation::PathOperation;
+use crate::core::main::path::value::PathValue;
 use crate::core::traits::pack::Pack;
 
 #[derive(Debug, Default, YaDeserialize)]
@@ -14,7 +15,7 @@ pub struct PathPack {
   operation: PathOperation,
 }
 
-impl Pack for PathPack {
+impl Pack<PathValue> for PathPack {
   type Operation = PathOperation;
 
   const SUFFIX: &'static str = "*.path.xml";

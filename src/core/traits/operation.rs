@@ -4,7 +4,7 @@ use crate::core::traits::value::Value;
 pub trait Operation<V>
   where V: Value
 {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<B, BuildError>;
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<V, BuildError>;
 }
 
 pub trait ProvideOperation<O>
