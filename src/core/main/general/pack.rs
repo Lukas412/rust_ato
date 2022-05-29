@@ -37,7 +37,7 @@ impl ProvidePack<StringPack> for PackProvider {
 impl<O> ProvideOperation<O> for PackProvider
   where O: Operation
 {
-  fn operation(&self, name: &String) -> Result<O, BuildError> {
+  fn operation(&self, name: &String) -> Result<&O, BuildError> {
     todo!()
   }
 }

@@ -74,7 +74,7 @@ impl GetNamespace for RequirementBox {
 }
 
 impl ProvideOperation<GeneralOperation> for RequirementBox {
-  fn operation(&self, name: &String) -> Result<StringOperation, BuildError> {
+  fn operation(&self, name: &String) -> Result<&GeneralOperation, BuildError> {
     match self.operations.get(name) {
       Some(operation) => Ok(operation),
       None => Err(BuildError::new_operation_not_found_error(name.to_owned(), self.namespace.to_owned())),
