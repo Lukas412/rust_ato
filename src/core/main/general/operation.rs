@@ -1,9 +1,8 @@
 use crate::{BuildError, GeneralCreation, PackProvider, Requirements};
 use crate::core::main::general::operation::empty::build_empty;
-use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::build::Buildable;
-use crate::core::traits::operation::{GetOperation, Operation};
+use crate::core::traits::operation::Operation;
 use crate::core::traits::value::Value;
 
 pub mod empty;

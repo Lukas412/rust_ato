@@ -5,7 +5,7 @@ use crate::core::main::general::operation::GeneralOperation;
 
 use crate::core::main::string::operation::StringOperation;
 use crate::core::traits::namespace::{default_namespace, GetNamespace, Namespace};
-use crate::core::traits::operation::{GetOperation, ProvideOperation, ProvideOperationWithNamespace};
+use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 
 pub struct Requirements {
   namespace: Namespace,

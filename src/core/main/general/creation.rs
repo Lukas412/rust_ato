@@ -5,18 +5,16 @@ use std::iter::FromIterator;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
+use crate::{PackProvider, Requirements};
 use crate::core::build::error::BuildError;
+use crate::core::main::general::operation::GeneralOperation;
 use crate::core::main::general::requirements::RequirementBox;
-use crate::core::main::string::operation::StringOperation;
-use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::build::{Buildable, BuildableWithRequirements};
-use crate::core::traits::operation::{GetOperation, Operation};
+use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::{Pack, ProvidePack};
-use crate::{PackProvider, Requirements};
-use crate::core::main::general::operation::GeneralOperation;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
@@ -29,7 +27,7 @@ pub struct GeneralCreation {
 
 impl GeneralCreation {
   fn get_operation<'a, P, O: Operation>(&self, pack_provider: &'a PackProvider) -> Result<&'a O, BuildError>
-    where PackProvider: ProvidePack<P>, P: 'a + Pack<Operation = O>
+    where PackProvider: ProvidePack<P>, P: 'a + Pack<Operation=O>
   {
     let pack: &P = pack_provider.pack(&self.namespace)?;
     Ok(pack.operation())
