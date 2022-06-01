@@ -13,7 +13,16 @@ pub struct GeneralCreationValue {
 }
 
 impl GeneralCreationValue {
-  fn new(name: String, operation: GeneralOperation) -> Self {
+  fn from_inner(inner: InnerGeneralCreationValue) -> Self {
+    let (name, operation) =
+      match inner {
+        InnerGeneralCreationValue { name, value: Some(value), .. } =>
+          (name, GeneralOperation::Value(value)),
+        InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
+          (name, GeneralOperation::Operation(elements)),
+        InnerGeneralCreationValue { name, .. } =>
+          (name, GeneralOperation::Empty)
+      };
     Self { name, operation }
   }
 
@@ -25,16 +34,7 @@ impl GeneralCreationValue {
 impl YaDeserialize for GeneralCreationValue {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let inner: InnerGeneralCreationValue = from_deserializer(reader)?;
-    let (name, operation) =
-      match inner {
-        InnerGeneralCreationValue { name, value: Some(value), .. } =>
-          (name, GeneralOperation::Value(value)),
-        InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
-          (name, GeneralOperation::Operation(elements)),
-        InnerGeneralCreationValue { name, .. } =>
-          (name, GeneralOperation::Empty)
-      };
-    Ok(Self::new(name, operation))
+    Ok(Self::from_inner(inner))
   }
 }
 
