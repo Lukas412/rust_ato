@@ -13,6 +13,12 @@ pub struct GeneralCreationValue {
 }
 
 impl GeneralCreationValue {
+  pub fn to_name_and_operation(self) -> (String, Rc<GeneralOperation>) {
+    (self.name, Rc::new(self.operation))
+  }
+}
+
+impl GeneralCreationValue {
   fn from_inner(inner: InnerGeneralCreationValue) -> Self {
     let (name, operation) =
       match inner {
@@ -24,10 +30,6 @@ impl GeneralCreationValue {
           (name, GeneralOperation::Empty)
       };
     Self { name, operation }
-  }
-
-  pub fn to_name_and_operation(self) -> (String, Rc<GeneralOperation>) {
-    (self.name, Rc::new(self.operation))
   }
 }
 
