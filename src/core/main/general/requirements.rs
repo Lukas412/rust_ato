@@ -4,6 +4,7 @@ use crate::BuildError;
 use crate::core::main::general::operation::GeneralOperation;
 
 use crate::core::main::string::operation::StringOperation;
+use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::{default_namespace, GetNamespace, Namespace};
 use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 
@@ -44,40 +45,11 @@ impl GetNamespace for Requirements {
 }
 
 impl ProvideOperationWithNamespace<StringOperation> for Requirements {
+  type Value = StringValue;
   fn operation(&self, namespace: &Namespace, name: &String) -> Result<StringOperation, BuildError> {
     match self.requirement_box(namespace) {
       Some(requirement_box) => requirement_box.operation(name),
       None => Err(BuildError::new_operation_not_found_error(name.to_owned(), namespace.to_owned())),
-    }
-  }
-}
-
-#[derive(Debug, Default)]
-pub struct RequirementBox {
-  namespace: Namespace,
-  operations: HashMap<String, GeneralOperation>,
-}
-
-impl RequirementBox {
-  pub fn new(namespace: Namespace, operations: HashMap<String, GeneralOperation>) -> Self {
-    Self {
-      namespace,
-      operations,
-    }
-  }
-}
-
-impl GetNamespace for RequirementBox {
-  fn get_namespace(&self) -> &Namespace {
-    &self.namespace
-  }
-}
-
-impl ProvideOperation<GeneralOperation> for RequirementBox {
-  fn operation(&self, name: &String) -> Result<&GeneralOperation, BuildError> {
-    match self.operations.get(name) {
-      Some(operation) => Ok(operation),
-      None => Err(BuildError::new_operation_not_found_error(name.to_owned(), self.namespace.to_owned())),
     }
   }
 }

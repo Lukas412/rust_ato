@@ -1,4 +1,4 @@
-use crate::{BuildError, GeneralCreation, PackProvider, Requirements};
+use crate::{BuildError, InnerGeneralCreation, PackProvider, Requirements};
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::operation::Operation;
@@ -9,7 +9,7 @@ pub mod empty;
 pub enum GeneralOperation {
   Empty,
   Value(String),
-  Operation(Vec<GeneralCreation>),
+  Operation(Vec<InnerGeneralCreation>),
 }
 
 impl Operation<StringValue> for GeneralOperation {
