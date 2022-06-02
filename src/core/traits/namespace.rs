@@ -1,7 +1,10 @@
-pub type Namespace = String;
+#[derive(Debug, Clone)]
+pub struct Namespace(String);
 
-pub fn default_namespace() -> Namespace {
-  "__default__".to_owned()
+impl Default for Namespace {
+  fn default() -> Self {
+    Self("__default__".to_owned())
+  }
 }
 
 pub trait GetNamespace {
