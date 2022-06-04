@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use rust_decimal::Decimal;
 
-use crate::{PackProvider, Requirements};
+use crate::{PackProvider, GeneralCreationStack};
 use crate::core::build::error::BuildError;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::namespace::GetNamespace;
@@ -17,7 +17,7 @@ pub struct NumberValueOperation {
 }
 
 impl Operation<NumberValue> for NumberValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<NumberValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<NumberValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, namespace)),

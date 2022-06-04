@@ -1,4 +1,4 @@
-use crate::{PackProvider, Requirements};
+use crate::{PackProvider, GeneralCreationStack};
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::traits::namespace::GetNamespace;
@@ -13,7 +13,7 @@ pub struct BooleanValueOperation {
 }
 
 impl Operation<BooleanValue> for BooleanValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<BooleanValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<BooleanValue, BuildError> {
     let namespace = requirements.get_owned_namespace();
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, namespace)),

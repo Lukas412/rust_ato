@@ -8,7 +8,7 @@ use yaserde::de::Deserializer;
 
 use value::GeneralCreationValue;
 
-use crate::{PackProvider, Requirements};
+use crate::{PackProvider, GeneralCreationStack};
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::GeneralOperation;
 use crate::core::main::string::pack::StringPack;
@@ -21,6 +21,7 @@ use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::core::traits::value::Value;
 
 pub mod value;
+pub mod stack;
 
 #[derive(Debug, Default)]
 pub struct GeneralCreation {
@@ -29,7 +30,7 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  pub fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
+  pub fn build(self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
     let pack: &StringPack = pack_provider.pack(&self.namespace)?;
     let operation = pack.operation();
     operation.build(pack_provider, requirements)

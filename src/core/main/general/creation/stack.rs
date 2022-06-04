@@ -7,19 +7,18 @@ use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 
 #[derive(Default)]
-pub struct Requirements {
-  namespace: Namespace,
+pub struct GeneralCreationStack {
   stack: Vec<GeneralCreation>,
 }
 
-impl Requirements {
+impl GeneralCreationStack {
   pub fn backtrace<T: Display>(&self, element: T) -> String {
     let namespace = self.get_namespace();
     format!("at {} in {}", element, namespace)
   }
 }
 
-impl Requirements {
+impl GeneralCreationStack {
   fn requirement_box(&self, namespace: &Namespace) -> Option<&GeneralCreation> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
@@ -27,7 +26,7 @@ impl Requirements {
   }
 }
 
-impl GetNamespace for Requirements {
+impl GetNamespace for GeneralCreationStack {
   fn get_namespace(&self) -> &Namespace {
     match self.stack.last() {
       Some(last) => last.get_namespace(),
@@ -36,7 +35,7 @@ impl GetNamespace for Requirements {
   }
 }
 
-impl ProvideOperationWithNamespace<StringOperation> for Requirements {
+impl ProvideOperationWithNamespace<StringOperation> for GeneralCreationStack {
   type Value = StringValue;
   fn operation(&self, namespace: &Namespace, name: &String) -> Result<StringOperation, BuildError> {
     match self.requirement_box(namespace) {

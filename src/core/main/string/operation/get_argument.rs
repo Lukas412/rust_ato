@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Display, Formatter};
-use crate::{PackProvider, Requirements};
+use crate::{PackProvider, GeneralCreationStack};
 use crate::core::build::error::BuildError;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::error::GetBuildError;
@@ -16,7 +16,7 @@ pub struct StringGetArgumentOperation {
 }
 
 impl Operation<StringValue> for StringGetArgumentOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);
     match operation {

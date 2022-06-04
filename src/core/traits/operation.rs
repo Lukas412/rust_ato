@@ -1,10 +1,10 @@
-use crate::{BuildError, PackProvider, Requirements};
+use crate::{BuildError, PackProvider, GeneralCreationStack};
 use crate::core::traits::value::Value;
 
 pub trait Operation<V>
   where V: Value
 {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<V, BuildError>;
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<V, BuildError>;
 }
 
 pub trait ProvideOperation<O>
