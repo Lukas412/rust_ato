@@ -8,19 +8,13 @@ use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 
+#[derive(Default)]
 pub struct Requirements {
   namespace: Namespace,
   stack: Vec<GeneralCreation>,
 }
 
 impl Requirements {
-  pub fn new() -> Self {
-    Self {
-      namespace: default_namespace(),
-      stack: Vec::default(),
-    }
-  }
-
   pub fn backtrace<T: Display>(&self, element: T) -> String {
     let namespace = self.get_namespace();
     format!("at {} in {}", element, namespace)
