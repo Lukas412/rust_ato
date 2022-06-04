@@ -3,9 +3,15 @@ use std::fmt::{Display, Formatter};
 #[derive(Debug, Clone)]
 pub struct Namespace(String);
 
+impl Namespace {
+  fn new(value: String) -> Self {
+    Self(value)
+  }
+}
+
 impl Default for Namespace {
   fn default() -> Self {
-    Self("__default__".to_owned())
+    Self::new("__default__".to_owned())
   }
 }
 
