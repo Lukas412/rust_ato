@@ -30,7 +30,7 @@ pub struct GeneralCreation {
 
 impl GeneralCreation {
   fn from_inner(inner: InnerGeneralCreation) -> GeneralCreation {
-    let namespace = inner.namespace;
+    let namespace = Namespace::new(inner.namespace);
     let operations =
       HashMap::from_iter(inner.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
     GeneralCreation { namespace, operations }

@@ -4,7 +4,7 @@ use std::fmt::{Display, Formatter};
 pub struct Namespace(String);
 
 impl Namespace {
-  fn new(value: String) -> Self {
+  pub fn new(value: String) -> Self {
     Self(value)
   }
 }
