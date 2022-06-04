@@ -44,6 +44,14 @@ impl YaDeserialize for GeneralCreation {
   }
 }
 
+impl Buildable<StringValue> for InnerGeneralCreation {
+  fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
+    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
+    let operation = pack.operation();
+    operation.build(pack_provider, requirements)
+  }
+}
+
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
 struct InnerGeneralCreation {
@@ -51,12 +59,4 @@ struct InnerGeneralCreation {
   namespace: String,
   #[yaserde(rename = "value")]
   values: Vec<GeneralCreationValue>,
-}
-
-impl Buildable<StringValue> for InnerGeneralCreation {
-  fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
-    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
-    let operation = pack.operation();
-    operation.build(pack_provider, requirements)
-  }
 }
