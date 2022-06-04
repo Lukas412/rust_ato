@@ -29,11 +29,10 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  fn from_inner(inner: InnerGeneralCreation) -> GeneralCreation {
-    let namespace = Namespace::new(inner.namespace);
-    let operations =
-      HashMap::from_iter(inner.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
-    GeneralCreation { namespace, operations }
+  pub fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
+    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
+    let operation = pack.operation();
+    operation.build(pack_provider, requirements)
   }
 }
 
@@ -44,11 +43,12 @@ impl YaDeserialize for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue> for GeneralCreation {
-  fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
-    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
-    let operation = pack.operation();
-    operation.build(pack_provider, requirements)
+impl GeneralCreation {
+  fn from_inner(inner: InnerGeneralCreation) -> GeneralCreation {
+    let namespace = Namespace::new(inner.namespace);
+    let operations =
+      HashMap::from_iter(inner.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
+    GeneralCreation { namespace, operations }
   }
 }
 
