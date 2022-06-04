@@ -44,7 +44,7 @@ impl YaDeserialize for GeneralCreation {
   }
 }
 
-impl Buildable<StringValue> for InnerGeneralCreation {
+impl Buildable<StringValue> for GeneralCreation {
   fn build(self, pack_provider: &PackProvider, requirements: &mut Requirements) -> Result<StringValue, BuildError> {
     let pack: &StringPack = pack_provider.pack(&self.namespace)?;
     let operation = pack.operation();
