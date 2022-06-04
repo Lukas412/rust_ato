@@ -1,12 +1,11 @@
-mod value;
-
 use std::collections::HashMap;
 use std::io::Read;
 use std::iter::FromIterator;
 use std::rc::Rc;
 
+use yaserde::YaDeserialize;
 use yaserde::de::Deserializer;
-use yaserde::{YaDeserialize, YaSerialize};
+
 use value::GeneralCreationValue;
 
 use crate::{PackProvider, Requirements};
@@ -20,6 +19,8 @@ use crate::core::traits::namespace::Namespace;
 use crate::core::traits::operation::Operation;
 use crate::core::traits::pack::{Pack, ProvidePack};
 use crate::core::traits::value::Value;
+
+pub mod value;
 
 #[derive(Debug, Default)]
 pub struct GeneralCreation {

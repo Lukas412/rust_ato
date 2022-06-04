@@ -1,8 +1,6 @@
-use std::collections::HashMap;
-use std::fmt::{Debug, Display};
-use crate::{BuildError, GeneralCreation};
-use crate::core::main::general::operation::GeneralOperation;
+use std::fmt::Display;
 
+use crate::{BuildError, GeneralCreation};
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
@@ -22,7 +20,7 @@ impl Requirements {
 }
 
 impl Requirements {
-  fn requirement_box(&self, namespace: &Namespace) -> Option<&RequirementBox> {
+  fn requirement_box(&self, namespace: &Namespace) -> Option<&GeneralCreation> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
       .next()
