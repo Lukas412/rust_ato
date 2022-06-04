@@ -1,16 +1,16 @@
 use std::collections::HashMap;
 use std::fmt::{Debug, Display};
-use crate::BuildError;
+use crate::{BuildError, GeneralCreation};
 use crate::core::main::general::operation::GeneralOperation;
 
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::namespace::{default_namespace, GetNamespace, Namespace};
+use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::{ProvideOperation, ProvideOperationWithNamespace};
 
 pub struct Requirements {
   namespace: Namespace,
-  stack: Vec<RequirementBox>,
+  stack: Vec<GeneralCreation>,
 }
 
 impl Requirements {
