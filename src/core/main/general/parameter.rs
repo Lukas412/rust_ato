@@ -33,10 +33,7 @@ pub struct Parameter {
 impl Parameter {
   fn from_xml_name<R: Read>(reader: &mut Deserializer<R>, name: OwnedName) -> Result<Self, String> {
     let inner: InnerParameter = from_deserializer(reader)?;
-    let variant = match name.namespace {
-      Some(xml_namespace) => Variant::from_xml_namespace(&xml_namespace)?,
-      None => return Err("Parameter: no xml_namespace provided".to_owned())
-    };
+    let variant = Variant::from_owned_name(&name)?;
     Ok(Self::from_inner(inner, variant))
   }
 
