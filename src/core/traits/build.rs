@@ -1,5 +1,6 @@
 use crate::core::build::error::BuildError;
-use crate::{GeneralCreation, PackProvider, GeneralCreationStack};
+use crate::{GeneralCreation, GeneralCreationStack};
+use crate::core::main::general::pack::provider::PackProvider;
 
 pub trait BuildableWithRequirements<B> {
   fn to_requirement_box(self) -> GeneralCreation;

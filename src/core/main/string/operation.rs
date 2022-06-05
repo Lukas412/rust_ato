@@ -4,7 +4,8 @@ use crate::core::main::string::operation::get_argument::StringGetArgumentOperati
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::operation::Operation;
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
+use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
 pub mod get_argument;

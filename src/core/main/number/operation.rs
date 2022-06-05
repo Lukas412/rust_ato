@@ -3,7 +3,8 @@ use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::operation::Operation;
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
+use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
 

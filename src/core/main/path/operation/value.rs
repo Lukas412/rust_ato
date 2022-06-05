@@ -4,7 +4,8 @@ use crate::core::build::error::BuildError;
 use crate::core::main::path::value::PathValue;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::value::Value;
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
+use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::traits::operation::Operation;
 
 #[derive(Debug, YaDeserialize)]

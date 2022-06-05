@@ -1,6 +1,7 @@
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
 use crate::core::build::error::BuildError;
 use crate::core::main::boolean::value::BooleanValue;
+use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::operation::Operation;
 use crate::core::traits::value::Value;

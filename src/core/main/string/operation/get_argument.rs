@@ -1,6 +1,7 @@
 use std::fmt::{Debug, Display, Formatter};
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
 use crate::core::build::error::BuildError;
+use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::error::GetBuildError;
 use crate::core::traits::namespace::GetNamespace;

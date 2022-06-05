@@ -8,9 +8,10 @@ use yaserde::de::Deserializer;
 
 use value::GeneralCreationValue;
 
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::GeneralOperation;
+use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;

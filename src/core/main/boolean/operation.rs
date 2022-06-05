@@ -3,7 +3,8 @@ use crate::core::main::boolean::operation::value::BooleanValueOperation;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::traits::operation::Operation;
-use crate::{PackProvider, GeneralCreationStack};
+use crate::GeneralCreationStack;
+use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
 

@@ -1,4 +1,5 @@
-use crate::{BuildError, PackProvider, GeneralCreationStack};
+use crate::{BuildError, GeneralCreationStack};
+use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::traits::namespace::Namespace;
 use crate::core::traits::value::Value;
 
