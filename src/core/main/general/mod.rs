@@ -4,3 +4,4 @@ pub mod creation;
 pub mod reference;
 pub mod pack;
 pub mod operation;
+pub mod variant;
