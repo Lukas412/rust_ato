@@ -10,17 +10,17 @@ pub enum BuildError {
     backtrace: Backtrace,
   },
   Pack {
-    namespace: String,
+    namespace: Namespace,
     backtrace: Backtrace,
   },
   Requirement {
     name: String,
-    namespace: String,
+    namespace: Namespace,
     backtrace: Backtrace,
   },
   Value {
     name: String,
-    namespace: String,
+    namespace: Namespace,
     backtrace: Backtrace,
   },
 }
@@ -30,15 +30,15 @@ impl BuildError {
     OperationNotFound { name, namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn new_pack(namespace: String) -> Self {
+  pub fn new_pack(namespace: Namespace) -> Self {
     Pack { namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn new_requirement(name: String, namespace: String) -> Self {
+  pub fn new_requirement(name: String, namespace: Namespace) -> Self {
     Requirement { name, namespace, backtrace: Backtrace::default() }
   }
 
-  pub fn new_value(name: String, namespace: String) -> Self {
+  pub fn new_value(name: String, namespace: Namespace) -> Self {
     Value { name, namespace, backtrace: Backtrace::default() }
   }
 

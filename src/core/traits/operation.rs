@@ -1,4 +1,5 @@
 use crate::{BuildError, PackProvider, GeneralCreationStack};
+use crate::core::traits::namespace::Namespace;
 use crate::core::traits::value::Value;
 
 pub trait Operation<V>
@@ -18,5 +19,5 @@ pub trait ProvideOperationWithNamespace<O>
   where O: Operation<Self::Value>
 {
   type Value: Value;
-  fn operation(&self, namespace: &String, name: &String) -> Result<O, BuildError>;
+  fn operation(&self, namespace: &Namespace, name: &String) -> Result<O, BuildError>;
 }

@@ -4,7 +4,7 @@ use crate::core::traits::value::Value;
 #[derive(Debug, Clone)]
 pub struct ActionValue {
   value: Action,
-  namespace: String,
+  namespace: Namespace,
 }
 
 impl Value for ActionValue {
@@ -14,7 +14,7 @@ impl Value for ActionValue {
     Self { value: Action::default(), namespace }
   }
 
-  fn new(value: Self::Type, namespace: String) -> Self {
+  fn new(value: Self::Type, namespace: Namespace) -> Self {
     Self { value, namespace }
   }
 
@@ -22,7 +22,7 @@ impl Value for ActionValue {
     &self.value
   }
 
-  fn namespace(&self) -> &String {
+  fn namespace(&self) -> &Namespace {
     &self.namespace
   }
 }

@@ -6,7 +6,7 @@ use crate::core::traits::value::Value;
 #[derive(Debug, Clone)]
 pub struct PathValue {
   value: PathBuf,
-  namespace: String,
+  namespace: Namespace,
 }
 
 impl Value for PathValue {
@@ -16,7 +16,7 @@ impl Value for PathValue {
     PathValue { value: PathBuf::default(), namespace }
   }
 
-  fn new(value: Self::Type, namespace: String) -> Self {
+  fn new(value: Self::Type, namespace: Namespace) -> Self {
     Self {
       value,
       namespace
@@ -27,7 +27,7 @@ impl Value for PathValue {
     &self.value
   }
 
-  fn namespace(&self) -> &String {
+  fn namespace(&self) -> &Namespace {
     &self.namespace
   }
 }

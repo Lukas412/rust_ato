@@ -6,7 +6,7 @@ use crate::core::traits::value::Value;
 #[derive(Debug, Clone)]
 pub struct NumberValue {
   value: Decimal,
-  namespace: String,
+  namespace: Namespace,
 }
 
 impl Value for NumberValue {
