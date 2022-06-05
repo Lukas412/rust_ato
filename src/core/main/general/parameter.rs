@@ -11,16 +11,15 @@ use crate::core::main::number::parameter::NumberParameter;
 use crate::core::main::path::parameter::PathParameter;
 use crate::core::main::string::parameter::StringParameter;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::parameter::Parameter;
 
 #[derive(Debug, Default, YaDeserialize)]
 pub struct GeneralParameters {
   #[yaserde(rename = "parameter")]
-  parameters: Vec<GeneralParameter>,
+  parameters: Vec<Parameter>,
 }
 
 #[derive(Debug)]
-pub enum GeneralParameter {
+pub enum Parameter {
   Action(ActionParameter),
   Boolean(BooleanParameter),
   Number(NumberParameter),
@@ -28,15 +27,15 @@ pub enum GeneralParameter {
   String(StringParameter),
 }
 
-impl GeneralParameter {
+impl Parameter {
   fn from_xml_name<R: Read>(reader: &mut Deserializer<R>, name: OwnedName) -> Result<Self, String> {
     if let OwnedName { local_name, namespace: Some(namespace), .. } = name {
       match (local_name.as_str(), namespace.as_str()) {
-        ("parameter", "http://www.ato.net/xmlns/action") => Ok(GeneralParameter::Action(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/boolean") => Ok(GeneralParameter::Boolean(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/number") => Ok(GeneralParameter::Number(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/path") => Ok(GeneralParameter::Path(from_deserializer(reader)?)),
-        ("parameter", "http://www.ato.net/xmlns/string") => Ok(GeneralParameter::String(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/action") => Ok(Parameter::Action(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/boolean") => Ok(Parameter::Boolean(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/number") => Ok(Parameter::Number(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/path") => Ok(Parameter::Path(from_deserializer(reader)?)),
+        ("parameter", "http://www.ato.net/xmlns/string") => Ok(Parameter::String(from_deserializer(reader)?)),
         value => Err(format!("parameter: wrong name: {:?}", value))
       }
     } else {
@@ -45,25 +44,13 @@ impl GeneralParameter {
   }
 }
 
-impl YaDeserialize for GeneralParameter {
+impl YaDeserialize for Parameter {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
     let peek = reader.peek()?.to_owned();
     if let XmlEvent::StartElement { name, .. } = peek {
-      GeneralParameter::from_xml_name(reader, name)
+      Parameter::from_xml_name(reader, name)
     } else {
       Err(format!("parameter: wrong xml format: {:?}", peek))
-    }
-  }
-}
-
-impl Parameter for GeneralParameter {
-  fn name(&self) -> &String {
-    match self {
-      GeneralParameter::Action(parameter) => parameter.name(),
-      GeneralParameter::Boolean(parameter) => parameter.name(),
-      GeneralParameter::Number(parameter) => parameter.name(),
-      GeneralParameter::Path(parameter) => parameter.name(),
-      GeneralParameter::String(parameter) => parameter.name(),
     }
   }
 }
