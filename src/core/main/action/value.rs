@@ -1,3 +1,4 @@
+use std::fmt::{Display, Formatter};
 use crate::core::traits::namespace::Namespace;
 use crate::core::traits::value::Value;
 
@@ -41,5 +42,11 @@ pub enum Action {
 impl Default for Action {
   fn default() -> Self {
     Self::None
+  }
+}
+
+impl Display for Action {
+  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    write!(f, "Action")
   }
 }
