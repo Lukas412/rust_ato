@@ -18,7 +18,7 @@ use crate::core::traits::namespace::Namespace;
 pub mod inner;
 
 #[derive(Debug, Default, YaDeserialize)]
-pub struct GeneralParameters {
+pub struct Parameters {
   #[yaserde(rename = "parameter")]
   parameters: Vec<Parameter>,
 }
