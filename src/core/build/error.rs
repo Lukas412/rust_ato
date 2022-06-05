@@ -1,11 +1,12 @@
 use std::fmt::{Display, Formatter};
 use crate::BuildError::OperationNotFound;
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
+use crate::core::traits::namespace::Namespace;
 
 pub enum BuildError {
   OperationNotFound {
     name: String,
-    namespace: String,
+    namespace: Namespace,
     backtrace: Backtrace,
   },
   Pack {
@@ -25,7 +26,7 @@ pub enum BuildError {
 }
 
 impl BuildError {
-  pub fn new_operation_not_found_error(name: String, namespace: String) -> Self {
+  pub fn new_operation_not_found_error(name: String, namespace: Namespace) -> Self {
     OperationNotFound { name, namespace, backtrace: Backtrace::default() }
   }
 
