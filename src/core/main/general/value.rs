@@ -60,3 +60,26 @@ impl Display for Data {
     }
   }
 }
+
+#[derive(Debug, Clone)]
+pub enum Action {
+  None,
+  Content,
+  Directory,
+  Expression,
+  File,
+  Location,
+  Output,
+}
+
+impl Default for Action {
+  fn default() -> Self {
+    Self::None
+  }
+}
+
+impl Display for Action {
+  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    write!(f, "Action")
+  }
+}
