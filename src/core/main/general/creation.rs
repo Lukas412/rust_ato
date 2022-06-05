@@ -3,21 +3,18 @@ use std::io::Read;
 use std::iter::FromIterator;
 use std::rc::Rc;
 
-use yaserde::YaDeserialize;
 use yaserde::de::Deserializer;
+use yaserde::YaDeserialize;
 
 use value::GeneralCreationValue;
 
-use crate::GeneralCreationStack;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::operation::GeneralOperation;
 use crate::core::main::general::pack::provider::PackProvider;
-use crate::core::main::string::pack::StringPack;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
 use crate::core::traits::namespace::Namespace;
-use crate::core::traits::operation::Operation;
-use crate::core::traits::pack::{Pack, ProvidePack};
+use crate::CreationStack;
 
 pub mod value;
 pub mod stack;
@@ -29,8 +26,8 @@ pub struct GeneralCreation {
 }
 
 impl GeneralCreation {
-  pub fn build(self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
-    let pack: &StringPack = pack_provider.pack(&self.namespace)?;
+  pub fn build(self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
+    let pack = pack_provider.get_pack(&self.namespace)?;
     let operation = pack.operation();
     operation.build(pack_provider, requirements)
   }

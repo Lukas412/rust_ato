@@ -5,9 +5,8 @@ extern crate yaserde_derive;
 use std::path::Path;
 use crate::core::build::error::BuildError;
 use self::core::main::general::pack::provider::PackProvider;
-use self::core::main::general::creation::stack::GeneralCreationStack;
+use self::core::main::general::creation::stack::CreationStack;
 use crate::core::parse::from_file;
-use crate::core::traits::build::BuildableWithRequirements;
 
 
 use self::core::main::general::creation::GeneralCreation;
@@ -20,7 +19,7 @@ fn main() {
 }
 
 fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
-  let mut requirements = GeneralCreationStack::new();
+  let mut requirements = CreationStack::default();
   let creation: GeneralCreation = from_file(file).unwrap();
   println!("{:?}", creation);
 

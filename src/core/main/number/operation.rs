@@ -3,7 +3,7 @@ use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::number::operation::value::NumberValueOperation;
 use crate::core::main::number::value::NumberValue;
 use crate::core::traits::operation::Operation;
-use crate::GeneralCreationStack;
+use crate::CreationStack;
 use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
@@ -24,7 +24,7 @@ impl Default for NumberOperation {
 }
 
 impl Operation<NumberValue> for NumberOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<NumberValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<NumberValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(pack_provider, requirements),

@@ -1,10 +1,10 @@
 use std::fmt::{Debug, Display, Formatter};
-use crate::GeneralCreationStack;
+use crate::CreationStack;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::error::GetBuildError;
-use crate::core::traits::namespace::GetNamespace;
+use crate::core::traits::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::{Operation, ProvideOperationWithNamespace};
 
 #[derive(Debug, YaDeserialize)]
@@ -17,7 +17,7 @@ pub struct StringGetArgumentOperation {
 }
 
 impl Operation<StringValue> for StringGetArgumentOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
     let namespace = requirements.get_namespace();
     let operation = requirements.operation(namespace, &self.name);
     match operation {
@@ -39,7 +39,7 @@ impl Display for StringGetArgumentOperation {
 impl GetBuildError for StringGetArgumentOperation {
   fn build_error(&self) -> BuildError {
     let name = self.name.to_owned();
-    let namespace = self.namespace.to_owned();
+    let namespace = Namespace::new(self.namespace.to_owned());
     BuildError::new_operation_not_found_error(name, namespace)
   }
 }

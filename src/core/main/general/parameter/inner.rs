@@ -1,4 +1,3 @@
-use crate::core::traits::namespace;
 use crate::core::traits::namespace::Namespace;
 
 #[derive(Debug, YaDeserialize)]
@@ -13,7 +12,7 @@ pub struct InnerParameter {
 impl InnerParameter {
   pub fn to_name_and_optional_namespace(self) -> (String, Option<Namespace>) {
     let name = self.name;
-    let optional_namespace = self.namespace.and_then(Namespace::new);
+    let optional_namespace = self.namespace.map(Namespace::new);
     (name, optional_namespace)
   }
 }

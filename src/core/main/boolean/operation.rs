@@ -3,7 +3,7 @@ use crate::core::main::boolean::operation::value::BooleanValueOperation;
 use crate::core::main::boolean::value::BooleanValue;
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::traits::operation::Operation;
-use crate::GeneralCreationStack;
+use crate::CreationStack;
 use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
@@ -24,7 +24,7 @@ impl Default for BooleanOperation {
 }
 
 impl Operation<BooleanValue> for BooleanOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<BooleanValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<BooleanValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(pack_provider, requirements),

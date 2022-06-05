@@ -1,4 +1,4 @@
-use crate::{BuildError, GeneralCreation, GeneralCreationStack};
+use crate::{BuildError, GeneralCreation, CreationStack};
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
@@ -14,7 +14,7 @@ pub enum GeneralOperation {
 }
 
 impl Operation<StringValue> for GeneralOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(string) => todo!(),

@@ -4,7 +4,7 @@ use crate::core::main::string::operation::get_argument::StringGetArgumentOperati
 use crate::core::main::string::operation::value::StringValueOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::operation::Operation;
-use crate::GeneralCreationStack;
+use crate::CreationStack;
 use crate::core::main::general::pack::provider::PackProvider;
 
 pub mod value;
@@ -28,7 +28,7 @@ impl Default for StringOperation {
 }
 
 impl Operation<StringValue> for StringOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(operation) => operation.build(pack_provider, requirements),

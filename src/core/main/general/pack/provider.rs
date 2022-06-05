@@ -1,24 +1,20 @@
 use std::collections::HashMap;
 use std::path::Path;
-use crate::core::main::path::pack::PathPack;
-use crate::core::main::path::value::PathValue;
+use crate::core::main::general::pack::Pack;
+
 use crate::core::traits::namespace::Namespace;
-use crate::core::traits::pack::{Pack, ProvidePack};
 
 pub struct PackProvider {
-  packs: HashMap<Namespace, PathPack>,
+  packs: HashMap<Namespace, Pack>,
 }
 
 impl PackProvider {
   pub fn from_root<P: AsRef<Path> + ?Sized>(root: &P) -> Self {
-    Self {
-      packs: PathPack::from_root(root),
-    }
+    let packs = Pack::from_root(root);
+    Self { packs }
   }
-}
 
-impl ProvidePack<PathPack, PathValue> for PackProvider {
-  fn packs(&self) -> &HashMap<Namespace, PathPack> {
-    &self.packs
+  pub fn get_pack(&self, namespace: &Namespace) -> &Pack {
+    &self.packs[namespace]
   }
 }

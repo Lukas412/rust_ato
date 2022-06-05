@@ -3,7 +3,7 @@ use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::GetNamespace;
 use crate::core::traits::value::Value;
-use crate::GeneralCreationStack;
+use crate::CreationStack;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::traits::operation::Operation;
 
@@ -22,7 +22,7 @@ impl StringValueOperation {
 }
 
 impl Operation<StringValue> for StringValueOperation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut GeneralCreationStack) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
     let value = self.text.to_owned();
     let namespace = requirements.get_owned_namespace();
     Ok(StringValue::new(value, namespace))

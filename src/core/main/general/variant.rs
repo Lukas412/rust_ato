@@ -1,6 +1,6 @@
 use yaserde::__xml::name::OwnedName;
-use crate::BuildError;
 
+#[derive(Debug)]
 pub enum Variant {
   Action,
   Boolean,
