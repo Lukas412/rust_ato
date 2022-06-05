@@ -1,3 +1,4 @@
+use yaserde::__xml::name::OwnedName;
 use crate::BuildError;
 
 pub enum Variant {
@@ -9,7 +10,14 @@ pub enum Variant {
 }
 
 impl Variant {
-  pub fn from_xml_namespace(xml_namespace: &str) -> Result<Self, String> {
+  pub fn from_owned_name(name: &OwnedName) -> Result<Self, String> {
+    match &name.namespace {
+      Some(xml_namespace) => Self::from_xml_namespace(xml_namespace),
+      None => Err(format!("NoXmlNamespace"))
+    }
+  }
+
+  fn from_xml_namespace(xml_namespace: &str) -> Result<Self, String> {
     match xml_namespace {
       "http://www.ato.net/xmlns/action" => Ok(Self::Action),
       "http://www.ato.net/xmlns/boolean" => Ok(Self::Boolean),
