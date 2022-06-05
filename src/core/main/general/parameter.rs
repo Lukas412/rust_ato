@@ -49,7 +49,7 @@ impl YaDeserialize for Parameter {
     if let XmlEvent::StartElement { name, .. } = peek {
       Parameter::from_xml_name(reader, name)
     } else {
-      Err(format!("parameter: wrong xml format: {:?}", peek))
+      Err(format!("ExpectStartElement: {:?}", peek))
     }
   }
 }
