@@ -1,5 +1,5 @@
 use std::fmt::{Display, Formatter};
-use crate::BuildError::OperationNotFound;
+use crate::BuildError::{OperationNotFound, UnknownXmlNamespace};
 use crate::core::build::error::BuildError::{Pack, Requirement, Value};
 use crate::core::traits::namespace::Namespace;
 
@@ -16,6 +16,10 @@ pub enum BuildError {
   Requirement {
     name: String,
     namespace: Namespace,
+    backtrace: Backtrace,
+  },
+  UnknownXmlNamespace {
+    xml_namespace: String,
     backtrace: Backtrace,
   },
   Value {
@@ -38,6 +42,10 @@ impl BuildError {
     Requirement { name, namespace, backtrace: Backtrace::default() }
   }
 
+  pub fn new_unknown_xml_namespace(xml_namespace: String) -> Self {
+    UnknownXmlNamespace { xml_namespace, backtrace: Backtrace::default() }
+  }
+
   pub fn new_value(name: String, namespace: Namespace) -> Self {
     Value { name, namespace, backtrace: Backtrace::default() }
   }
@@ -51,9 +59,10 @@ impl BuildError {
   fn message(&self) -> String {
     match self {
       OperationNotFound { name, namespace, .. } => format!("OperationNotFound: '{} -> {}'", namespace, name),
-      Value { .. } => format!(""),
-      Requirement { .. } => format!(""),
       Pack { .. } => format!(""),
+      Requirement { .. } => format!(""),
+      UnknownXmlNamespace { xml_namespace, .. } => format!("UnknownXmlNamespace: '{}'", xml_namespace),
+      Value { .. } => format!(""),
     }
   }
 
@@ -62,6 +71,7 @@ impl BuildError {
       OperationNotFound { backtrace, .. } => backtrace,
       Value { backtrace, .. } => backtrace,
       Requirement { backtrace,.. } => backtrace,
+      UnknownXmlNamespace { backtrace,.. } => backtrace,
       Pack { backtrace,.. } => backtrace,
     }
   }
@@ -71,6 +81,7 @@ impl BuildError {
       OperationNotFound { backtrace, .. } => backtrace,
       Value { backtrace, .. } => backtrace,
       Requirement { backtrace,.. } => backtrace,
+      UnknownXmlNamespace { backtrace,.. } => backtrace,
       Pack { backtrace,.. } => backtrace,
     }
   }
