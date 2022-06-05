@@ -1,3 +1,5 @@
+pub mod inner;
+
 use std::io::Read;
 use yaserde::__xml::name::OwnedName;
 use yaserde::__xml::reader::XmlEvent;
