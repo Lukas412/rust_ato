@@ -36,12 +36,3 @@ impl ProvidePack<StringPack, StringValue> for PackProvider {
     &self.string_packs
   }
 }
-
-impl<O, V> ProvideOperation<O> for PackProvider
-  where O: Operation<V>, V: Value
-{
-  type Value = V;
-  fn operation(&self, name: &String) -> Result<&O, BuildError> {
-    todo!()
-  }
-}
