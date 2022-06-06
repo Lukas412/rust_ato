@@ -12,6 +12,10 @@ pub struct CreationStack {
 }
 
 impl CreationStack {
+  pub fn last(&self) -> Option<&GeneralCreation> {
+    self.stack.last()
+  }
+
   pub fn backtrace<T: Display>(&self, element: T) -> String {
     let namespace = self.get_namespace();
     format!("at {} in {}", element, namespace)
