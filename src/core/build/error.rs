@@ -11,6 +11,11 @@ pub struct BuildError {
 }
 
 impl BuildError {
+  pub fn new_can_not_convert_text_to_value_error(text: &String, namespace: Namespace) -> Self {
+    let message = format!("CanNotConvertTextToValue: {text}");
+    Self::new(message, namespace)
+  }
+
   pub fn new_operation_not_found_error(name: &String, namespace: Namespace) -> Self {
     let message = format!("OperationNotFound: {name}");
     Self::new(message, namespace)
@@ -21,8 +26,9 @@ impl BuildError {
     Self::new(message, namespace)
   }
 
-  pub fn new_can_not_convert_text_to_value_error(text: &String, namespace: Namespace) -> Self {
-    let message = format!("CanNotConvertTextToValue: {text}");
+  pub fn new_creation_stack_empty_error() -> Self {
+    let message = "CreationStackEmpty".to_owned();
+    let namespace = Namespace::default();
     Self::new(message, namespace)
   }
 }
