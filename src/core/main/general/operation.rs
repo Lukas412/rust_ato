@@ -14,9 +14,9 @@ pub struct Operation {
 }
 
 impl Operation {
-  fn build(&self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
+  fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<StringValue, BuildError> {
     match &self.action {
-      OperationAction::Empty => build_empty(requirements),
+      OperationAction::Empty => build_empty(&self.variant, stack),
       OperationAction::Value { text } => todo!(),
       OperationAction::GetArgument { name, namespace } => todo!(),
     }
