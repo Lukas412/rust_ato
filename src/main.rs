@@ -9,7 +9,7 @@ use self::core::main::general::creation::stack::CreationStack;
 use crate::core::parse::from_file;
 
 
-use self::core::main::general::creation::GeneralCreation;
+use self::core::main::general::creation::Creation;
 
 mod core;
 
@@ -20,7 +20,7 @@ fn main() {
 
 fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
   let mut requirements = CreationStack::default();
-  let creation: GeneralCreation = from_file(file).unwrap();
+  let creation: Creation = from_file(file).unwrap();
   println!("{:?}", creation);
 
   let value = creation.build(&pack_provider, &mut requirements);

@@ -20,12 +20,12 @@ pub mod value;
 pub mod stack;
 
 #[derive(Debug, Default)]
-pub struct GeneralCreation {
+pub struct Creation {
   namespace: Namespace,
   operations: HashMap<String, Rc<Operation>>,
 }
 
-impl GeneralCreation {
+impl Creation {
   pub fn build(self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
     let pack = pack_provider.get_pack(&self.namespace)?;
     let operation = pack.operation();
@@ -33,25 +33,25 @@ impl GeneralCreation {
   }
 }
 
-impl YaDeserialize for GeneralCreation {
+impl YaDeserialize for Creation {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner: InnerGeneralCreation = from_deserializer(reader)?;
+    let inner: InnerCreation = from_deserializer(reader)?;
     Ok(Self::from_inner(inner))
   }
 }
 
-impl GeneralCreation {
-  fn from_inner(inner: InnerGeneralCreation) -> GeneralCreation {
+impl Creation {
+  fn from_inner(inner: InnerCreation) -> Creation {
     let namespace = Namespace::new(inner.namespace);
     let operations =
       HashMap::from_iter(inner.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
-    GeneralCreation { namespace, operations }
+    Creation { namespace, operations }
   }
 }
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-struct InnerGeneralCreation {
+struct InnerCreation {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(rename = "value")]

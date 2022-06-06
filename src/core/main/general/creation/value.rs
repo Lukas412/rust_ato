@@ -2,7 +2,7 @@ use std::rc::Rc;
 use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
-use crate::core::main::general::creation::InnerGeneralCreation;
+use crate::core::main::general::creation::InnerCreation;
 use crate::core::main::general::operation::Operation;
 use crate::core::parse::from_deserializer;
 
@@ -48,5 +48,5 @@ struct InnerGeneralCreationValue {
   #[yaserde(attribute)]
   value: Option<String>,
   #[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
-  elements: Vec<InnerGeneralCreation>,
+  elements: Vec<InnerCreation>,
 }

@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::{BuildError, GeneralCreation};
+use crate::{BuildError, Creation};
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::{GetNamespace, Namespace};
@@ -8,11 +8,11 @@ use crate::core::traits::operation::ProvideOperationWithNamespace;
 
 #[derive(Default)]
 pub struct CreationStack {
-  stack: Vec<GeneralCreation>,
+  stack: Vec<Creation>,
 }
 
 impl CreationStack {
-  pub fn last(&self) -> Result<&GeneralCreation, BuildError> {
+  pub fn last(&self) -> Result<&Creation, BuildError> {
     match self.stack.last() {
       Some(creation) => Ok(creation),
       None => Err(BuildError::new_creation_stack_empty_error()),
@@ -26,7 +26,7 @@ impl CreationStack {
 }
 
 impl CreationStack {
-  fn requirement_box(&self, namespace: &Namespace) -> Option<&GeneralCreation> {
+  fn requirement_box(&self, namespace: &Namespace) -> Option<&Creation> {
     self.stack.iter()
       .filter(|requirement_box| requirement_box.get_namespace() == namespace)
       .next()

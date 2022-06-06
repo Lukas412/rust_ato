@@ -1,4 +1,4 @@
-use crate::{BuildError, CreationStack, GeneralCreation};
+use crate::{BuildError, CreationStack, Creation};
 use crate::core::main::general::value::{Data, Value};
 use crate::core::main::general::variant::Variant;
 use crate::core::traits::namespace::Namespace;
