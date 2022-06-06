@@ -3,17 +3,17 @@ use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
 use crate::core::main::general::creation::InnerGeneralCreation;
-use crate::core::main::general::operation::GeneralOperation;
+use crate::core::main::general::operation::Operation;
 use crate::core::parse::from_deserializer;
 
 #[derive(Debug)]
 pub struct GeneralCreationValue {
   name: String,
-  operation: GeneralOperation,
+  operation: Operation,
 }
 
 impl GeneralCreationValue {
-  pub fn to_name_and_operation(self) -> (String, Rc<GeneralOperation>) {
+  pub fn to_name_and_operation(self) -> (String, Rc<Operation>) {
     (self.name, Rc::new(self.operation))
   }
 }
@@ -23,11 +23,11 @@ impl GeneralCreationValue {
     let (name, operation) =
       match inner {
         InnerGeneralCreationValue { name, value: Some(value), .. } =>
-          (name, GeneralOperation::Value(value)),
+          (name, Operation::Value(value)),
         InnerGeneralCreationValue { name, elements, .. } if !elements.is_empty() =>
-          (name, GeneralOperation::Operation(elements)),
+          (name, Operation::Operation(elements)),
         InnerGeneralCreationValue { name, .. } =>
-          (name, GeneralOperation::Empty)
+          (name, Operation::Empty)
       };
     Self { name, operation }
   }

@@ -9,7 +9,7 @@ use yaserde::YaDeserialize;
 use value::GeneralCreationValue;
 
 use crate::core::build::error::BuildError;
-use crate::core::main::general::operation::GeneralOperation;
+use crate::core::main::general::operation::Operation;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
@@ -22,7 +22,7 @@ pub mod stack;
 #[derive(Debug, Default)]
 pub struct GeneralCreation {
   namespace: Namespace,
-  operations: HashMap<String, Rc<GeneralOperation>>,
+  operations: HashMap<String, Rc<Operation>>,
 }
 
 impl GeneralCreation {
