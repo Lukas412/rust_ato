@@ -12,8 +12,11 @@ pub struct CreationStack {
 }
 
 impl CreationStack {
-  pub fn last(&self) -> Option<&GeneralCreation> {
-    self.stack.last()
+  pub fn last(&self) -> Result<&GeneralCreation, BuildError> {
+    match self.stack.last() {
+      Some(creation) => Ok(creation),
+      None => Err(BuildError::new_creation_stack_empty_error()),
+    }
   }
 
   pub fn backtrace<T: Display>(&self, element: T) -> String {
