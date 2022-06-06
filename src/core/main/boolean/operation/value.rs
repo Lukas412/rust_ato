@@ -19,7 +19,7 @@ impl Operation<BooleanValue> for BooleanValueOperation {
     match self.text.as_str() {
       "true" => Ok(BooleanValue::new(true, namespace)),
       "false" => Ok(BooleanValue::new(false, namespace)),
-      value => Err(BuildError::new_value(value.to_owned(), namespace))
+      value => Err(BuildError::new_can_not_convert_text_to_value_error(value.to_owned(), namespace))
     }
   }
 }

@@ -22,7 +22,7 @@ impl Operation<NumberValue> for NumberValueOperation {
     let namespace = requirements.get_owned_namespace();
     match Decimal::from_str(&self.text) {
       Ok(value) => Ok(NumberValue::new(value, namespace)),
-      Err(error) => Err(BuildError::new_value(error.to_string(), namespace)),
+      Err(error) => Err(BuildError::new_can_not_convert_text_to_value_error(error.to_string(), namespace)),
     }
   }
 }
