@@ -26,12 +26,16 @@ impl CreationStack {
   }
 }
 
-impl GetNamespace for CreationStack {
-  fn get_namespace(&self) -> &Namespace {
+impl CreationStack {
+  pub fn get_namespace(&self) -> &Namespace {
     match self.stack.last() {
       Some(last) => last.get_namespace(),
       None => &self.namespace,
     }
+  }
+
+  pub fn get_owned_namespace(&self) -> Namespace {
+    self.get_namespace().to_owned()
   }
 }
 
