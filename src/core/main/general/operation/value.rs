@@ -6,12 +6,12 @@ use crate::core::main::general::variant::Variant;
 use crate::core::traits::namespace::{Namespace};
 
 pub fn build_value(variant: &Variant, stack: &CreationStack, text: &String) -> Result<Value, BuildError> {
-  let data = get_data(text, stack.get_namespace())?;
+  let data = get_data(variant, text, stack.get_namespace())?;
   let namespace = stack.get_owned_namespace();
   Ok(Value::new(data, namespace))
 }
 
-fn get_data(text: &String, namespace: &Namespace) -> Result<Data, BuildError> {
+fn get_data(variant: &Variant, text: &String, namespace: &Namespace) -> Result<Data, BuildError> {
   let data =
     match variant {
       Variant::Action => Data::Action(from_text(text, namespace)?),
