@@ -1,4 +1,9 @@
-use crate::core::main::general::value::Value;
+use crate::{BuildError, CreationStack, GeneralCreation};
+use crate::core::main::general::value::{Data, Value};
 use crate::core::main::general::variant::Variant;
+use crate::core::traits::namespace::Namespace;
 
-pub fn build_get_argument(variant: &Variant) -> Value {}
+pub fn build_get_argument(variant: &Variant, stack: &CreationStack, name: &String, namespace: &Namespace) -> Result<Value, BuildError> {
+  let creation = stack.last()?;
+  todo!()
+}
