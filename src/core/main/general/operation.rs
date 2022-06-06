@@ -2,6 +2,7 @@ use crate::{BuildError, GeneralCreation, CreationStack};
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
+use crate::core::traits::namespace::Namespace;
 use crate::core::traits::operation::Operation;
 
 pub mod empty;
@@ -10,7 +11,10 @@ pub mod empty;
 pub enum GeneralOperation {
   Empty,
   Value(String),
-  Operation(Vec<GeneralCreation>),
+  GetArgument {
+    name: String,
+    namespace: Namespace,
+  },
 }
 
 impl Operation<StringValue> for GeneralOperation {
@@ -18,7 +22,7 @@ impl Operation<StringValue> for GeneralOperation {
     match self {
       Self::Empty => build_empty(requirements),
       Self::Value(string) => todo!(),
-      Self::Operation(creations) => todo!(),
+      Self::GetArgument { name, namespace } => todo!(),
     }
   }
 }
