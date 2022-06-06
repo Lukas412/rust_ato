@@ -1,19 +1,16 @@
 use crate::{BuildError, GeneralCreation, CreationStack};
 use crate::core::main::general::operation::empty::build_empty;
 use crate::core::main::general::pack::provider::PackProvider;
+use crate::core::main::general::variant::Variant;
 use crate::core::main::string::value::StringValue;
 use crate::core::traits::namespace::Namespace;
 
 pub mod empty;
 
 #[derive(Debug)]
-pub enum Operation {
-  Empty,
-  Value(String),
-  GetArgument {
-    name: String,
-    namespace: Namespace,
-  },
+pub struct Operation {
+  action: OperationAction,
+  variant: Variant,
 }
 
 impl Operation {
@@ -24,4 +21,14 @@ impl Operation {
       Self::GetArgument { name, namespace } => todo!(),
     }
   }
+}
+
+#[derive(Debug)]
+pub enum OperationAction {
+  Empty,
+  Value(String),
+  GetArgument {
+    name: String,
+    namespace: Namespace,
+  },
 }
