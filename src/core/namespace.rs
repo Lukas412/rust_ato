@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter};
+use std::fmt::{Display, Formatter, write};
 
 #[derive(Debug, Clone)]
 pub struct Namespace(String);
@@ -18,5 +18,14 @@ impl Default for Namespace {
 impl Display for Namespace {
   fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
     write!(f, "{}", self.0)
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct ParameterName(Namespace, String);
+
+impl Display for ParameterName {
+  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}.{}", self.0, self.1)
   }
 }
