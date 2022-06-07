@@ -6,7 +6,7 @@ use std::rc::Rc;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-use value::GeneralCreationValue;
+use value::CreationValue;
 
 use crate::{CreationStack, PackProvider};
 use crate::core::error::BuildError;
@@ -43,7 +43,7 @@ impl Creation {
   fn from_inner(inner: InnerCreation) -> Creation {
     let namespace = Namespace::new(inner.namespace);
     let operations =
-      HashMap::from_iter(inner.values.into_iter().map(GeneralCreationValue::to_name_and_operation));
+      HashMap::from_iter(inner.values.into_iter().map(CreationValue::to_name_and_operation));
     Creation { namespace, operations }
   }
 }
@@ -54,5 +54,5 @@ struct InnerCreation {
   #[yaserde(attribute)]
   namespace: String,
   #[yaserde(rename = "value")]
-  values: Vec<GeneralCreationValue>,
+  values: Vec<CreationValue>,
 }
