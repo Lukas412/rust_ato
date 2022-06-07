@@ -45,13 +45,3 @@ impl CreationStack {
     self.get_namespace().to_owned()
   }
 }
-
-impl ProvideOperationWithNamespace<StringOperation> for CreationStack {
-  type Value = StringValue;
-  fn operation(&self, namespace: &Namespace, name: &String) -> Result<StringOperation, BuildError> {
-    match self.requirement_box(namespace) {
-      Some(requirement_box) => requirement_box.operation(name),
-      None => Err(BuildError::new_operation_not_found_error(name.to_owned(), namespace.to_owned())),
-    }
-  }
-}
