@@ -49,7 +49,7 @@ impl Creation {
 }
 
 #[derive(Debug, Default, YaDeserialize)]
-#[yaserde(rename = "creation", prefix = "general", namespace = "general: http://www.ato.net/xmlns/general")]
+#[yaserde(rename = "creation")]
 struct InnerCreation {
   #[yaserde(attribute)]
   namespace: String,
