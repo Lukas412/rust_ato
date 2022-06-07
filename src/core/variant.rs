@@ -1,4 +1,11 @@
+use std::io::Read;
+
 use yaserde::__xml::name::OwnedName;
+use yaserde::__xml::reader::XmlEvent;
+use yaserde::de::Deserializer;
+use yaserde::YaDeserialize;
+
+use crate::core::parse::from_deserializer;
 
 #[derive(Debug)]
 pub enum Variant {
@@ -27,4 +34,19 @@ impl Variant {
       _ => Err(format!("UnknownXmlNamespace: '{}'", xml_namespace))
     }
   }
+}
+
+pub trait DeserializeWithVariant<I: YaDeserialize> {
+  fn from_deserializer<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
+    let peek = reader.peek()?;
+    if let XmlEvent::StartElement { name, .. } = peek {
+      let variant = Variant::from_owned_name(name)?;
+      let inner: I = from_deserializer(reader)?;
+      Self::from_inner(inner, variant)
+    } else {
+      Err(format!("ExpectStartElement: {:?}", peek))
+    }
+  }
+
+  fn from_inner(inner: I, variant: Variant) -> Result<Self, String>;
 }
