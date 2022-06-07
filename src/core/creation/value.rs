@@ -2,7 +2,6 @@ use std::rc::Rc;
 use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
-use crate::core::creation::InnerCreation;
 use crate::core::operation::Operation;
 use crate::core::parse::from_deserializer;
 use crate::core::variant::Variant;
@@ -26,7 +25,7 @@ impl CreationValue {
       match inner {
         InnerCreationValue { name, value: Some(value), .. } =>
           (name, Operation::new_value(value, variant)),
-        InnerCreationValue { name, creation: Some(creation), .. } if !elements.is_empty() =>
+        InnerCreationValue { name, creation: Some(creation), .. } =>
           (name, Operation::new_creation(creation, variant)),
         InnerCreationValue { name, .. } =>
           (name, Operation::new_empty(variant))
