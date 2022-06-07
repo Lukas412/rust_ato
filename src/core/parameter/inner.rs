@@ -1,4 +1,4 @@
-use crate::core::main::namespace::Namespace;
+use crate::core::namespace::Namespace;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "parameter")]

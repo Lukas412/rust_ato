@@ -1,11 +1,10 @@
-use crate::{BuildError, CreationStack, Creation};
-use crate::core::main::general::operation::empty::build_empty;
-use crate::core::main::general::operation::value::build_value;
-use crate::core::main::general::pack::provider::PackProvider;
-use crate::core::main::general::value::Value;
-use crate::core::main::general::variant::Variant;
-use crate::core::main::string::value::StringValue;
-use crate::core::main::namespace::Namespace;
+use crate::{CreationStack, PackProvider};
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
+use crate::core::operation::empty::build_empty;
+use crate::core::operation::value::build_value;
+use crate::core::value::Value;
+use crate::core::variant::Variant;
 
 pub mod empty;
 pub mod value;
@@ -43,4 +42,10 @@ pub enum OperationAction {
     #[yaserde(attribute)]
     namespace: Namespace,
   },
+}
+
+impl Default for OperationAction {
+  fn default() -> Self {
+    Self::Empty
+  }
 }

@@ -8,16 +8,12 @@ use yaserde::YaDeserialize;
 
 use value::GeneralCreationValue;
 
-use crate::core::main::creation::stack::CreationStack;
-use crate::core::main::error::BuildError;
-use crate::core::main::general::operation::Operation;
-use crate::core::main::general::pack::provider::PackProvider;
-use crate::core::main::namespace::Namespace;
-use crate::core::main::operation::Operation;
-use crate::core::main::pack::provider::PackProvider;
-use crate::core::main::string::value::StringValue;
-use crate::core::main::parse::from_deserializer;
-use crate::CreationStack;
+use crate::{CreationStack, PackProvider};
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
+use crate::core::operation::Operation;
+use crate::core::parse::from_deserializer;
+use crate::core::value::Value;
 
 pub mod value;
 pub mod stack;
@@ -29,7 +25,7 @@ pub struct Creation {
 }
 
 impl Creation {
-  pub fn build(self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<StringValue, BuildError> {
+  pub fn build(self, pack_provider: &PackProvider, requirements: &mut CreationStack) -> Result<Value, BuildError> {
     let pack = pack_provider.get_pack(&self.namespace)?;
     let operation = pack.operation();
     operation.build(pack_provider, requirements)

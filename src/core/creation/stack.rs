@@ -1,10 +1,8 @@
 use std::fmt::Display;
 
-use crate::{BuildError, Creation};
-use crate::core::main::string::operation::StringOperation;
-use crate::core::main::string::value::StringValue;
-use crate::core::main::namespace::{GetNamespace, Namespace};
-use crate::core::traits::operation::ProvideOperationWithNamespace;
+use crate::Creation;
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
 
 #[derive(Default)]
 pub struct CreationStack {

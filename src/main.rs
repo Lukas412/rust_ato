@@ -3,13 +3,11 @@ extern crate yaserde;
 extern crate yaserde_derive;
 
 use std::path::Path;
+
 use crate::core::creation::Creation;
 use crate::core::creation::stack::CreationStack;
 use crate::core::pack::provider::PackProvider;
 use crate::core::parse::from_file;
-
-
-use self::core::main::general::creation::Creation;
 
 mod core;
 

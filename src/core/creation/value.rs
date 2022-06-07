@@ -2,9 +2,9 @@ use std::rc::Rc;
 use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
-use crate::core::main::general::creation::InnerCreation;
-use crate::core::main::general::operation::Operation;
-use crate::core::main::parse::from_deserializer;
+use crate::core::creation::InnerCreation;
+use crate::core::operation::Operation;
+use crate::core::parse::from_deserializer;
 
 #[derive(Debug)]
 pub struct GeneralCreationValue {

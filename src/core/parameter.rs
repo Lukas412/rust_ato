@@ -5,10 +5,10 @@ use yaserde::__xml::reader::XmlEvent;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-use crate::core::main::general::parameter::inner::InnerParameter;
-use crate::core::main::general::variant::Variant;
-use crate::core::main::parse::from_deserializer;
-use crate::core::main::namespace::Namespace;
+use crate::core::namespace::Namespace;
+use crate::core::parameter::inner::InnerParameter;
+use crate::core::parse::from_deserializer;
+use crate::core::variant::Variant;
 
 pub mod inner;
 

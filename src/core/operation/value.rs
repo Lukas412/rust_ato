@@ -1,9 +1,10 @@
 use std::str::FromStr;
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
+use crate::core::value::{Data, Value};
+use crate::core::variant::Variant;
 
-use crate::{BuildError, CreationStack};
-use crate::core::main::general::value::{Data, Value};
-use crate::core::main::general::variant::Variant;
-use crate::core::main::namespace::{Namespace};
+use crate::CreationStack;
 
 pub fn build_value(variant: &Variant, stack: &CreationStack, text: &String) -> Result<Value, BuildError> {
   let data = get_data(variant, text, stack.get_namespace())?;
@@ -26,6 +27,6 @@ fn get_data(variant: &Variant, text: &String, namespace: &Namespace) -> Result<D
 fn from_text<T: FromStr>(text: &String, namespace: &Namespace) -> Result<T, BuildError> {
   match T::from_str(text) {
     Ok(result) => Ok(result),
-    Err(_) => BuildError::new_can_not_convert_text_to_value_error(&text, namespace.to_owned()),
+    Err(_) => Err(BuildError::new_can_not_convert_text_to_value_error(&text, namespace.to_owned())),
   }
 }

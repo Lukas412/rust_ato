@@ -1,7 +1,8 @@
-use crate::{BuildError, CreationStack, Creation};
-use crate::core::main::general::value::{Data, Value};
-use crate::core::main::general::variant::Variant;
-use crate::core::main::namespace::Namespace;
+use crate::CreationStack;
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
+use crate::core::value::Value;
+use crate::core::variant::Variant;
 
 pub fn build_get_argument(variant: &Variant, stack: &CreationStack, name: &String, namespace: &Namespace) -> Result<Value, BuildError> {
   let creation = stack.last()?;

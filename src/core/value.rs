@@ -1,9 +1,9 @@
-use std::fmt::{Display, Formatter, write};
+use std::fmt::{Display, Formatter};
 use std::path::PathBuf;
+use std::str::FromStr;
 use rust_decimal::Decimal;
-use crate::core::main::action::value::Action;
-
-use crate::core::main::namespace::Namespace;
+use crate::core::error::BuildError;
+use crate::core::namespace::Namespace;
 
 #[derive(Debug)]
 pub struct Value {
@@ -75,6 +75,14 @@ pub enum Action {
 impl Default for Action {
   fn default() -> Self {
     Self::None
+  }
+}
+
+impl FromStr for Action {
+  type Err = BuildError;
+
+  fn from_str(s: &str) -> Result<Self, Self::Err> {
+    Ok(Self::None)
   }
 }
 

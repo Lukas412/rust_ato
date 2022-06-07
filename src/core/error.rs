@@ -1,8 +1,5 @@
 use std::fmt::{Display, Formatter};
-
-use crate::BuildError::{OperationNotFound, UnknownXmlNamespace};
-use crate::core::main::error::BuildError::{Pack, Requirement, Value};
-use crate::core::main::namespace::Namespace;
+use crate::core::namespace::Namespace;
 
 pub struct BuildError {
   message: String,
@@ -29,6 +26,11 @@ impl BuildError {
   pub fn new_creation_stack_empty_error() -> Self {
     let message = "CreationStackEmpty".to_owned();
     let namespace = Namespace::default();
+    Self::new(message, namespace)
+  }
+
+  pub fn new_pack_not_found_error(namespace: Namespace) -> Self {
+    let message = format!("PackNotFound: {namespace}");
     Self::new(message, namespace)
   }
 }
