@@ -6,3 +6,4 @@ pub mod pack;
 pub mod operation;
 pub mod variant;
 pub mod namespace;
+pub mod error;

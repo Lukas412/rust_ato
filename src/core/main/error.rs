@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter};
 
 use crate::BuildError::{OperationNotFound, UnknownXmlNamespace};
-use crate::core::build::error::BuildError::{Pack, Requirement, Value};
+use crate::core::main::error::BuildError::{Pack, Requirement, Value};
 use crate::core::main::namespace::Namespace;
 
 pub struct BuildError {

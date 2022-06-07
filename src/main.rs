@@ -3,7 +3,7 @@ extern crate yaserde;
 extern crate yaserde_derive;
 
 use std::path::Path;
-use crate::core::build::error::BuildError;
+use self::core::main::error::BuildError;
 use self::core::main::general::pack::provider::PackProvider;
 use self::core::main::general::creation::stack::CreationStack;
 use crate::core::parse::from_file;

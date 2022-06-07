@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use crate::core::build::error::BuildError;
+use crate::core::main::error::BuildError;
 use crate::core::main::general::value::{Action, Data, Value};
 use crate::core::main::general::variant::Variant;
 use crate::core::main::namespace::GetNamespace;
