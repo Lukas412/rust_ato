@@ -35,11 +35,3 @@ impl Display for StringGetArgumentOperation {
     write!(f, "<string:get_argument namespace=\"{}\" name=\"{}\"/>", &self.namespace, &self.name)
   }
 }
-
-impl GetBuildError for StringGetArgumentOperation {
-  fn build_error(&self) -> BuildError {
-    let name = self.name.to_owned();
-    let namespace = Namespace::new(self.namespace.to_owned());
-    BuildError::new_operation_not_found_error(name, namespace)
-  }
-}
