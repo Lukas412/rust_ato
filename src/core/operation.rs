@@ -1,4 +1,4 @@
-use crate::{CreationStack, PackProvider};
+use crate::{Creation, CreationStack, PackProvider};
 use crate::core::error::BuildError;
 use crate::core::namespace::ParameterName;
 use crate::core::operation::empty::build_empty;
@@ -22,13 +22,18 @@ impl Operation {
     Self::new(action, variant)
   }
 
+  pub fn new_creation(creation: Creation, variant: Variant) -> Self {
+    let action = OperationAction::Creation(creation);
+    Self::new(action, variant)
+  }
+
   pub fn new_value(text: String, variant: Variant) -> Self {
-    let action = OperationAction::Value { text };
+    let action = OperationAction::Value(text);
     Self::new(action, variant)
   }
 
   pub fn new_get_argument(name: ParameterName, variant: Variant) -> Self {
-    let action = OperationAction::GetArgument { name };
+    let action = OperationAction::GetArgument(name);
     Self::new(action, variant)
   }
 
@@ -41,8 +46,9 @@ impl Operation {
   fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     match &self.action {
       OperationAction::Empty => build_empty(&self.variant, stack),
-      OperationAction::Value { text } => build_value(&self.variant, stack, text),
-      OperationAction::GetArgument { name } => todo!(),
+      OperationAction::Creation(creation) => creation.build(pack_provider, stack),
+      OperationAction::Value(text) => build_value(&self.variant, stack, text),
+      OperationAction::GetArgument(name) => todo!(),
     }
   }
 }
@@ -50,8 +56,9 @@ impl Operation {
 #[derive(Debug)]
 pub enum OperationAction {
   Empty,
-  Value { text: String },
-  GetArgument { name: ParameterName },
+  Creation(Creation),
+  Value(String),
+  GetArgument(ParameterName),
 }
 
 impl Default for OperationAction {
