@@ -3,7 +3,7 @@ use std::fmt::Display;
 use crate::{BuildError, Creation};
 use crate::core::main::string::operation::StringOperation;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::namespace::{GetNamespace, Namespace};
+use crate::core::main::namespace::{GetNamespace, Namespace};
 use crate::core::traits::operation::ProvideOperationWithNamespace;
 
 #[derive(Default)]

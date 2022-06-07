@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use crate::core::build::error::BuildError;
 use crate::core::main::general::value::{Action, Data, Value};
 use crate::core::main::general::variant::Variant;
-use crate::core::traits::namespace::GetNamespace;
+use crate::core::main::namespace::GetNamespace;
 use crate::CreationStack;
 
 pub fn build_empty(variant: &Variant, stack: &CreationStack) -> Result<Value, BuildError> {

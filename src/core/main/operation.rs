@@ -5,7 +5,7 @@ use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::general::value::Value;
 use crate::core::main::general::variant::Variant;
 use crate::core::main::string::value::StringValue;
-use crate::core::traits::namespace::Namespace;
+use crate::core::main::namespace::Namespace;
 
 pub mod empty;
 pub mod value;

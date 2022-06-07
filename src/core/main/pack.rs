@@ -1,6 +1,6 @@
 use crate::core::main::general::operation::Operation;
 use crate::core::main::general::parameter::Parameters;
-use crate::core::traits::namespace::Namespace;
+use crate::core::main::namespace::Namespace;
 
 pub mod provider;
 

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 use crate::core::main::general::pack::Pack;
 
-use crate::core::traits::namespace::Namespace;
+use crate::core::main::namespace::Namespace;
 
 pub struct PackProvider {
   packs: HashMap<Namespace, Pack>,

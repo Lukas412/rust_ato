@@ -3,7 +3,7 @@ use std::str::FromStr;
 use crate::{BuildError, CreationStack};
 use crate::core::main::general::value::{Data, Value};
 use crate::core::main::general::variant::Variant;
-use crate::core::traits::namespace::{Namespace};
+use crate::core::main::namespace::{Namespace};
 
 pub fn build_value(variant: &Variant, stack: &CreationStack, text: &String) -> Result<Value, BuildError> {
   let data = get_data(variant, text, stack.get_namespace())?;

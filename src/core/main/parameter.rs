@@ -8,7 +8,7 @@ use yaserde::YaDeserialize;
 use crate::core::main::general::parameter::inner::InnerParameter;
 use crate::core::main::general::variant::Variant;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::namespace::Namespace;
+use crate::core::main::namespace::Namespace;
 
 pub mod inner;
 

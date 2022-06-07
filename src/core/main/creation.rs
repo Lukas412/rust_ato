@@ -13,7 +13,7 @@ use crate::core::main::general::operation::Operation;
 use crate::core::main::general::pack::provider::PackProvider;
 use crate::core::main::string::value::StringValue;
 use crate::core::parse::from_deserializer;
-use crate::core::traits::namespace::Namespace;
+use crate::core::main::namespace::Namespace;
 use crate::CreationStack;
 
 pub mod value;
