@@ -6,7 +6,7 @@ use std::path::Path;
 use self::core::main::error::BuildError;
 use self::core::main::general::pack::provider::PackProvider;
 use self::core::main::general::creation::stack::CreationStack;
-use crate::core::parse::from_file;
+use self::core::main::parse::from_file;
 
 
 use self::core::main::general::creation::Creation;
