@@ -1,6 +1,6 @@
 use crate::{CreationStack, PackProvider};
 use crate::core::error::BuildError;
-use crate::core::namespace::Namespace;
+use crate::core::namespace::ParameterName;
 use crate::core::operation::empty::build_empty;
 use crate::core::operation::value::build_value;
 use crate::core::value::Value;
@@ -17,31 +17,41 @@ pub struct Operation {
 }
 
 impl Operation {
+  pub fn new_empty(variant: Variant) -> Self {
+    let action = OperationAction::Empty;
+    Self::new(action, variant)
+  }
+
+  pub fn new_value(text: String, variant: Variant) -> Self {
+    let action = OperationAction::Value { text };
+    Self::new(action, variant)
+  }
+
+  pub fn new_get_argument(name: ParameterName, variant: Variant) -> Self {
+    let action = OperationAction::GetArgument { name };
+    Self::new(action, variant)
+  }
+
+  fn new(action: OperationAction, variant: Variant) -> Self {
+    Self { action, variant }
+  }
+}
+
+impl Operation {
   fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     match &self.action {
       OperationAction::Empty => build_empty(&self.variant, stack),
       OperationAction::Value { text } => build_value(&self.variant, stack, text),
-      OperationAction::GetArgument { name, namespace } => todo!(),
+      OperationAction::GetArgument { name } => todo!(),
     }
   }
 }
 
-#[derive(Debug, YaDeserialize)]
+#[derive(Debug)]
 pub enum OperationAction {
-  #[yaserde(rename = "empty")]
   Empty,
-  #[yaserde(rename = "value")]
-  Value {
-    #[yaserde(text)]
-    text: String,
-  },
-  #[yaserde(rename = "get_argument")]
-  GetArgument {
-    #[yaserde(attribute)]
-    name: String,
-    #[yaserde(attribute)]
-    namespace: Namespace,
-  },
+  Value { text: String },
+  GetArgument { name: ParameterName },
 }
 
 impl Default for OperationAction {
