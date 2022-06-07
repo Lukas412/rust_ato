@@ -6,5 +6,5 @@ use crate::core::variant::Variant;
 
 pub fn build_get_argument(variant: &Variant, stack: &CreationStack, name: &String, namespace: &Namespace) -> Result<Value, BuildError> {
   let creation = stack.last()?;
-  todo!()
+  creation.operation()
 }

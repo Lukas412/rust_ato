@@ -10,11 +10,11 @@ use crate::Creation;
 #[derive(Debug)]
 pub struct CreationValue {
   name: String,
-  operation: Operation,
+  operation: Rc<Operation>,
 }
 
 impl CreationValue {
-  pub fn to_name_and_operation(self) -> (String, Operation) {
+  pub fn to_name_and_rc_operation(self) -> (String, Rc<Operation>) {
     (self.name, self.operation)
   }
 }
@@ -27,7 +27,7 @@ impl YaDeserialize for CreationValue {
 
 impl DeserializeWithVariant<InnerCreationValue> for CreationValue {
   fn from_inner(inner: InnerCreationValue, variant: Variant) -> Result<Self, String> {
-    let (name, operation) = inner.to_name_and_operation(variant);
+    let (name, operation) = inner.to_name_and_rc_operation(variant);
     Ok(Self { name, operation })
   }
 }
@@ -44,7 +44,7 @@ struct InnerCreationValue {
 }
 
 impl InnerCreationValue {
-  fn to_name_and_operation(self, variant: Variant) -> (String, Operation) {
+  fn to_name_and_rc_operation(self, variant: Variant) -> (String, Rc<Operation>) {
     let (name, operation) =
       match inner {
         InnerCreationValue { name, value: Some(value), .. } =>
@@ -54,6 +54,6 @@ impl InnerCreationValue {
         InnerCreationValue { name, .. } =>
           (name, Operation::new_empty(variant))
       };
-    (name, operation)
+    (name, Rc::new(operation))
   }
 }

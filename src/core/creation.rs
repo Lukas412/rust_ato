@@ -43,7 +43,7 @@ impl Creation {
   fn from_inner(inner: InnerCreation) -> Creation {
     let namespace = Namespace::new(inner.namespace);
     let operations =
-      HashMap::from_iter(inner.values.into_iter().map(CreationValue::to_name_and_operation));
+      HashMap::from_iter(inner.values.into_iter().map(CreationValue::to_name_and_rc_operation));
     Creation { namespace, operations }
   }
 }
