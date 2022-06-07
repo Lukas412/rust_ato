@@ -5,6 +5,8 @@ use yaserde::de::Deserializer;
 use crate::core::creation::InnerCreation;
 use crate::core::operation::Operation;
 use crate::core::parse::from_deserializer;
+use crate::core::variant::Variant;
+use crate::Creation;
 
 #[derive(Debug)]
 pub struct CreationValue {
@@ -19,15 +21,15 @@ impl CreationValue {
 }
 
 impl CreationValue {
-  fn from_inner(inner: InnerCreationValue) -> Self {
+  fn from_inner(inner: InnerCreationValue, variant: Variant) -> Self {
     let (name, operation) =
       match inner {
         InnerCreationValue { name, value: Some(value), .. } =>
-          (name, Operation::Value(value)),
-        InnerCreationValue { name, elements, .. } if !elements.is_empty() =>
-          (name, Operation::Operation(elements)),
+          (name, Operation::new_value(value, variant)),
+        InnerCreationValue { name, creation: Some(creation), .. } if !elements.is_empty() =>
+          (name, Operation::new_creation(creation, variant)),
         InnerCreationValue { name, .. } =>
-          (name, Operation::Empty)
+          (name, Operation::new_empty(variant))
       };
     Self { name, operation }
   }
@@ -35,6 +37,7 @@ impl CreationValue {
 
 impl YaDeserialize for CreationValue {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
+    let variant = Variant::from_owned_name();
     let inner: InnerCreationValue = from_deserializer(reader)?;
     Ok(Self::from_inner(inner))
   }
@@ -48,5 +51,5 @@ struct InnerCreationValue {
   #[yaserde(attribute)]
   value: Option<String>,
   #[yaserde(rename = "creation")]
-  elements: Vec<InnerCreation>,
+  creation: Option<Creation>,
 }
