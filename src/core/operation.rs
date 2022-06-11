@@ -2,6 +2,7 @@ use crate::{Creation, CreationStack, PackProvider};
 use crate::core::error::BuildError;
 use crate::core::namespace::ParameterName;
 use crate::core::operation::empty::build_empty;
+use crate::core::operation::get_argument::build_get_argument;
 use crate::core::operation::value::build_value;
 use crate::core::value::Value;
 use crate::core::variant::Variant;
@@ -48,7 +49,7 @@ impl Operation {
       OperationAction::Empty => build_empty(&self.variant, stack),
       OperationAction::Creation(creation) => creation.build(pack_provider, stack),
       OperationAction::Value(text) => build_value(&self.variant, stack, text),
-      OperationAction::GetArgument(name) => todo!(),
+      OperationAction::GetArgument(name) => build_get_argument(&self.variant, stack, name),
     }
   }
 }

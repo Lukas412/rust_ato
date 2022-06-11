@@ -21,7 +21,7 @@ pub mod stack;
 #[derive(Debug, Default)]
 pub struct Creation {
   namespace: Namespace,
-  operations: HashMap<String, Rc<Operation>>,
+  operations: HashMap<String, Operation>,
 }
 
 impl Creation {
@@ -29,6 +29,10 @@ impl Creation {
     let pack = pack_provider.get_pack(&self.namespace)?;
     let operation = pack.operation();
     operation.build(pack_provider, stack)
+  }
+
+  pub fn get_operation(&self, name: &String) -> Option<&Operation> {
+    self.operations.get(name)
   }
 }
 
@@ -43,7 +47,7 @@ impl Creation {
   fn from_inner(inner: InnerCreation) -> Creation {
     let namespace = Namespace::new(inner.namespace);
     let operations =
-      HashMap::from_iter(inner.values.into_iter().map(CreationValue::to_name_and_rc_operation));
+      HashMap::from_iter(inner.values.into_iter().map(CreationValue::to_name_and_operation));
     Creation { namespace, operations }
   }
 }

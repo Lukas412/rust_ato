@@ -24,6 +24,16 @@ impl Display for Namespace {
 #[derive(Debug, Clone, Default)]
 pub struct ParameterName(Namespace, String);
 
+impl ParameterName {
+  pub fn get_namespace(&self) -> &Namespace {
+    &self.0
+  }
+
+  pub fn get_name(&self) -> &String {
+    &self.1
+  }
+}
+
 impl Display for ParameterName {
   fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
     write!(f, "{}.{}", self.0, self.1)
