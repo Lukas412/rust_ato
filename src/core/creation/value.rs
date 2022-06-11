@@ -10,11 +10,11 @@ use crate::Creation;
 #[derive(Debug)]
 pub struct CreationValue {
   name: String,
-  operation: Rc<Operation>,
+  operation: Operation,
 }
 
 impl CreationValue {
-  pub fn to_name_and_rc_operation(self) -> (String, Rc<Operation>) {
+  pub fn to_name_and_operation(self) -> (String, Operation) {
     (self.name, self.operation)
   }
 }
@@ -44,7 +44,7 @@ struct InnerCreationValue {
 }
 
 impl InnerCreationValue {
-  fn to_name_and_rc_operation(self, variant: Variant) -> (String, Rc<Operation>) {
+  fn to_name_and_rc_operation(self, variant: Variant) -> (String, Operation) {
     let (name, operation) =
       match inner {
         InnerCreationValue { name, value: Some(value), .. } =>
@@ -54,6 +54,6 @@ impl InnerCreationValue {
         InnerCreationValue { name, .. } =>
           (name, Operation::new_empty(variant))
       };
-    (name, Rc::new(operation))
+    (name, operation)
   }
 }
