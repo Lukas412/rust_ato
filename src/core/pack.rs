@@ -9,3 +9,9 @@ struct Pack {
   parameters: Parameters,
   operation: Operation,
 }
+
+impl Pack {
+  pub fn get_operation(&self) -> &Operation {
+    &self.operation
+  }
+}
