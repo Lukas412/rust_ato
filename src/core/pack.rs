@@ -1,10 +1,11 @@
 use std::collections::HashMap;
 use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
-use walkdir::{WalkDir, DirEntry};
+use walkdir::{DirEntry, WalkDir};
 use crate::core::namespace::Namespace;
 use crate::core::operation::Operation;
 use crate::core::parameter::Parameters;
+use crate::common::ends_with::EndsWithStr;
 use crate::from_file;
 
 pub mod provider;
@@ -41,6 +42,6 @@ impl Pack {
 
   fn is_pack_path(path: &PathBuf) -> bool {
     let extensions = [".action.xml", ".boolean.xml", ".number.xml", ".path.xml", ".string.xml"];
-    extensions.iter().map(path.ends_with_str).any()
+    extensions.iter().map(|extension| path.ends_with_str(extension)).any()
   }
 }
