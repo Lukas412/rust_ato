@@ -26,12 +26,16 @@ pub struct Creation {
 impl Creation {
   pub fn build(self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     let pack = pack_provider.get_pack(&self.namespace)?;
-    let operation = pack.operation();
+    let operation = pack.get_operation();
     operation.build(pack_provider, stack)
   }
 
   pub fn get_operation(&self, name: &String) -> Option<&Operation> {
     self.operations.get(name)
+  }
+
+  pub fn get_namespace(&self) -> &Namespace {
+    &self.namespace
   }
 }
 

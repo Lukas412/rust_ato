@@ -1,11 +1,5 @@
-use std::io::Read;
-
 use yaserde::__xml::name::OwnedName;
-use yaserde::__xml::reader::XmlEvent;
-use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
-
-use crate::core::parse::from_deserializer;
 
 #[derive(Debug)]
 pub enum Variant {

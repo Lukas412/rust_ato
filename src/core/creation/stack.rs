@@ -35,14 +35,14 @@ impl CreationStack {
 impl CreationStack {
   fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
     self.stack.iter()
-      .filter(|requirement_box| requirement_box.get_namespace() == namespace)
+      .filter(|creation| *creation.get_namespace() == *namespace)
       .next()
   }
 
   pub fn get_namespace(&self) -> &Namespace {
     match self.stack.last() {
       Some(last) => last.get_namespace(),
-      None => &self.namespace,
+      None => &Namespace::default(),
     }
   }
 
