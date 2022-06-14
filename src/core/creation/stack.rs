@@ -30,14 +30,6 @@ impl CreationStack {
     let namespace = self.get_namespace();
     format!("at {} in {}", element, namespace)
   }
-}
-
-impl CreationStack {
-  fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
-    self.stack.iter()
-      .filter(|creation| *creation.get_namespace() == *namespace)
-      .next()
-  }
 
   pub fn get_namespace(&self) -> &Namespace {
     match self.stack.last() {
@@ -48,5 +40,13 @@ impl CreationStack {
 
   pub fn get_owned_namespace(&self) -> Namespace {
     self.get_namespace().to_owned()
+  }
+}
+
+impl CreationStack {
+  fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
+    self.stack.iter()
+      .filter(|creation| *creation.get_namespace() == *namespace)
+      .next()
   }
 }
