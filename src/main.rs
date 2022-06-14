@@ -1,6 +1,8 @@
 extern crate yaserde;
 #[macro_use]
 extern crate yaserde_derive;
+extern crate walkdir;
+extern crate rust_decimal;
 
 use std::path::Path;
 
