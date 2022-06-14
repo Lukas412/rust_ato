@@ -32,11 +32,12 @@ impl CreationStack {
 }
 
 impl CreationStack {
-  pub fn get_operation(&self, name: &ParameterName) -> Option<&Operation> {
-    let creation = self.get_creation(name.get_namespace());
+  pub fn get_operation(&self, name: &ParameterName) -> Result<&Operation, BuildError> {
+    let namespace = name.get_namespace();
+    let creation = self.get_creation(namespace);
     match creation {
       Some(creation) => creation.get_operation(name.get_name()),
-      None => None,
+      None => Err(BuildError::new_operation_not_found_error(name.get_name(), namespace.to_owned())),
     }
   }
 

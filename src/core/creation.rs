@@ -5,14 +5,14 @@ use std::iter::FromIterator;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-use value::CreationValue;
+use core::creation::value::CreationValue;
+use core::error::BuildError;
+use core::namespace::Namespace;
+use core::operation::Operation;
+use core::parse::from_deserializer;
+use core::value::Value;
 
 use crate::{CreationStack, PackProvider};
-use crate::core::error::BuildError;
-use crate::core::namespace::Namespace;
-use crate::core::operation::Operation;
-use crate::core::parse::from_deserializer;
-use crate::core::value::Value;
 
 pub mod value;
 pub mod stack;
@@ -34,8 +34,11 @@ impl Creation {
     operation.build(pack_provider, stack)
   }
 
-  pub fn get_operation(&self, name: &String) -> Option<&Operation> {
-    self.operations.get(name)
+  pub fn get_operation(&self, name: &String) -> Result<&Operation, BuildError> {
+    match self.operations.get(name) {
+      Some(operation) => Ok(operation),
+      None => Err(BuildError::new_operation_not_found_error(name, self.namespace.to_owned())),
+    }
   }
 
   pub fn get_namespace(&self) -> &Namespace {
