@@ -1,9 +1,10 @@
 use std::fmt::Display;
 
-use crate::Creation;
+use crate::{Creation, PackProvider};
 use crate::core::error::BuildError;
 use crate::core::namespace::{Namespace, ParameterName};
 use crate::core::operation::Operation;
+use crate::core::value::Value;
 
 #[derive(Default)]
 pub struct CreationStack {
@@ -18,6 +19,19 @@ impl CreationStack {
     }
   }
 
+  pub fn push(&mut self, creation: Creation) {
+    self.stack.push(creation)
+  }
+
+  pub fn pop(&mut self) -> Result<(), BuildError> {
+    match self.stack.pop() {
+      Some(_) => Ok(()),
+      None => Err(BuildError::new_creation_stack_empty_error()),
+    }
+  }
+}
+
+impl CreationStack {
   pub fn get_operation(&self, name: &ParameterName) -> Option<&Operation> {
     let creation = self.get_creation(name.get_namespace());
     match creation {
@@ -40,6 +54,13 @@ impl CreationStack {
 
   pub fn get_owned_namespace(&self) -> Namespace {
     self.get_namespace().to_owned()
+  }
+
+  pub fn build_on_stack(&mut self, creation: Creation, pack_provider: &PackProvider) -> Result<Value, BuildError> {
+    self.push(creation);
+    let result = self.last()?.build_on_stack(pack_provider, self);
+    self.pop()?;
+    result
   }
 }
 
