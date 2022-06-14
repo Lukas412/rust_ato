@@ -42,6 +42,6 @@ impl Pack {
 
   fn is_pack_path(path: &PathBuf) -> bool {
     let extensions = [".action.xml", ".boolean.xml", ".number.xml", ".path.xml", ".string.xml"];
-    extensions.iter().map(|extension| path.ends_with_str(extension)).any()
+    extensions.iter().any(|extension| path.ends_with_str(extension))
   }
 }
