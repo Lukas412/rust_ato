@@ -1,11 +1,13 @@
 use std::collections::HashMap;
 use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
+
 use walkdir::{DirEntry, WalkDir};
+
+use crate::common::ends_with::EndsWithStr;
 use crate::core::namespace::Namespace;
 use crate::core::operation::Operation;
 use crate::core::parameter::Parameters;
-use crate::common::ends_with::EndsWithStr;
 use crate::from_file;
 
 pub mod provider;
@@ -23,7 +25,7 @@ impl Pack {
         .into_iter()
         .filter_map(Result::ok)
         .map(DirEntry::into_path)
-        .filter(Self::is_pack_path)
+        .filter(is_pack_path)
         .map(from_file)
         .filter_map(Result::ok)
         .map(|pack: Self| (pack.get_owned_namespace(), pack));
@@ -39,9 +41,9 @@ impl Pack {
   fn get_owned_namespace(&self) -> Namespace {
     self.namespace.to_owned()
   }
+}
 
-  fn is_pack_path(path: &PathBuf) -> bool {
-    let extensions = [".action.xml", ".boolean.xml", ".number.xml", ".path.xml", ".string.xml"];
-    extensions.iter().any(|extension| path.ends_with_str(extension))
-  }
+fn is_pack_path(path: &PathBuf) -> bool {
+  let extensions = [".action.xml", ".boolean.xml", ".number.xml", ".path.xml", ".string.xml"];
+  extensions.iter().any(|extension| path.ends_with_str(extension))
 }
