@@ -1,9 +1,11 @@
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
+use yaserde::__xml::reader::XmlEvent;
 
 use yaserde::de::{Deserializer, from_reader};
 use yaserde::YaDeserialize;
+use crate::core::variant::{DeserializeWithVariant, Variant};
 
 pub fn from_file<T: YaDeserialize, P: AsRef<Path>>(file: P) -> Result<T, String> {
   match File::open(file) {
@@ -14,4 +16,17 @@ pub fn from_file<T: YaDeserialize, P: AsRef<Path>>(file: P) -> Result<T, String>
 
 pub fn from_deserializer<R: Read, T: YaDeserialize>(reader: &mut Deserializer<R>) -> Result<T, String> {
   <T as YaDeserialize>::deserialize(reader)
+}
+
+pub fn from_deserializer_with_variant<R, T>(reader: &mut Deserializer<R>) -> Result<T, String>
+  where R: Read, T: DeserializeWithVariant
+{
+  let peek = reader.peek()?;
+  if let XmlEvent::StartElement { name, .. } = peek {
+    let variant = Variant::from_owned_name(name)?;
+    let inner: T::Inner = from_deserializer(reader)?;
+    T::from_inner(inner, variant)
+  } else {
+    Err(format!("ExpectStartElement: {:?}", peek))
+  }
 }

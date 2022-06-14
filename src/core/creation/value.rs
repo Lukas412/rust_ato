@@ -2,6 +2,7 @@ use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
 use crate::core::operation::Operation;
+use crate::core::parse::from_deserializer_with_variant;
 use crate::core::variant::{DeserializeWithVariant, Variant};
 use crate::Creation;
 
@@ -19,11 +20,13 @@ impl CreationValue {
 
 impl YaDeserialize for CreationValue {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    CreationValue::from_deserializer(reader)
+    from_deserializer_with_variant(reader)
   }
 }
 
-impl DeserializeWithVariant<InnerCreationValue> for CreationValue {
+impl DeserializeWithVariant for CreationValue {
+  type Inner = InnerCreationValue;
+
   fn from_inner(inner: InnerCreationValue, variant: Variant) -> Result<Self, String> {
     let (name, operation) = inner.to_name_and_rc_operation(variant);
     Ok(Self { name, operation })
