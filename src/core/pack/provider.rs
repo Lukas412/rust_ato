@@ -10,7 +10,7 @@ pub struct PackProvider {
 
 impl PackProvider {
   pub fn from_root<P: AsRef<Path> + ?Sized>(root: &P) -> Self {
-    let packs = Pack::from_root(root);
+    let packs = Pack::all_from_root(root);
     Self { packs }
   }
 

@@ -10,6 +10,7 @@ use crate::core::pack::provider::PackProvider;
 use crate::core::parse::from_file;
 
 mod core;
+mod common;
 
 fn main() {
   let pack_provider = PackProvider::from_root("src/bundles");
