@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::io::Read;
 use std::iter::FromIterator;
-use std::rc::Rc;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;

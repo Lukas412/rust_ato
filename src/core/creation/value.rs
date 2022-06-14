@@ -1,9 +1,7 @@
-use std::rc::Rc;
 use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
 use crate::core::operation::Operation;
-use crate::core::parse::from_deserializer;
 use crate::core::variant::{DeserializeWithVariant, Variant};
 use crate::Creation;
 
@@ -46,7 +44,7 @@ struct InnerCreationValue {
 impl InnerCreationValue {
   fn to_name_and_rc_operation(self, variant: Variant) -> (String, Operation) {
     let (name, operation) =
-      match inner {
+      match self {
         InnerCreationValue { name, value: Some(value), .. } =>
           (name, Operation::new_value(value, variant)),
         InnerCreationValue { name, creation: Some(creation), .. } =>
