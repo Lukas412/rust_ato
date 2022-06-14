@@ -66,6 +66,11 @@ impl CreationStack {
 
 impl CreationStack {
   fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
-    self.stack.iter().filter(|creation| *creation.get_namespace() == *namespace).next()
+    for creation in self.stack.iter() {
+      if creation.get_namespace() == namespace {
+        return Some(creation)
+      }
+    }
+    None
   }
 }
