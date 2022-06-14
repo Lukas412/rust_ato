@@ -12,7 +12,10 @@ use crate::from_file;
 
 pub mod provider;
 
+#[derive(Debug, Default, YaDeserialize)]
+#[yaserde(rename = "pack")]
 struct Pack {
+  #[yaserde(attribute)]
   namespace: Namespace,
   parameters: Parameters,
   operation: Operation,

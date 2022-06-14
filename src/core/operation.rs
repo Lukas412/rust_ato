@@ -11,7 +11,7 @@ pub mod empty;
 pub mod value;
 pub mod get_argument;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Operation {
   action: OperationAction,
   variant: Variant,
@@ -54,7 +54,7 @@ impl Operation {
   }
 
   pub fn is_variant(&self, variant: &Variant) -> bool {
-    self.variant == variant
+    &self.variant == variant
   }
 }
 

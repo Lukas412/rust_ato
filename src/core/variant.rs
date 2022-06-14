@@ -1,8 +1,9 @@
 use yaserde::__xml::name::OwnedName;
 use yaserde::YaDeserialize;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Variant {
+  None,
   Action,
   Boolean,
   Number,
@@ -10,11 +11,17 @@ pub enum Variant {
   String,
 }
 
+impl Default for Variant {
+  fn default() -> Self {
+    Self::None
+  }
+}
+
 impl Variant {
   pub fn from_owned_name(name: &OwnedName) -> Result<Self, String> {
     match &name.namespace {
       Some(xml_namespace) => Self::from_xml_namespace(xml_namespace),
-      None => Err(format!("NoXmlNamespace"))
+      None => Err("NoXmlNamespace".to_owned())
     }
   }
 

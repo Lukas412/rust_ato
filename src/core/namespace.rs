@@ -31,7 +31,7 @@ impl YaDeserialize for Namespace {
     if let XmlEvent::Characters(text) = next {
       Ok(Namespace::new(text))
     } else {
-      Err(format!("Expected TextEvent: {next}"))
+      Err(format!("Expected TextEvent: {next:?}"))
     }
   }
 }
