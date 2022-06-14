@@ -45,8 +45,6 @@ impl CreationStack {
 
 impl CreationStack {
   fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
-    self.stack.iter()
-      .filter(|creation| *creation.get_namespace() == *namespace)
-      .next()
+    self.stack.iter().filter(|creation| *creation.get_namespace() == *namespace).next()
   }
 }
