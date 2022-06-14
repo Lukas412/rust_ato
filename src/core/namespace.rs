@@ -1,4 +1,8 @@
 use std::fmt::{Display, Formatter};
+use std::io::Read;
+use yaserde::__xml::reader::XmlEvent;
+use yaserde::de::Deserializer;
+use yaserde::YaDeserialize;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Namespace(String);
@@ -18,6 +22,17 @@ impl Default for Namespace {
 impl Display for Namespace {
   fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
     write!(f, "{}", self.0)
+  }
+}
+
+impl YaDeserialize for Namespace {
+  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
+    let next = reader.next_event()?;
+    if let XmlEvent::Characters(text) = next {
+      Ok(Namespace::new(text))
+    } else {
+      Err(format!("Expected TextEvent: {next}"))
+    }
   }
 }
 
