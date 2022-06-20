@@ -81,7 +81,7 @@ impl Default for Action {
 impl FromStr for Action {
   type Err = BuildError;
 
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
+  fn from_str(_: &str) -> Result<Self, Self::Err> {
     Ok(Self::None)
   }
 }

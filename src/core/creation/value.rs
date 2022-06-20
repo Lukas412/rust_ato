@@ -1,8 +1,6 @@
 use yaserde::YaDeserialize;
 use std::io::Read;
 use yaserde::de::Deserializer;
-use core::operation::action;
-use core::operation::action::OperationAction;
 use crate::core::operation::Operation;
 use crate::core::parse::from_deserializer_with_variant;
 use crate::core::variant::{DeserializeWithVariant, Variant};

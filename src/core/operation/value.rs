@@ -20,6 +20,7 @@ fn get_data(variant: &Variant, text: &String, namespace: &Namespace) -> Result<D
       Variant::Number => Data::Number(from_text(text, namespace)?),
       Variant::Path => Data::Path(from_text(text, namespace)?),
       Variant::String => Data::String(from_text(text, namespace)?),
+      Variant::None => Data::None
     };
   Ok(data)
 }

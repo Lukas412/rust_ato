@@ -11,6 +11,7 @@ pub fn build_empty(variant: &Variant, stack: &CreationStack) -> Result<Value, Bu
       Variant::Number => Data::Number(create_default()),
       Variant::Path => Data::Path(create_default()),
       Variant::String => Data::String(create_default()),
+      Variant::None => Data::None
     };
   let namespace = stack.get_owned_namespace();
   Ok(Value::new(data, namespace))
