@@ -42,24 +42,22 @@ impl CreationStack {
   }
 
   pub fn backtrace<T: Display>(&self, element: T) -> String {
-    let namespace = self.get_namespace();
-    format!("at {} in {}", element, namespace)
-  }
-
-  pub fn get_namespace(&self) -> &Namespace {
-    match self.stack.last() {
-      Some(last) => last.get_namespace(),
-      None => &Namespace::default(),
-    }
+    let namespace = self.get_owned_namespace();
+    format!("at {element} in {namespace}")
   }
 
   pub fn get_owned_namespace(&self) -> Namespace {
-    self.get_namespace().to_owned()
+    let creation = self.stack.last();
+    match creation {
+      Some(last) => last.get_owned_namespace(),
+      None => Namespace::default(),
+    }
   }
 
   pub fn build_on_stack(&mut self, creation: Creation, pack_provider: &PackProvider) -> Result<Value, BuildError> {
     self.push(creation);
-    let result = self.last()?.build_on_stack(pack_provider, self);
+    let creation = self.last()?;
+    let result = creation.build_on_stack(pack_provider, self);
     self.pop()?;
     result
   }
@@ -68,7 +66,7 @@ impl CreationStack {
 impl CreationStack {
   fn get_creation(&self, namespace: &Namespace) -> Option<&Creation> {
     for creation in self.stack.iter() {
-      if creation.get_namespace() == namespace {
+      if &creation.get_owned_namespace() == namespace {
         return Some(creation)
       }
     }

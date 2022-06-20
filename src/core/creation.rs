@@ -41,8 +41,8 @@ impl Creation {
     }
   }
 
-  pub fn get_namespace(&self) -> &Namespace {
-    &self.namespace
+  pub fn get_owned_namespace(&self) -> Namespace {
+    self.namespace.to_owned()
   }
 }
 
