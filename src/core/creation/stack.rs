@@ -57,7 +57,9 @@ impl CreationStack {
   pub fn build_on_stack(&mut self, creation: Creation, pack_provider: &PackProvider) -> Result<Value, BuildError> {
     self.push(creation);
     let creation = self.last()?;
-    let result = creation.build_on_stack(pack_provider, self);
+    let pack = pack_provider.get_pack(&creation.namespace)?;
+    let operation = pack.get_operation();
+    let result = operation.build(pack_provider, self);
     self.pop()?;
     result
   }

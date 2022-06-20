@@ -28,12 +28,6 @@ impl Creation {
     stack.build_on_stack(self, pack_provider)
   }
 
-  pub fn build_on_stack(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
-    let pack = pack_provider.get_pack(&self.namespace)?;
-    let operation = pack.get_operation();
-    operation.build(pack_provider, stack)
-  }
-
   pub fn get_operation(&self, name: &String) -> Result<&Operation, BuildError> {
     match self.operations.get(name) {
       Some(operation) => Ok(operation),
