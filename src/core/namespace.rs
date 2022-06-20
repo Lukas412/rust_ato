@@ -40,6 +40,11 @@ impl YaDeserialize for Namespace {
 pub struct ParameterName(Namespace, String);
 
 impl ParameterName {
+  pub fn new(namespace: String, name: String) -> Self {
+    let namespace = Namespace::new(namespace);
+    Self(namespace, name)
+  }
+
   pub fn get_namespace(&self) -> &Namespace {
     &self.0
   }

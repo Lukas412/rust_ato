@@ -1,12 +1,21 @@
-use crate::{Creation, CreationStack, PackProvider};
+use std::io::Read;
+
+use yaserde::de::Deserializer;
+use yaserde::YaDeserialize;
+
+use core::operation::action::OperationAction;
+use core::parse::{from_deserializer, peek_start_element};
+use Creation;
+
+use crate::{CreationStack, PackProvider};
 use crate::core::error::BuildError;
-use crate::core::namespace::ParameterName;
 use crate::core::operation::empty::build_empty;
 use crate::core::operation::get_argument::build_get_argument;
 use crate::core::operation::value::build_value;
 use crate::core::value::Value;
 use crate::core::variant::Variant;
 
+pub mod action;
 pub mod empty;
 pub mod value;
 pub mod get_argument;
@@ -18,28 +27,25 @@ pub struct Operation {
 }
 
 impl Operation {
-  pub fn new_empty(variant: Variant) -> Self {
-    let action = OperationAction::Empty;
-    Self::new(action, variant)
-  }
-
-  pub fn new_creation(creation: Creation, variant: Variant) -> Self {
-    let action = OperationAction::Creation(creation);
-    Self::new(action, variant)
-  }
-
-  pub fn new_value(text: String, variant: Variant) -> Self {
-    let action = OperationAction::Value(text);
-    Self::new(action, variant)
-  }
-
-  pub fn new_get_argument(name: ParameterName, variant: Variant) -> Self {
-    let action = OperationAction::GetArgument(name);
-    Self::new(action, variant)
-  }
-
-  fn new(action: OperationAction, variant: Variant) -> Self {
+  pub fn new(action: OperationAction, variant: Variant) -> Self {
     Self { action, variant }
+  }
+}
+
+impl Operation {
+  pub fn new_creation(creation: Creation, variant: Variant) -> Self {
+    let action = OperationAction::new_creation(creation);
+    Operation::new(action, variant)
+  }
+
+  pub fn new_empty(variant: Variant) -> Self {
+    let action = OperationAction::new_empty();
+    Operation::new(action, variant)
+  }
+
+  pub fn new_value(value: String, variant: Variant) -> Self {
+    let action = OperationAction::new_value(value);
+    Operation::new(action, variant)
   }
 }
 
@@ -58,16 +64,11 @@ impl Operation {
   }
 }
 
-#[derive(Debug)]
-pub enum OperationAction {
-  Empty,
-  Creation(Creation),
-  Value(String),
-  GetArgument(ParameterName),
-}
-
-impl Default for OperationAction {
-  fn default() -> Self {
-    Self::Empty
+impl YaDeserialize for Operation {
+  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
+    let (name, _, _) = peek_start_element(reader)?;
+    let variant = Variant::from_owned_name(name)?;
+    let action = from_deserializer(reader)?;
+    Ok(Self::new(action, variant))
   }
 }
