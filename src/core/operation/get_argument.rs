@@ -9,6 +9,7 @@ pub fn build_get_argument(variant: &Variant, pack_provider: &PackProvider, stack
   if operation.is_variant(variant) {
     operation.build(pack_provider, stack)
   } else {
-    todo!()
+    let namespace = stack.get_owned_namespace();
+    Err(BuildError::new_wrong_variant(variant, namespace))
   }
 }

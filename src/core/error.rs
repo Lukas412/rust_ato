@@ -1,4 +1,5 @@
 use std::fmt::{Display, Formatter};
+use core::variant::Variant;
 use crate::core::namespace::Namespace;
 
 pub struct BuildError {
@@ -31,6 +32,11 @@ impl BuildError {
 
   pub fn new_pack_not_found_error(namespace: Namespace) -> Self {
     let message = format!("PackNotFound: {namespace}");
+    Self::new(message, namespace)
+  }
+
+  pub fn new_wrong_variant(variant: &Variant, namespace: Namespace) -> Self {
+    let message = format!("WrongVariant: {variant}");
     Self::new(message, namespace)
   }
 }
