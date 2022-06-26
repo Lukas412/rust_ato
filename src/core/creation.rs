@@ -43,7 +43,7 @@ impl Creation {
 
 impl YaDeserialize for Creation {
   fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner: InnerCreation = from_deserializer(reader)?;
+    let inner = from_deserializer(reader)?;
     Ok(Self::from_inner(inner))
   }
 }
