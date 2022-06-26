@@ -5,6 +5,7 @@ extern crate walkdir;
 extern crate rust_decimal;
 
 use std::path::Path;
+use std::rc::Rc;
 
 use crate::core::creation::Creation;
 use crate::core::creation::stack::CreationStack;
@@ -22,6 +23,7 @@ fn main() {
 fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
   let mut requirements = CreationStack::default();
   let creation: Creation = from_file(file).unwrap();
+  let creation = Rc::new(creation);
   println!("{:?}", creation);
 
   let value = creation.build(&pack_provider, &mut requirements);

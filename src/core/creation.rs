@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::io::Read;
 use std::iter::FromIterator;
+use std::rc::Rc;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
@@ -20,15 +21,15 @@ pub mod stack;
 #[derive(Debug, Default)]
 pub struct Creation {
   namespace: Namespace,
-  operations: HashMap<String, Operation>,
+  operations: HashMap<String, Rc<Operation>>,
 }
 
 impl Creation {
-  pub fn build(self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
+  pub fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     stack.build_on_stack(self, pack_provider)
   }
 
-  pub fn get_operation(&self, name: &String) -> Result<&Operation, BuildError> {
+  pub fn get_operation(&self, name: &String) -> Result<&Rc<Operation>, BuildError> {
     match self.operations.get(name) {
       Some(operation) => Ok(operation),
       None => Err(BuildError::new_operation_not_found_error(name, self.namespace.to_owned())),

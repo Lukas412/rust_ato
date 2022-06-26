@@ -1,4 +1,5 @@
 use std::io::Read;
+use std::rc::Rc;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 use core::namespace::ParameterName;
@@ -8,13 +9,13 @@ use Creation;
 #[derive(Debug)]
 pub enum OperationAction {
   Empty,
-  Creation(Creation),
+  Creation(Rc<Creation>),
   Value(String),
   GetArgument(ParameterName),
 }
 
 impl OperationAction {
-  pub fn new_creation(creation: Creation) -> Self {
+  pub fn new_creation(creation: Rc<Creation>) -> Self {
     Self::Creation(creation)
   }
 

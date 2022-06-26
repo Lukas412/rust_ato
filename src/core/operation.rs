@@ -1,4 +1,5 @@
 use std::io::Read;
+use std::rc::Rc;
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
@@ -33,7 +34,7 @@ impl Operation {
 }
 
 impl Operation {
-  pub fn new_creation(creation: Creation, variant: Variant) -> Self {
+  pub fn new_creation(creation: Rc<Creation>, variant: Variant) -> Self {
     let action = OperationAction::new_creation(creation);
     Operation::new(action, variant)
   }
@@ -53,7 +54,7 @@ impl Operation {
   pub fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     match &self.action {
       OperationAction::Empty => build_empty(&self.variant, stack),
-      OperationAction::Creation(creation) => creation.build(pack_provider, stack),
+      OperationAction::Creation(creation) => creation.clone().build(pack_provider, stack),
       OperationAction::Value(text) => build_value(&self.variant, stack, text),
       OperationAction::GetArgument(name) => build_get_argument(&self.variant, pack_provider, stack, name),
     }

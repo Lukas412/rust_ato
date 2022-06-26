@@ -14,7 +14,7 @@ pub mod provider;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "pack")]
-struct Pack {
+pub struct Pack {
   #[yaserde(attribute)]
   namespace: Namespace,
   parameters: Parameters,

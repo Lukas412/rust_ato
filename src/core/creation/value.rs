@@ -1,5 +1,6 @@
 use yaserde::YaDeserialize;
 use std::io::Read;
+use std::rc::Rc;
 use yaserde::de::Deserializer;
 use crate::core::operation::Operation;
 use crate::core::parse::from_deserializer_with_variant;
@@ -9,11 +10,11 @@ use crate::Creation;
 #[derive(Debug)]
 pub struct CreationValue {
   name: String,
-  operation: Operation,
+  operation: Rc<Operation>,
 }
 
 impl CreationValue {
-  pub fn to_name_and_operation(self) -> (String, Operation) {
+  pub fn to_name_and_operation(self) -> (String, Rc<Operation>) {
     (self.name, self.operation)
   }
 }
@@ -35,7 +36,7 @@ impl DeserializeWithVariant for CreationValue {
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value")]
-struct InnerCreationValue {
+pub struct InnerCreationValue {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]
@@ -45,16 +46,19 @@ struct InnerCreationValue {
 }
 
 impl InnerCreationValue {
-  fn to_name_and_rc_operation(self, variant: Variant) -> (String, Operation) {
+  fn to_name_and_rc_operation(self, variant: Variant) -> (String, Rc<Operation>) {
     let (name, operation) =
       match self {
         InnerCreationValue { name, value: Some(value), .. } =>
           (name, Operation::new_value(value, variant)),
-        InnerCreationValue { name, creation: Some(creation), .. } =>
-          (name, Operation::new_creation(creation, variant)),
+        InnerCreationValue { name, creation: Some(creation), .. } => {
+          let creation = Rc::new(creation);
+          (name, Operation::new_creation(creation, variant))
+        },
         InnerCreationValue { name, .. } =>
           (name, Operation::new_empty(variant))
       };
+    let operation = Rc::new(operation);
     (name, operation)
   }
 }
