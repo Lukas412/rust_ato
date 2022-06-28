@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use std::path::Path;
 use ::{CreationStack, PackProvider};
 use core::error::BuildError;
@@ -14,7 +15,7 @@ impl Builder {
     Self { pack_provider }
   }
 
-  pub fn build_creation<P: AsRef<Path> + ?Sized>(self, path: &P) -> Result<Value, BuildError> {
+  pub fn build_creation<P: AsRef<Path> + ?Sized + Display>(self, path: &P) -> Result<Value, BuildError> {
     let mut requirements = CreationStack::default();
     let creation = Creation::rc_from_file(path)?;
     creation.build(&self.pack_provider, &mut requirements)

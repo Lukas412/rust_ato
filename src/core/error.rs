@@ -1,4 +1,5 @@
 use std::fmt::{Display, Formatter};
+use std::path::Path;
 use core::variant::Variant;
 use crate::core::namespace::Namespace;
 
@@ -40,7 +41,8 @@ impl BuildError {
     Self::new(message, namespace)
   }
 
-  pub fn new_xml_error(message: String) -> Self {
+  pub fn new_xml_error<P: AsRef<Path> + ?Sized + Display>(error: String, path: &P) -> Self {
+    let message = format!("LoadingXmlError: {path} '{error}'");
     let namespace = Namespace::default();
     Self::new(message, namespace)
   }

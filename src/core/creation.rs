@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::Display;
 use std::io::Read;
 use std::iter::FromIterator;
 use std::path::Path;
@@ -27,10 +28,10 @@ pub struct Creation {
 }
 
 impl Creation {
-  pub fn rc_from_file<P: AsRef<Path> + ?Sized>(path: &P) -> Result<Rc<Self>, BuildError> {
+  pub fn rc_from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> Result<Rc<Self>, BuildError> {
     match from_file(path) {
       Ok(creation) => Ok(Rc::new(creation)),
-      Err(message) => Err(BuildError::new_xml_error(message))
+      Err(error) => Err(BuildError::new_xml_error(error, path))
     }
   }
 
