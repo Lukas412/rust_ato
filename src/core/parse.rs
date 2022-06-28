@@ -11,7 +11,7 @@ use yaserde::YaDeserialize;
 
 use crate::core::variant::{DeserializeWithVariant, Variant};
 
-pub fn from_file<T: YaDeserialize, P: AsRef<Path>>(file: P) -> Result<T, String> {
+pub fn from_file<T: YaDeserialize, P: AsRef<Path> + ?Sized>(file: &P) -> Result<T, String> {
   match File::open(file) {
     Ok(file) => from_reader(file),
     Err(error) => Err(error.to_string()),

@@ -39,6 +39,11 @@ impl BuildError {
     let message = format!("WrongVariant: {variant}");
     Self::new(message, namespace)
   }
+
+  pub fn new_xml_error(message: String) -> Self {
+    let namespace = Namespace::default();
+    Self::new(message, namespace)
+  }
 }
 
 impl BuildError {

@@ -8,3 +8,4 @@ pub mod variant;
 pub mod namespace;
 pub mod error;
 pub mod parse;
+pub mod builder;

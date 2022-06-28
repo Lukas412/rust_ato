@@ -24,14 +24,7 @@ pub struct Pack {
 impl Pack {
   pub fn all_from_root<P: AsRef<Path> + ?Sized>(root: &P) -> HashMap<Namespace, Self> {
     let packs =
-      WalkDir::new(root)
-        .into_iter()
-        .filter_map(Result::ok)
-        .map(DirEntry::into_path)
-        .filter(is_pack_path)
-        .map(from_file)
-        .filter_map(Result::ok)
-        .map(|pack: Self| (pack.get_owned_namespace(), pack));
+      WalkDir::new(root).into_iter().filter_map(Pack::namespace_and_pack_from_dir_entry);
     HashMap::from_iter(packs)
   }
 
@@ -41,6 +34,19 @@ impl Pack {
 }
 
 impl Pack {
+  fn namespace_and_pack_from_dir_entry(dir_entry: walkdir::Result<DirEntry>) -> Option<(Namespace, Pack)> {
+    let path = dir_entry.ok()?.into_path();
+    if !is_pack_path(&path) {
+      return None;
+    }
+    let pack: Self = from_file(&path).ok()?;
+    Some(pack.get_namespace_and_pack())
+  }
+
+  fn get_namespace_and_pack(self) -> (Namespace, Pack) {
+    (self.get_owned_namespace(), self)
+  }
+
   fn get_owned_namespace(&self) -> Namespace {
     self.namespace.to_owned()
   }

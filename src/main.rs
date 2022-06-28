@@ -4,8 +4,7 @@ extern crate yaserde_derive;
 extern crate walkdir;
 extern crate rust_decimal;
 
-use std::path::Path;
-use std::rc::Rc;
+use core::builder::Builder;
 
 use crate::core::creation::Creation;
 use crate::core::creation::stack::CreationStack;
@@ -16,17 +15,8 @@ mod core;
 mod common;
 
 fn main() {
-  let pack_provider = PackProvider::from_root("src/bundles");
-  build(&pack_provider, "src/creations/test2.creation.xml");
-}
-
-fn build<P: AsRef<Path>>(pack_provider: &PackProvider, file: P) {
-  let mut requirements = CreationStack::default();
-  let creation: Creation = from_file(file).unwrap();
-  let creation = Rc::new(creation);
-  println!("{:?}", creation);
-
-  let value = creation.build(&pack_provider, &mut requirements);
+  let builder = Builder::new("src/bundles");
+  let value = builder.build_creation("src/creations/test2.creation.xml");
   match value {
     Ok(value) => println!("{:?}", value),
     Err(error) => println!("{}", error)
