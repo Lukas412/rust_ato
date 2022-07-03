@@ -1,4 +1,5 @@
 use std::fmt::Display;
+use std::io;
 use std::path::Path;
 use ::{CreationStack, PackProvider};
 use core::error::BuildError;
@@ -10,9 +11,9 @@ pub struct Builder {
 }
 
 impl Builder {
-  pub fn new<P: AsRef<Path> + ?Sized>(path: &P) -> Self {
+  pub fn new<P: AsRef<Path> + ?Sized>(path: &P) -> io::Result<Self> {
     let pack_provider = PackProvider::from_root(path);
-    Self { pack_provider }
+    Ok(Self { pack_provider })
   }
 
   pub fn build_creation<P: AsRef<Path> + ?Sized + Display>(self, path: &P) -> Result<Value, BuildError> {

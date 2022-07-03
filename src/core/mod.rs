@@ -9,4 +9,3 @@ pub mod namespace;
 pub mod error;
 pub mod parse;
 pub mod builder;
-pub mod path;

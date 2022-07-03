@@ -15,7 +15,7 @@ mod core;
 mod common;
 
 fn main() {
-  let builder = Builder::new("src/bundles");
+  let builder = Builder::new("src/bundles").unwrap();
   let value = builder.build_creation("src/creations/test2.creation.xml");
   match value {
     Ok(value) => println!("{:?}", value),
