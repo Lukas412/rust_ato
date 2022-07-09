@@ -1,18 +1,18 @@
 use std::fmt::Display;
 use std::io;
 use std::path::Path;
+use std::rc::Rc;
 use ::{CreationStack, PackProvider};
 use core::error::BuildError;
 use core::value::Value;
 use Creation;
 
 pub struct Builder {
-  pack_provider: PackProvider,
+  pack_provider: Rc<PackProvider>,
 }
 
 impl Builder {
-  pub fn new<P: AsRef<Path> + ?Sized>(path: &P) -> io::Result<Self> {
-    let pack_provider = PackProvider::from_root(path);
+  pub fn new(pack_provider: Rc<PackProvider>) -> io::Result<Self> {
     Ok(Self { pack_provider })
   }
 
