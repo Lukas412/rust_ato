@@ -15,8 +15,7 @@ mod core;
 mod common;
 
 fn main() {
-  let pack_provider = Rc::new(PackProvider::from_root("src/bundles"));
-  let builder = Builder::new(pack_provider).unwrap();
+  let builder = Builder::from_root("src/bundles").unwrap();
   let value = builder.build_creation("src/creations/test2.creation.xml");
   match value {
     Ok(value) => println!("{:?}", value),

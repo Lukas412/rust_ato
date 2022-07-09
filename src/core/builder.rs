@@ -12,8 +12,13 @@ pub struct Builder {
 }
 
 impl Builder {
-  pub fn new(pack_provider: Rc<PackProvider>) -> io::Result<Self> {
-    Ok(Self { pack_provider })
+  pub fn from_root<P: AsRef<Path> + ?Sized>(path: &P) -> io::Result<Self> {
+    let pack_provider = Rc::new(PackProvider::from_root("src/bundles"));
+    Ok(Self::new(pack_provider))
+  }
+
+  pub fn new(pack_provider: Rc<PackProvider>) -> Self {
+    Self { pack_provider }
   }
 
   pub fn build_creation<P: AsRef<Path> + ?Sized + Display>(self, path: &P) -> Result<Value, BuildError> {
