@@ -13,7 +13,7 @@ pub struct Builder {
 
 impl Builder {
   pub fn from_root<P: AsRef<Path> + ?Sized>(path: &P) -> io::Result<Self> {
-    let pack_provider = Rc::new(PackProvider::from_root("src/bundles"));
+    let pack_provider = Rc::new(PackProvider::from_root(path));
     Ok(Self::new(pack_provider))
   }
 
