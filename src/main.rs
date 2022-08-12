@@ -13,7 +13,7 @@ use crate::core::pack::provider::PackProvider;
 
 mod core;
 mod common;
-mod yamoreserde;
+mod ser;
 
 fn main() {
   let builder = Builder::from_root("src/bundles").unwrap();
