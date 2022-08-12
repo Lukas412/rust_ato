@@ -13,10 +13,12 @@ use crate::core::pack::provider::PackProvider;
 
 mod core;
 mod common;
+mod yamoreserde;
 
 fn main() {
   let builder = Builder::from_root("src/bundles").unwrap();
-  let value = builder.build_creation("src/creations/test2.creation.xml");
+  let mut build = builder.create_build("src/creations/test2.creation.xml").unwrap();
+  let value = build.build();
   match value {
     Ok(value) => println!("{:?}", value),
     Err(error) => println!("{}", error)

@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::fmt::Display;
+use std::io;
 use std::io::Read;
 use std::iter::FromIterator;
 use std::path::Path;
@@ -13,6 +14,7 @@ use core::error::BuildError;
 use core::namespace::Namespace;
 use core::operation::Operation;
 use core::value::Value;
+use yamoreserde::from::{from_deserializer, from_file};
 
 use crate::{CreationStack, PackProvider};
 
@@ -26,11 +28,8 @@ pub struct Creation {
 }
 
 impl Creation {
-  pub fn rc_from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> Result<Rc<Self>, BuildError> {
-    match from_file(path) {
-      Ok(creation) => Ok(Rc::new(creation)),
-      Err(error) => Err(BuildError::new_xml_error(error, path))
-    }
+  pub fn from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> io::Result<Self> {
+    from_file(path)?
   }
 
   pub fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
