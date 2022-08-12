@@ -6,22 +6,22 @@ use crate::core::error::BuildError;
 use crate::core::namespace::Namespace;
 
 #[derive(Debug)]
-pub struct Value {
+pub(crate) struct Value {
   data: Data,
   namespace: Namespace,
 }
 
 impl Value {
-  pub fn new(value: Data, namespace: Namespace) -> Self {
+  pub(crate) fn new(value: Data, namespace: Namespace) -> Self {
     Self { data: value, namespace }
   }
 
-  pub fn default_with_namespace(namespace: Namespace) -> Self {
+  pub(crate) fn default_with_namespace(namespace: Namespace) -> Self {
     let data = Data::default();
     Self { data, namespace }
   }
 
-  pub fn value(&self) -> &Data {
+  pub(crate) fn value(&self) -> &Data {
     &self.data
   }
 }
@@ -33,7 +33,7 @@ impl Display for Value {
 }
 
 #[derive(Debug)]
-pub enum Data {
+pub(crate) enum Data {
   None,
   Action(Action),
   Boolean(bool),
@@ -62,7 +62,7 @@ impl Display for Data {
 }
 
 #[derive(Debug, Clone)]
-pub enum Action {
+pub(crate) enum Action {
   None,
   Content,
   Directory,

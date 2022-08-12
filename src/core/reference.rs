@@ -7,13 +7,13 @@ use yaserde::YaDeserialize;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "references")]
-pub struct GeneralReferences {
+pub(crate) struct GeneralReferences {
   #[yaserde(rename = "reference")]
   references: Vec<GeneralReference>,
 }
 
 #[derive(Debug)]
-pub enum GeneralReference {
+pub(crate) enum GeneralReference {
   Action(String),
   Boolean(String),
   Number(String),

@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-pub trait EndsWithStr {
+pub(crate) trait EndsWithStr {
   fn ends_with_str(&self, s: &str) -> bool;
 }
 

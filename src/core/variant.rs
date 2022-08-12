@@ -3,7 +3,7 @@ use yaserde::__xml::name::OwnedName;
 use yaserde::YaDeserialize;
 
 #[derive(Debug, PartialEq)]
-pub enum Variant {
+pub(crate) enum Variant {
   None,
   Action,
   Boolean,
@@ -32,7 +32,7 @@ impl Display for Variant {
 }
 
 impl Variant {
-  pub fn from_owned_name(name: &OwnedName) -> Result<Self, String> {
+  pub(crate) fn from_owned_name(name: &OwnedName) -> Result<Self, String> {
     match &name.namespace {
       Some(xml_namespace) => Self::from_xml_namespace(xml_namespace),
       None => Err("NoXmlNamespace".to_owned())
@@ -51,7 +51,7 @@ impl Variant {
   }
 }
 
-pub trait DeserializeWithVariant
+pub(crate) trait DeserializeWithVariant
   where Self: Sized
 {
   type Inner: YaDeserialize;

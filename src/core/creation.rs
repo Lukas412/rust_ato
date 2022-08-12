@@ -18,32 +18,32 @@ use yamoreserde::from::{from_deserializer, from_file};
 
 use crate::{CreationStack, PackProvider};
 
-pub mod value;
-pub mod stack;
+pub(crate) mod value;
+pub(crate) mod stack;
 
 #[derive(Debug, Default)]
-pub struct Creation {
+pub(crate) struct Creation {
   namespace: Namespace,
   operations: HashMap<String, Rc<Operation>>,
 }
 
 impl Creation {
-  pub fn from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> io::Result<Self> {
+  pub(crate) fn from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> io::Result<Self> {
     from_file(path)?
   }
 
-  pub fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
+  pub(crate) fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
     stack.build_on_stack(self, pack_provider)
   }
 
-  pub fn get_operation(&self, name: &String) -> Result<&Rc<Operation>, BuildError> {
+  pub(crate) fn get_operation(&self, name: &String) -> Result<&Rc<Operation>, BuildError> {
     match self.operations.get(name) {
       Some(operation) => Ok(operation),
       None => Err(BuildError::new_operation_not_found_error(name, self.namespace.to_owned())),
     }
   }
 
-  pub fn get_owned_namespace(&self) -> Namespace {
+  pub(crate) fn get_owned_namespace(&self) -> Namespace {
     self.namespace.to_owned()
   }
 }

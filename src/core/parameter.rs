@@ -9,16 +9,16 @@ use crate::core::namespace::Namespace;
 use crate::core::parameter::inner::InnerParameter;
 use crate::core::variant::Variant;
 
-pub mod inner;
+pub(crate) mod inner;
 
 #[derive(Debug, Default, YaDeserialize)]
-pub struct Parameters {
+pub(crate) struct Parameters {
   #[yaserde(rename = "parameter")]
   parameters: Vec<Parameter>,
 }
 
 #[derive(Debug)]
-pub struct Parameter {
+pub(crate) struct Parameter {
   name: String,
   namespace: Option<Namespace>,
   variant: Variant,

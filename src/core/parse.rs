@@ -11,7 +11,7 @@ use yaserde::YaDeserialize;
 
 use crate::core::variant::{DeserializeWithVariant, Variant};
 
-pub fn from_deserializer_with_variant<R, T>(reader: &mut Deserializer<R>) -> Result<T, String>
+pub(crate) fn from_deserializer_with_variant<R, T>(reader: &mut Deserializer<R>) -> Result<T, String>
   where R: Read, T: DeserializeWithVariant
 {
   let (name, _, _) = peek_start_element(reader)?;

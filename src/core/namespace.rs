@@ -5,10 +5,10 @@ use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct Namespace(String);
+pub(crate) struct Namespace(String);
 
 impl Namespace {
-  pub fn new(value: String) -> Self {
+  pub(crate) fn new(value: String) -> Self {
     Self(value)
   }
 }
@@ -37,19 +37,19 @@ impl YaDeserialize for Namespace {
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct ParameterName(Namespace, String);
+pub(crate) struct ParameterName(Namespace, String);
 
 impl ParameterName {
-  pub fn new(namespace: String, name: String) -> Self {
+  pub(crate) fn new(namespace: String, name: String) -> Self {
     let namespace = Namespace::new(namespace);
     Self(namespace, name)
   }
 
-  pub fn get_namespace(&self) -> &Namespace {
+  pub(crate) fn get_namespace(&self) -> &Namespace {
     &self.0
   }
 
-  pub fn get_name(&self) -> &String {
+  pub(crate) fn get_name(&self) -> &String {
     &self.1
   }
 }

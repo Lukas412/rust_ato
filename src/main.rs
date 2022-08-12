@@ -12,8 +12,7 @@ use crate::core::creation::stack::CreationStack;
 use crate::core::pack::provider::PackProvider;
 
 mod core;
-mod common;
-mod ser;
+mod helpers;
 
 fn main() {
   let builder = Builder::from_root("src/bundles").unwrap();

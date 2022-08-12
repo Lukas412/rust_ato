@@ -6,7 +6,7 @@ use core::namespace::ParameterName;
 use Creation;
 
 #[derive(Debug)]
-pub enum OperationAction {
+pub(crate) enum OperationAction {
   Empty,
   Creation(Rc<Creation>),
   Value(String),
@@ -14,19 +14,19 @@ pub enum OperationAction {
 }
 
 impl OperationAction {
-  pub fn new_creation(creation: Rc<Creation>) -> Self {
+  pub(crate) fn new_creation(creation: Rc<Creation>) -> Self {
     Self::Creation(creation)
   }
 
-  pub fn new_empty() -> Self {
+  pub(crate) fn new_empty() -> Self {
     Self::Empty
   }
 
-  pub fn new_value(value: String) -> Self {
+  pub(crate) fn new_value(value: String) -> Self {
     Self::Value(value)
   }
 
-  pub fn new_get_argument(name: ParameterName) -> Self {
+  pub(crate) fn new_get_argument(name: ParameterName) -> Self {
     Self::GetArgument(name)
   }
 }

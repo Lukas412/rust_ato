@@ -8,13 +8,13 @@ use crate::core::variant::{DeserializeWithVariant, Variant};
 use crate::Creation;
 
 #[derive(Debug)]
-pub struct CreationValue {
+pub(crate) struct CreationValue {
   name: String,
   operation: Rc<Operation>,
 }
 
 impl CreationValue {
-  pub fn to_name_and_operation(self) -> (String, Rc<Operation>) {
+  pub(crate) fn to_name_and_operation(self) -> (String, Rc<Operation>) {
     (self.name, self.operation)
   }
 }
@@ -36,7 +36,7 @@ impl DeserializeWithVariant for CreationValue {
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "value")]
-pub struct InnerCreationValue {
+pub(crate) struct InnerCreationValue {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]

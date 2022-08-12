@@ -3,45 +3,45 @@ use std::path::Path;
 use core::variant::Variant;
 use crate::core::namespace::Namespace;
 
-pub struct BuildError {
+pub(crate) struct BuildError {
   message: String,
   namespace: Namespace,
   backtrace: Backtrace,
 }
 
 impl BuildError {
-  pub fn new_can_not_convert_text_to_value_error(text: &String, namespace: Namespace) -> Self {
+  pub(crate) fn new_can_not_convert_text_to_value_error(text: &String, namespace: Namespace) -> Self {
     let message = format!("CanNotConvertTextToValue: {text}");
     Self::new(message, namespace)
   }
 
-  pub fn new_operation_not_found_error(name: &String, namespace: Namespace) -> Self {
+  pub(crate) fn new_operation_not_found_error(name: &String, namespace: Namespace) -> Self {
     let message = format!("OperationNotFound: {name}");
     Self::new(message, namespace)
   }
 
-  pub fn new_unknown_xml_namespace_error(xml_namespace: &String, namespace: Namespace) -> Self {
+  pub(crate) fn new_unknown_xml_namespace_error(xml_namespace: &String, namespace: Namespace) -> Self {
     let message = format!("UnknownXmlNamespace: {xml_namespace}");
     Self::new(message, namespace)
   }
 
-  pub fn new_creation_stack_empty_error() -> Self {
+  pub(crate) fn new_creation_stack_empty_error() -> Self {
     let message = "CreationStackEmpty".to_owned();
     let namespace = Namespace::default();
     Self::new(message, namespace)
   }
 
-  pub fn new_pack_not_found_error(namespace: Namespace) -> Self {
+  pub(crate) fn new_pack_not_found_error(namespace: Namespace) -> Self {
     let message = format!("PackNotFound: {namespace}");
     Self::new(message, namespace)
   }
 
-  pub fn new_wrong_variant(variant: &Variant, namespace: Namespace) -> Self {
+  pub(crate) fn new_wrong_variant(variant: &Variant, namespace: Namespace) -> Self {
     let message = format!("WrongVariant: {variant}");
     Self::new(message, namespace)
   }
 
-  pub fn new_xml_error<P: AsRef<Path> + ?Sized + Display>(error: String, path: &P) -> Self {
+  pub(crate) fn new_xml_error<P: AsRef<Path> + ?Sized + Display>(error: String, path: &P) -> Self {
     let message = format!("LoadingXmlError: {path} '{error}'");
     let namespace = Namespace::default();
     Self::new(message, namespace)
@@ -49,7 +49,7 @@ impl BuildError {
 }
 
 impl BuildError {
-  pub fn add_backtrace(&mut self, trace: String) {
+  pub(crate) fn add_backtrace(&mut self, trace: String) {
     self.backtrace.add(trace)
   }
 }
@@ -71,7 +71,7 @@ impl Display for BuildError {
 }
 
 #[derive(Default)]
-pub struct Backtrace(Vec<String>);
+pub(crate) struct Backtrace(Vec<String>);
 
 impl Backtrace {
   fn add(&mut self, trace: String) {

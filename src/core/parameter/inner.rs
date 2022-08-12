@@ -2,7 +2,7 @@ use crate::core::namespace::Namespace;
 
 #[derive(Debug, YaDeserialize)]
 #[yaserde(rename = "parameter")]
-pub struct InnerParameter {
+pub(crate) struct InnerParameter {
   #[yaserde(attribute)]
   name: String,
   #[yaserde(attribute)]
@@ -10,7 +10,7 @@ pub struct InnerParameter {
 }
 
 impl InnerParameter {
-  pub fn to_name_and_optional_namespace(self) -> (String, Option<Namespace>) {
+  pub(crate) fn to_name_and_optional_namespace(self) -> (String, Option<Namespace>) {
     let name = self.name;
     let optional_namespace = self.namespace.map(Namespace::new);
     (name, optional_namespace)

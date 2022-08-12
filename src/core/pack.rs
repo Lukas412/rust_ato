@@ -4,16 +4,16 @@ use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
 
-use crate::common::ends_with::EndsWithStr;
+use crate::helpers::ends_with::EndsWithStr;
 use crate::core::namespace::Namespace;
 use crate::core::operation::Operation;
 use crate::core::parameter::Parameters;
 
-pub mod provider;
+pub(crate) mod provider;
 
 #[derive(Debug, Default, YaDeserialize)]
 #[yaserde(rename = "pack")]
-pub struct Pack {
+pub(crate) struct Pack {
   #[yaserde(attribute)]
   namespace: Namespace,
   parameters: Parameters,
@@ -21,13 +21,13 @@ pub struct Pack {
 }
 
 impl Pack {
-  pub fn all_from_root<P: AsRef<Path> + ?Sized>(root: &P) -> HashMap<Namespace, Self> {
+  pub(crate) fn all_from_root<P: AsRef<Path> + ?Sized>(root: &P) -> HashMap<Namespace, Self> {
     let packs =
       WalkDir::new(root).into_iter().filter_map(Pack::namespace_and_pack_from_dir_entry);
     HashMap::from_iter(packs)
   }
 
-  pub fn get_operation(&self) -> &Operation {
+  pub(crate) fn get_operation(&self) -> &Operation {
     &self.operation
   }
 }

@@ -6,7 +6,7 @@ use crate::core::variant::Variant;
 
 use crate::CreationStack;
 
-pub fn build_value(variant: &Variant, stack: &CreationStack, text: &String) -> Result<Value, BuildError> {
+pub(crate) fn build_value(variant: &Variant, stack: &CreationStack, text: &String) -> Result<Value, BuildError> {
   let namespace = stack.get_owned_namespace();
   let data = get_data(variant, text, &namespace)?;
   Ok(Value::new(data, namespace))
