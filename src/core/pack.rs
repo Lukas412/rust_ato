@@ -3,6 +3,7 @@ use std::iter::FromIterator;
 use std::path::{Path, PathBuf};
 
 use walkdir::{DirEntry, WalkDir};
+use helpers::ser::from::from_file;
 
 use crate::helpers::ends_with::EndsWithStr;
 use crate::core::namespace::Namespace;

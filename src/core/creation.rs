@@ -14,7 +14,7 @@ use core::error::BuildError;
 use core::namespace::Namespace;
 use core::operation::Operation;
 use core::value::Value;
-use yamoreserde::from::{from_deserializer, from_file};
+use helpers::ser::from::{from_deserializer, from_file};
 
 use crate::{CreationStack, PackProvider};
 

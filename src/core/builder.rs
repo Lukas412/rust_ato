@@ -2,10 +2,9 @@ use std::fmt::Display;
 use std::io;
 use std::path::Path;
 use std::rc::Rc;
-use ::{CreationStack, PackProvider};
+use ::PackProvider;
 use core::build::Build;
 use core::error::BuildError;
-use core::value::Value;
 use Creation;
 
 pub(crate) struct Builder {
