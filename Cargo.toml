@@ -1,6 +1,7 @@
 [package]
 name = "rust_ato"
 version = "0.1.0"
+edition = "2021"
 
 [dependencies]
 rust_decimal = "1.22.0"
