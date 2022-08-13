@@ -2,10 +2,7 @@ use std::fmt::Display;
 use std::io;
 use std::path::Path;
 use std::rc::Rc;
-use ::PackProvider;
-use core::build::Build;
-use core::error::BuildError;
-use Creation;
+use crate::{Build, BuildError, Creation, PackProvider};
 
 pub(crate) struct Builder {
   pack_provider: Rc<PackProvider>,
@@ -23,7 +20,7 @@ impl Builder {
 
   pub(crate) fn create_build<P: AsRef<Path> + ?Sized + Display>(self, path: &P) -> Result<Build, BuildError> {
     let pack_provider = self.pack_provider.clone();
-    let creation = Creation::from_file(path)?;
+    let creation = Creation ::from_file(path)?;
     Ok(Build::new(pack_provider, creation))
   }
 }

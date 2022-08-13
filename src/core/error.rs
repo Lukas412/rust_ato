@@ -1,6 +1,6 @@
 use std::fmt::{Display, Formatter};
 use std::path::Path;
-use core::variant::Variant;
+use crate::core::variant::Variant;
 use crate::core::namespace::Namespace;
 
 pub(crate) struct BuildError {

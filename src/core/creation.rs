@@ -9,14 +9,12 @@ use std::rc::Rc;
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-use core::creation::value::CreationValue;
-use core::error::BuildError;
-use core::namespace::Namespace;
-use core::operation::Operation;
-use core::value::Value;
-use helpers::ser::from::{from_deserializer, from_file};
-
-use crate::{CreationStack, PackProvider};
+use crate::{BuildError, CreationStack, PackProvider};
+use crate::core::creation::value::CreationValue;
+use crate::core::namespace::Namespace;
+use crate::core::operation::Operation;
+use crate::core::value::Value;
+use crate::helpers::ser::from::{from_deserializer, from_file};
 
 pub(crate) mod value;
 pub(crate) mod stack;
