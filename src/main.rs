@@ -1,3 +1,5 @@
+#![allow(unused, dead_code)]
+
 extern crate rust_decimal;
 extern crate walkdir;
 extern crate yaserde;
