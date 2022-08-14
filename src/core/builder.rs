@@ -2,6 +2,7 @@ use std::fmt::{Debug, Display};
 use std::io;
 use std::path::Path;
 use std::rc::Rc;
+use error_stack::ResultExt;
 use crate::{Build, Creation, PackProvider};
 use crate::errors::build::BuildError;
 use crate::helpers::ser::from::from_file;
@@ -20,9 +21,12 @@ impl Builder {
     Self { pack_provider }
   }
 
-  pub(crate) fn create_build<P: AsRef<Path>>(self, path: &P) -> Result<Build, BuildError> {
+  pub(crate) fn create_build<P: AsRef<Path>>(self, path: &P) -> error_stack::Result<Build, BuildError> {
     let pack_provider = self.pack_provider.clone();
-    let creation = from_file(path)?;
+
+    let creation = from_file(path)
+      .change_context(BuildError::default())?;
+
     Ok(Build::new(pack_provider, creation))
   }
 }
