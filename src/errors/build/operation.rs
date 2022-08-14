@@ -1,5 +1,5 @@
 use std::fmt::{Display, Formatter};
-use error_stack::Context;
+use error_stack::{Context, Report, report};
 
 #[derive(Debug)]
 pub(crate) struct OperationNotFoundError {
@@ -7,7 +7,11 @@ pub(crate) struct OperationNotFoundError {
 }
 
 impl OperationNotFoundError {
-  pub(crate) fn new(name: String) -> Self {
+  pub(crate) fn new_report(namespace: String) -> Report<Self> {
+    report!(Self::new(namespace))
+  }
+
+  fn new(name: String) -> Self {
     Self { name }
   }
 }
