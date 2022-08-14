@@ -6,7 +6,6 @@ pub(crate) mod pack;
 pub(crate) mod operation;
 pub(crate) mod variant;
 pub(crate) mod namespace;
-pub(crate) mod error;
 pub(crate) mod parse;
 pub(crate) mod builder;
 pub(crate) mod build;
