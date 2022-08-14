@@ -16,6 +16,7 @@ use crate::core::pack::provider::PackProvider;
 
 mod core;
 mod helpers;
+mod errors;
 
 fn main() {
   let builder = Builder::from_root("src/bundles").unwrap();
