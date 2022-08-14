@@ -12,6 +12,7 @@ use crate::core::operation::value::build_value;
 use crate::core::value::Value;
 use crate::core::variant::Variant;
 use crate::errors::build::BuildError;
+use crate::errors::build::operation::WrongVariantError;
 use crate::helpers::ser::events::start::peek_start_element;
 use crate::helpers::ser::from::from_deserializer;
 
@@ -59,7 +60,14 @@ impl Operation {
     }
   }
 
-  pub(crate) fn is_variant(&self, variant: &Variant) -> bool {
+  pub(crate) fn expect_is_variant(&self, variant: &Variant) -> error_stack::Result<(), WrongVariantError> {
+    match self.is_variant(variant) {
+      true => Ok(()),
+      false => Err(WrongVariantError::new_report(variant.clone(), self.variant.clone()))
+    }
+  }
+
+  fn is_variant(&self, variant: &Variant) -> bool {
     &self.variant == variant
   }
 }
