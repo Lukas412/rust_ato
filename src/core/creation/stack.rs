@@ -1,11 +1,15 @@
 use std::fmt::Display;
 use std::rc::Rc;
+use error_stack::{report, ResultExt};
 
 use crate::{Creation, PackProvider};
 use crate::core::namespace::{Namespace, ParameterName};
 use crate::core::operation::Operation;
 use crate::core::value::Value;
+use crate::errors::attachments::NamespaceInformation;
 use crate::errors::build::BuildError;
+use crate::errors::build::creation::CreationNotFoundError;
+use crate::errors::build::operation::OperationNotFoundError;
 
 #[derive(Default)]
 pub(crate) struct CreationStack {
@@ -13,10 +17,10 @@ pub(crate) struct CreationStack {
 }
 
 impl CreationStack {
-  pub(crate) fn last(&self) -> Result<&Rc<Creation>, BuildError> {
+  pub(crate) fn last(&self) -> Result<Rc<Creation>, CreationNotFoundError> {
     match self.stack.last() {
-      Some(creation) => Ok(creation),
-      None => Err(BuildError::new_creation_stack_empty_error()),
+      Some(creation) => Ok(creation.clone()),
+      None => Err(CreationNotFoundError::new_report()),
     }
   }
 
@@ -33,21 +37,17 @@ impl CreationStack {
 }
 
 impl CreationStack {
-  pub(crate) fn get_operation(&self, name: &ParameterName) -> Result<&Rc<Operation>, BuildError> {
+  pub(crate) fn get_operation(&self, name: &ParameterName) -> error_stack::Result<Rc<Operation>, OperationNotFoundError> {
     let namespace = name.get_namespace();
     let creation = self.get_creation(namespace);
     match creation {
       Some(creation) => creation.get_operation(name.get_name()),
-      None => Err(BuildError::new_operation_not_found_error(name.get_name(), namespace.to_owned())),
+      None => Err(OperationNotFoundError::new_report(name.get_name().clone()))
+        .attach_printable(NamespaceInformation::new(namespace.clone())),
     }
   }
 
-  pub(crate) fn backtrace<T: Display>(&self, element: T) -> String {
-    let namespace = self.get_owned_namespace();
-    format!("at {element} in {namespace}")
-  }
-
-  pub(crate) fn get_owned_namespace(&self) -> Namespace {
+  pub(crate) fn get_owned_namespace(&self) -> error_stack::Result<Namespace, BuildError> {
     let creation = self.stack.last();
     match creation {
       Some(last) => last.get_owned_namespace(),
