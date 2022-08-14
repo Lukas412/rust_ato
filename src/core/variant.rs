@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter};
 use yaserde::__xml::name::OwnedName;
 use yaserde::YaDeserialize;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Variant {
   None,
   Action,

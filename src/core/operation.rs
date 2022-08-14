@@ -50,7 +50,7 @@ impl Operation {
 }
 
 impl Operation {
-  pub(crate) fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
+  pub(crate) fn build(&self, pack_provider: &PackProvider, stack: &mut CreationStack) -> error_stack::Result<Value, BuildError> {
     match &self.action {
       OperationAction::Empty => build_empty(&self.variant, stack),
       OperationAction::Creation(creation) => creation.clone().build(pack_provider, stack),

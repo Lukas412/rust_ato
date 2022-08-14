@@ -1,3 +1,5 @@
+pub(crate) mod value;
+
 use std::fmt::{Display, Formatter};
 use error_stack::{Context, Report, report};
 
