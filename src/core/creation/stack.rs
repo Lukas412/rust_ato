@@ -5,6 +5,7 @@ use crate::{Creation, PackProvider};
 use crate::core::namespace::{Namespace, ParameterName};
 use crate::core::operation::Operation;
 use crate::core::value::Value;
+use crate::errors::build::BuildError;
 
 #[derive(Default)]
 pub(crate) struct CreationStack {

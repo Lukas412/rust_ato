@@ -1,6 +1,7 @@
 use crate::core::value::{Data, Value};
 use crate::core::variant::Variant;
 use crate::CreationStack;
+use crate::errors::build::BuildError;
 
 pub(crate) fn build_empty(variant: &Variant, stack: &CreationStack) -> Result<Value, BuildError> {
   let data =

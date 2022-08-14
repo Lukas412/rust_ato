@@ -16,7 +16,7 @@ pub(crate) fn peek_start_element<R: Read>(reader: &mut Deserializer<R>) -> Resul
 }
 
 pub(crate) fn next_start_element<R: Read>(reader: &mut Deserializer<R>) -> Result<(OwnedName, Namespace, Vec<OwnedAttribute>), String> {
-  let next = reader.next()?;
+  let next = reader.next_event()?;
   match next {
     XmlEvent::StartElement { name, namespace, attributes } =>
       Ok((name, namespace, attributes)),

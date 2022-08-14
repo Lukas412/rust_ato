@@ -11,6 +11,7 @@ use crate::core::operation::get_argument::build_get_argument;
 use crate::core::operation::value::build_value;
 use crate::core::value::Value;
 use crate::core::variant::Variant;
+use crate::errors::build::BuildError;
 use crate::helpers::ser::events::start::peek_start_element;
 use crate::helpers::ser::from::from_deserializer;
 

@@ -1,6 +1,7 @@
 use std::rc::Rc;
 use crate::{Creation, PackProvider};
 use crate::core::value::Value;
+use crate::errors::build::BuildError;
 
 pub(crate) struct Build {
   pack_provider: Rc<PackProvider>,

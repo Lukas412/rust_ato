@@ -10,7 +10,7 @@ use error_stack::{bail, report, ResultExt};
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
-use crate::{BuildError, CreationStack, PackProvider};
+use crate::{CreationStack, PackProvider};
 use crate::core::creation::value::CreationValue;
 use crate::core::namespace::Namespace;
 use crate::core::operation::Operation;

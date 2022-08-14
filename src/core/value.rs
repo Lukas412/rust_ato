@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use std::str::FromStr;
 use rust_decimal::Decimal;
 use crate::core::namespace::Namespace;
+use crate::errors::build::BuildError;
 
 #[derive(Debug)]
 pub(crate) struct Value {

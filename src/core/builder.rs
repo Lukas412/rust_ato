@@ -1,8 +1,10 @@
-use std::fmt::Display;
+use std::fmt::{Debug, Display};
 use std::io;
 use std::path::Path;
 use std::rc::Rc;
-use crate::{Build, BuildError, Creation, PackProvider};
+use crate::{Build, Creation, PackProvider};
+use crate::errors::build::BuildError;
+use crate::helpers::ser::from::from_file;
 
 pub(crate) struct Builder {
   pack_provider: Rc<PackProvider>,
@@ -18,9 +20,9 @@ impl Builder {
     Self { pack_provider }
   }
 
-  pub(crate) fn create_build<P: AsRef<Path> + ?Sized + Display>(self, path: &P) -> Result<Build, BuildError> {
+  pub(crate) fn create_build<P: AsRef<Path> + Sized + Debug + Display>(self, path: &P) -> Result<Build, BuildError> {
     let pack_provider = self.pack_provider.clone();
-    let creation = Creation ::from_file(path)?;
+    let creation = from_file(path)?;
     Ok(Build::new(pack_provider, creation))
   }
 }
