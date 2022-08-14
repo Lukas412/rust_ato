@@ -1,4 +1,5 @@
-use error_stack::{Report, report};
+use std::fmt::{Display, Formatter};
+use error_stack::{Context, Report, report};
 
 #[derive(Debug)]
 pub(crate) struct ValueParseError {
@@ -14,3 +15,11 @@ impl ValueParseError {
     Self { text }
   }
 }
+
+impl Display for ValueParseError {
+  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    write!(f, "Error while parsing value: '{}'", self.text)
+  }
+}
+
+impl Context for ValueParseError {}
