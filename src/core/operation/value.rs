@@ -15,11 +15,11 @@ pub(crate) fn build_value(variant: &Variant, stack: &CreationStack, text: &Strin
   let namespace = stack.get_namespace()
     .change_context(BuildError::default())?;
 
-  let data = get_data(variant, text, namespace)
+  let data = get_data(variant, text, &namespace)
     .attach_printable(VariantInformation::new(variant.clone()))
     .change_context(BuildError::default())?;
 
-  Ok(Value::new(data, namespace.clone()))
+  Ok(Value::new(data, namespace))
 }
 
 fn get_data(variant: &Variant, text: &String, namespace: &Namespace) -> error_stack::Result<Data, ValueParseError> {

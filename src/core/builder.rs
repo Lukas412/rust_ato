@@ -21,7 +21,7 @@ impl Builder {
     Self { pack_provider }
   }
 
-  pub(crate) fn create_build<P: AsRef<Path>>(self, path: &P) -> error_stack::Result<Build, BuildError> {
+  pub(crate) fn create_build<P: AsRef<Path> + ?Sized>(self, path: &P) -> error_stack::Result<Build, BuildError> {
     let pack_provider = self.pack_provider.clone();
 
     let creation = from_file(path)

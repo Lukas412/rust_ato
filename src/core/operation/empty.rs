@@ -14,9 +14,11 @@ pub(crate) fn build_empty(variant: &Variant, stack: &CreationStack) -> error_sta
       Variant::String => Data::String(create_default()),
       Variant::None => Data::None
     };
+
   let namespace = stack.get_namespace()
     .change_context(BuildError::default())?;
-  Ok(Value::new(data, namespace.clone()))
+
+  Ok(Value::new(data, namespace))
 }
 
 fn create_default<T: Default>() -> T {

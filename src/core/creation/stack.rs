@@ -42,9 +42,9 @@ impl CreationStack {
     creation.get_operation(name.get_name())
   }
 
-  pub(crate) fn get_namespace(&self) -> error_stack::Result<&Namespace, CreationStackEmptyError> {
+  pub(crate) fn get_namespace(&self) -> error_stack::Result<Namespace, CreationStackEmptyError> {
     let creation = self.last()?;
-    Ok(creation.get_namespace())
+    Ok(creation.get_namespace().clone())
   }
 
   pub(crate) fn build_on_stack(&mut self, creation: Rc<Creation>, pack_provider: &PackProvider) -> error_stack::Result<Value, BuildError> {

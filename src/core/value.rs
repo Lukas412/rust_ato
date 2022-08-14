@@ -12,8 +12,8 @@ pub(crate) struct Value {
 }
 
 impl Value {
-  pub(crate) fn new(value: Data, namespace: Namespace) -> Self {
-    Self { data: value, namespace }
+  pub(crate) fn new(data: Data, namespace: Namespace) -> Self {
+    Self { data, namespace }
   }
 
   pub(crate) fn default_with_namespace(namespace: Namespace) -> Self {
