@@ -11,7 +11,7 @@ use yaserde::YaDeserialize;
 use crate::errors::ser::from_file::DeserializeFromFileError;
 use crate::errors::ser::string::to_string_error_context;
 
-pub(crate) fn from_file<T: YaDeserialize, P: AsRef<Path> + Debug + Sized>(file_path: &P) -> error_stack::Result<T, DeserializeFromFileError> {
+pub(crate) fn from_file<T: YaDeserialize, P: AsRef<Path>>(file_path: &P) -> error_stack::Result<T, DeserializeFromFileError> {
   let file = File::open(file_path)
     .report().change_context(DeserializeFromFileError::new(file_path))?;
   let deserialize_result = from_reader(file);
