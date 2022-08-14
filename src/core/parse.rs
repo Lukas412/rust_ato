@@ -10,7 +10,7 @@ pub(crate) fn from_deserializer_with_variant<R, T>(reader: &mut Deserializer<R>)
   where R: Read, T: DeserializeWithVariant
 {
   let (name, _, _) = peek_start_element(reader)?;
-  let variant = Variant::from_ownebd_name(name)?;
+  let variant = Variant::from_owned_name(name)?;
   let inner: T::Inner = from_deserializer(reader)?;
   T::from_inner(inner, variant)
 }
