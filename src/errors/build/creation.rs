@@ -1,3 +1,5 @@
+pub(crate) mod stack;
+
 use std::fmt::{Display, Formatter, write};
 use error_stack::{Context, Report, report};
 use crate::core::namespace::Namespace;
