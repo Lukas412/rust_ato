@@ -60,14 +60,7 @@ impl Operation {
     }
   }
 
-  pub(crate) fn expect_is_variant(&self, variant: &Variant) -> error_stack::Result<(), WrongVariantError> {
-    match self.is_variant(variant) {
-      true => Ok(()),
-      false => Err(WrongVariantError::new_report(variant.clone(), self.variant.clone()))
-    }
-  }
-
-  fn is_variant(&self, variant: &Variant) -> bool {
+  pub(crate) fn is_variant(&self, variant: &Variant) -> bool {
     &self.variant == variant
   }
 }
