@@ -1,4 +1,3 @@
-use crate::core::error::BuildError;
 use crate::core::value::{Data, Value};
 use crate::core::variant::Variant;
 use crate::CreationStack;

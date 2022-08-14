@@ -1,5 +1,4 @@
 use std::str::FromStr;
-use crate::core::error::BuildError;
 use crate::core::namespace::Namespace;
 use crate::core::value::{Data, Value};
 use crate::core::variant::Variant;

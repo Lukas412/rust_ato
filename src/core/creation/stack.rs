@@ -2,7 +2,6 @@ use std::fmt::Display;
 use std::rc::Rc;
 
 use crate::{Creation, PackProvider};
-use crate::core::error::BuildError;
 use crate::core::namespace::{Namespace, ParameterName};
 use crate::core::operation::Operation;
 use crate::core::value::Value;

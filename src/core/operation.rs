@@ -5,7 +5,6 @@ use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
 
 use crate::{Creation, CreationStack, PackProvider};
-use crate::core::error::BuildError;
 use crate::core::operation::action::OperationAction;
 use crate::core::operation::empty::build_empty;
 use crate::core::operation::get_argument::build_get_argument;

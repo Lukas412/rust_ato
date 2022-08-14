@@ -1,4 +1,3 @@
-use crate::core::error::BuildError;
 use crate::core::namespace::ParameterName;
 use crate::core::value::Value;
 use crate::core::variant::Variant;

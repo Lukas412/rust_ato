@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::path::Path;
-use crate::core::error::BuildError;
 use crate::core::namespace::Namespace;
 use crate::core::pack::Pack;
 
