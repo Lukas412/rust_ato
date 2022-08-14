@@ -5,6 +5,7 @@ use std::io::Read;
 use std::iter::FromIterator;
 use std::path::Path;
 use std::rc::Rc;
+use error_stack::{bail, report, ResultExt};
 
 use yaserde::de::Deserializer;
 use yaserde::YaDeserialize;
@@ -14,6 +15,9 @@ use crate::core::creation::value::CreationValue;
 use crate::core::namespace::Namespace;
 use crate::core::operation::Operation;
 use crate::core::value::Value;
+use crate::errors::attachments::NamespaceInformation;
+use crate::errors::build::BuildError;
+use crate::errors::build::operation::OperationNotFoundError;
 use crate::helpers::ser::from::{from_deserializer, from_file};
 
 pub(crate) mod value;
@@ -26,18 +30,15 @@ pub(crate) struct Creation {
 }
 
 impl Creation {
-  pub(crate) fn from_file<P: AsRef<Path> + ?Sized + Display>(path: &P) -> io::Result<Self> {
-    from_file(path)?
-  }
-
-  pub(crate) fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> Result<Value, BuildError> {
+  pub(crate) fn build(self: Rc<Self>, pack_provider: &PackProvider, stack: &mut CreationStack) -> error_stack::Result<Value, BuildError> {
     stack.build_on_stack(self, pack_provider)
   }
 
-  pub(crate) fn get_operation(&self, name: &String) -> Result<&Rc<Operation>, BuildError> {
+  pub(crate) fn get_operation(&self, name: &String) -> error_stack::Result<Rc<Operation>, OperationNotFoundError> {
     match self.operations.get(name) {
-      Some(operation) => Ok(operation),
-      None => Err(BuildError::new_operation_not_found_error(name, self.namespace.to_owned())),
+      Some(operation) => Ok(operation.clone()),
+      None => Err(report!(OperationNotFoundError::new(name.clone())))
+        .attach_printable(NamespaceInformation::new(self.namespace.clone())),
     }
   }
 
