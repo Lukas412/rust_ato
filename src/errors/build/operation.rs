@@ -7,11 +7,11 @@ pub(crate) struct OperationNotFoundError {
 }
 
 impl OperationNotFoundError {
-  pub(crate) fn new_report(namespace: String) -> Report<Self> {
-    report!(Self::new(namespace))
+  pub(crate) fn new_report(name: String) -> Report<Self> {
+    report!(Self::new(name))
   }
 
-  fn new(name: String) -> Self {
+  pub(crate) fn new(name: String) -> Self {
     Self { name }
   }
 }

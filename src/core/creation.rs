@@ -37,13 +37,13 @@ impl Creation {
   pub(crate) fn get_operation(&self, name: &String) -> error_stack::Result<Rc<Operation>, OperationNotFoundError> {
     match self.operations.get(name) {
       Some(operation) => Ok(operation.clone()),
-      None => Err(report!(OperationNotFoundError::new(name.clone())))
+      None => Err(OperationNotFoundError::new_report(name.clone()))
         .attach_printable(NamespaceInformation::new(self.namespace.clone())),
     }
   }
 
-  pub(crate) fn get_owned_namespace(&self) -> Namespace {
-    self.namespace.to_owned()
+  pub(crate) fn get_namespace(&self) -> &Namespace {
+    &self.namespace
   }
 }
 

@@ -4,7 +4,7 @@ pub(crate) mod creation;
 use std::fmt::{Display, Formatter};
 use error_stack::Context;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub(crate) struct BuildError {}
 
 impl Display for BuildError {
