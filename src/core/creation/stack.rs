@@ -50,7 +50,7 @@ impl CreationStack {
   pub(crate) fn build_on_stack(&mut self, creation: Rc<Creation>, pack_provider: &PackProvider) -> error_stack::Result<Value, BuildError> {
     self.push(creation);
     let creation = self.last().change_context(BuildError::default())?;
-    let pack = pack_provider.get_pack(&creation.namespace)?;
+    let pack = pack_provider.get_pack(&creation.namespace).change_context(BuildError::default())?;
     let operation = pack.get_operation();
     let result = operation.build(pack_provider, self);
     self.pop().change_context(BuildError::default())?;

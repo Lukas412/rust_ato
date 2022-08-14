@@ -1,5 +1,6 @@
 pub(crate) mod operation;
 pub(crate) mod creation;
+pub(crate) mod pack;
 
 use std::fmt::{Display, Formatter};
 use error_stack::Context;
