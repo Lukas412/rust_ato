@@ -8,7 +8,7 @@ use yaserde::YaDeserialize;
 pub(crate) struct Namespace(String);
 
 impl Namespace {
-  pub(crate) fn new(value: String) -> Self {
+  pub(crate) const fn new(value: String) -> Self {
     Self(value)
   }
 }
