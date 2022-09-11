@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<action:pack xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="angular::project">
+<action_pack xmlns="" namespace="angular::project">
 
-  <parameters>
-    <string:parameter name="name"/>
-    <string:parameter name="title"/>
-  </parameters>
-  <action:array>
-    <action:reference namespace="angular::project::create"/>
-    <action:reference namespace="angular::project::edit"/>
-  </action:array>
-</action:pack>
+  <any-parameters>
+    <string_parameter name="name"/>
+    <string_parameter name="title"/>
+  </any-parameters>
+  <action_array>
+    <action_reference namespace="angular::project::create"/>
+    <action_reference namespace="angular::project::edit"/>
+  </action_array>
+</action_pack>

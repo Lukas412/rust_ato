@@ -1,15 +1,11 @@
-<action:pack xmlns:general="http://www.ato.net/xmlns/general"
-             xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:action_expression="http://www.ato.net/xmlns/action/expression"
-             xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="ato::command::invoke">
+<action_pack xmlns="" namespace="ato::command::invoke">
 
-  <general:parameters>
-    <string:parameter name="command"/>
-    <string:parameter name="flags"/>
-  </general:parameters>
-  <action_expression:invoke>
-    <string:get_argument namespace="ato::command::invoke" name="command"/>
-    <string:get_argument namespace="ato::command::invoke" name="flags"/>
-  </action_expression:invoke>
-</action:pack>
+  <any-parameters>
+    <string_parameter name="command"/>
+    <string_parameter name="flags"/>
+  </any-parameters>
+  <command_invoke>
+    <string_get-argument namespace="ato::command::invoke" name="command"/>
+    <string_get-argument namespace="ato::command::invoke" name="flags"/>
+  </command_invoke>
+</action_pack>

@@ -12,8 +12,8 @@
   </xs:complexType>
   <xs:group name="string">
     <xs:choice>
+      <xs:element ref="string"/>
       <xs:element ref="string_value"/>
-      <xs:element ref="string_element"/>
       <xs:element ref="string_reference"/>
       <xs:element ref="string_get-argument"/>
       <xs:element ref="string_if"/>
@@ -22,18 +22,18 @@
     </xs:choice>
   </xs:group>
 
-  <xs:element name="string_value" type="string_value-type"/>
-  <xs:simpleType name="string_value-type">
-    <xs:restriction base="xs:string"/>
-  </xs:simpleType>
-
-  <xs:element name="string_element" type="string_element-type"/>
-  <xs:complexType name="string_element-type">
+  <xs:element name="string" type="string_type"/>
+  <xs:complexType name="string_type">
     <xs:sequence>
       <xs:group ref="string" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="value" type="string_value-type"/>
   </xs:complexType>
+
+  <xs:element name="string_value" type="string_value-type"/>
+  <xs:simpleType name="string_value-type">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
 
   <xs:element name="string_reference" type="element_reference-type"/>
   <xs:element name="string_get-argument">
@@ -46,25 +46,25 @@
     <xs:complexType>
       <xs:all>
         <xs:element name="value" type="boolean"/>
-        <xs:element name="then" type="string_element-type"/>
-        <xs:element name="else" type="string_element-type" minOccurs="0"/>
+        <xs:element name="then" type="string_type"/>
+        <xs:element name="else" type="string_type" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
   <xs:element name="string_switch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="value" type="string"/>
+        <xs:element name="value" type="string_type"/>
         <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:all>
-              <xs:element name="then" type="string_element-type" minOccurs="0"/>
+              <xs:element name="then" type="string_type" minOccurs="0"/>
             </xs:all>
             <xs:attribute name="value" type="string_value-type"/>
             <xs:attribute name="then" type="string_value-type"/>
           </xs:complexType>
         </xs:element>
-        <xs:element name="default" type="string_element-type" minOccurs="0"/>
+        <xs:element name="default" type="string_type" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -82,7 +82,7 @@
   <xs:element name="string_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" type="element_parameters" minOccurs="0"/>
+        <xs:element ref="element_parameters" minOccurs="0"/>
         <xs:group ref="string"/>
       </xs:sequence>
       <xs:attribute name="namespace" type="namespace_type-name" use="required"/>

@@ -4,5 +4,5 @@
 
   <xs:include schemaLocation="../string.xsd"/>
 
-  <xs:element name="command_invoke" type="string"/>
+  <xs:element name="command_invoke" type="string_type"/>
 </xs:schema>

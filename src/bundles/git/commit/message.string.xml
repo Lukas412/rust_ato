@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<string:pack xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="git::commit::message">
+<string_pack xmlns="" namespace="git::commit::message">
 
-  <parameters>
-    <string:parameter name="value"/>
-  </parameters>
-  <string:element>
-    <string:value>--message</string:value>
-    <string:get_argument namespace="git::commit::message" name="value"/>
-  </string:element>
-</string:pack>
+  <element_parameters>
+    <string_parameter name="value"/>
+  </element_parameters>
+  <string>
+    <string_value>--message</string_value>
+    <string_get-argument namespace="git::commit::message" name="value"/>
+  </string>
+</string_pack>

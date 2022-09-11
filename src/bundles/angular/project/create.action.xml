@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<action:pack xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="angular::project::create">
+<action_pack xmlns="" namespace="angular::project::create">
 
-  <action:reference namespace="angular::cli::init">
-    <string:argument name="flags">
-      <string:element>
-        <string:reference namespace="angular::cli::init::name">
-          <string:argument name="name">
-            <string:get_argument namespace="angular::project" name="name"/>
-          </string:argument>
-        </string:reference>
-        <string:reference namespace="angular::cli::init::production"/>
-      </string:element>
-    </string:argument>
-  </action:reference>
-</action:pack>
+  <action_reference namespace="angular::cli::init">
+    <string_argument name="flags">
+      <string>
+        <string_reference namespace="angular::cli::init::name">
+          <string_argument name="name">
+            <string_get-argument namespace="angular::project" name="name"/>
+          </string_argument>
+        </string_reference>
+        <string_reference namespace="angular::cli::init::production"/>
+      </string>
+    </string_argument>
+  </action_reference>
+</action_pack>

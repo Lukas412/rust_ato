@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<action:pack xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:action_location="http://www.ato.net/xmlns/action/location"
-             xmlns:path="http://www.ato.net/xmlns/path"
-             xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="angular::cli::build">
+<action_pack xmlns="" namespace="angular::cli::build">
 
-  <parameters>
-    <string:parameter name="flags" namespace="angular::cli::build::*"/>
-  </parameters>
-  <action_location:change>
-    <path:get_argument namespace="angular::project" name="name"/>
-    <action:reference namespace="ato::command::invoke">
-      <string:argument name="command" value="ng build"/>
-      <string:argument name="flags">
-        <string:get_argument namespace="angular::cli::build" name="flags"/>
-      </string:argument>
-    </action:reference>
-  </action_location:change>
-</action:pack>
+  <any-parameters>
+    <string_parameter name="flags" namespace="angular::cli::build::*"/>
+  </any-parameters>
+  <location_change>
+    <path_get-argument namespace="angular::project" name="name"/>
+    <action_reference namespace="ato::command::invoke">
+      <string_argument name="command" value="ng build"/>
+      <string_argument name="flags">
+        <string_get-argument namespace="angular::cli::build" name="flags"/>
+      </string_argument>
+    </action_reference>
+  </location_change>
+</action_pack>

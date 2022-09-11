@@ -1,8 +1,8 @@
-<string:pack xmlns:string="http://www.ato.net/xmlns/string"
+<string_pack xmlns=""
              namespace="angular::cli::init::name">
 
-  <parameters>
-    <string:parameter name="value"/>
-  </parameters>
-  <string:get_argument namespace="angular::cli::init::name" name="value"/>
-</string:pack>
+  <element_parameters>
+    <string_parameter name="value"/>
+  </element_parameters>
+  <string_get-argument namespace="angular::cli::init::name" name="value"/>
+</string_pack>

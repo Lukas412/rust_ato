@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<action:pack xmlns:action="http://www.ato.net/xmlns/action"
-             xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="git::commit">
+<action_pack xmlns="" namespace="git::commit">
 
-  <parameters>
-    <string:parameter name="flags" namespace="git::commit::*"/>
-  </parameters>
-  <action:reference namespace="ato::command::invoke">
-    <string:argument name="command" value="git commit"/>
-    <string:argument name="flags">
-      <string:get_argument namespace="git::commit" name="flags"/>
-    </string:argument>
-  </action:reference>
-</action:pack>
+  <any-parameters>
+    <string_parameter name="flags" namespace="git::commit::*"/>
+  </any-parameters>
+  <action_reference namespace="ato::command::invoke">
+    <string_argument name="command" value="git commit"/>
+    <string_argument name="flags">
+      <string_get-argument namespace="git::commit" name="flags"/>
+    </string_argument>
+  </action_reference>
+</action_pack>

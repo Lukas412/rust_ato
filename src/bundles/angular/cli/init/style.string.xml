@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<string:pack xmlns:string="http://www.ato.net/xmlns/string"
-             namespace="angular::cli::init::style">
+<string_pack xmlns="" namespace="angular::cli::init::style">
 
-  <parameters>
-    <string:parameter name="type"/>
-  </parameters>
-  <string:switch>
+  <element_parameters>
+    <string_parameter name="type"/>
+  </element_parameters>
+  <string_switch>
     <value>
-      <string:get_argument namespace="angular::cli::init::style" name="type"/>
+      <string_get-argument namespace="angular::cli::init::style" name="type"/>
     </value>
     <case value="css" then="css"/>
     <case value="scss" then="scss"/>
     <case value="sass" then="sass"/>
-  </string:switch>
-</string:pack>
+  </string_switch>
+</string_pack>

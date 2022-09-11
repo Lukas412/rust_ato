@@ -84,7 +84,7 @@
   <xs:element name="path_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" type="element_parameters" minOccurs="0"/>
+        <xs:element name="parameters" type="element_parameters-type" minOccurs="0"/>
         <xs:group ref="path"/>
       </xs:sequence>
       <xs:attribute name="namespace" type="namespace_type-name" use="required"/>

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<general:bundle xmlns:general="http://www.ato.net/xmlns/general"
-                xmlns:action="http://www.ato.net/xmlns/action"
-                xmlns:string="http://www.ato.net/xmlns/string"
-                namespace="angular">
+<bundle xmlns="" namespace="angular">
 
-  <general:references>
-    <action:reference namespace="angular::cli::build"/>
-    <string:reference namespace="angular::cli::build::production"/>
+  <any-references>
+    <action_reference namespace="angular::cli::build"/>
+    <string_reference namespace="angular::cli::build::production"/>
 
-    <action:reference namespace="angular::cli::init"/>
-    <string:reference namespace="angular::cli::init::name"/>
-    <string:reference namespace="angular::cli::init::style"/>
+    <action_reference namespace="angular::cli::init"/>
+    <string_reference namespace="angular::cli::init::name"/>
+    <string_reference namespace="angular::cli::init::style"/>
 
-    <action:reference namespace="angular::cli::start"/>
-    <string:reference namespace="angular::cli::start::port"/>
-    <string:reference namespace="angular::cli::start::production"/>
+    <action_reference namespace="angular::cli::start"/>
+    <string_reference namespace="angular::cli::start::port"/>
+    <string_reference namespace="angular::cli::start::production"/>
 
-    <action:reference namespace="angular::project"/>
-    <action:reference namespace="angular::project::create"/>
-    <action:reference namespace="angular::project::edit"/>
-  </general:references>
-</general:bundle>
+    <action_reference namespace="angular::project"/>
+    <action_reference namespace="angular::project::create"/>
+    <action_reference namespace="angular::project::edit"/>
+  </any-references>
+</bundle>

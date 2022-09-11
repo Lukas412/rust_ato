@@ -19,7 +19,8 @@
     </xs:choice>
   </xs:group>
 
-  <xs:complexType name="element_parameters">
+  <xs:element name="element_parameters" type="element_parameters-type"/>
+  <xs:complexType name="element_parameters-type">
     <xs:sequence>
       <xs:group ref="element_parameter" maxOccurs="unbounded"/>
     </xs:sequence>
