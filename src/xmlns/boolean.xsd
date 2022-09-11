@@ -1,99 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/boolean"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:element="http://www.ato.net/xmlns/element"
-           xmlns:string="http://www.ato.net/xmlns/string"
-           targetNamespace="http://www.ato.net/xmlns/boolean">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:include schemaLocation="parameter.xsd"/>
+  <xs:include schemaLocation="string.xsd"/>
+  <xs:include schemaLocation="element.xsd"/>
 
-  <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/parameter"
-             schemaLocation="parameter.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="element.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/string"
-             schemaLocation="string.xsd"/>
-
-  <xs:complexType name="includes-element">
-    <xs:group ref="includes-element"/>
+  <xs:complexType name="boolean">
+    <xs:group ref="boolean"/>
   </xs:complexType>
-  <xs:group name="includes-element">
+  <xs:group name="boolean">
     <xs:choice>
-      <xs:element ref="value"/>
-      <xs:element ref="element"/>
-      <xs:element ref="reference"/>
-      <xs:element ref="get_argument"/>
-      <xs:element ref="if"/>
-      <xs:element ref="switch"/>
+      <xs:element ref="boolean_value"/>
+      <xs:element ref="boolean_element"/>
+      <xs:element ref="boolean_reference"/>
+      <xs:element ref="boolean_get-argument"/>
+      <xs:element ref="boolean_if"/>
+      <xs:element ref="boolean_switch"/>
     </xs:choice>
   </xs:group>
 
-  <xs:element name="value" type="value-type"/>
-  <xs:simpleType name="value-type">
+  <xs:element name="boolean_value" type="boolean_value-type"/>
+  <xs:simpleType name="boolean_value-type">
     <xs:restriction base="xs:boolean"/>
   </xs:simpleType>
 
-  <xs:element name="element" type="element-type"/>
-  <xs:complexType name="element-type">
+  <xs:element name="boolean_element" type="boolean_element-type"/>
+  <xs:complexType name="boolean_element-type">
     <xs:sequence>
-      <xs:group ref="includes-element" minOccurs="0"/>
+      <xs:group ref="boolean" minOccurs="0"/>
     </xs:sequence>
-    <xs:attribute name="value" type="value-type"/>
+    <xs:attribute name="value" type="boolean_value-type"/>
   </xs:complexType>
 
-  <xs:element name="reference" type="element:reference-type"/>
-  <xs:element name="get_argument">
+  <xs:element name="boolean_reference" type="element_reference-type"/>
+  <xs:element name="boolean_get-argument">
     <xs:complexType>
-      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="namespace" type="namespace_type-name"/>
       <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="if">
+  <xs:element name="boolean_if">
     <xs:complexType>
       <xs:all>
-        <xs:element name="value" type="includes-element"/>
-        <xs:element name="then" type="element-type"/>
-        <xs:element name="else" type="element-type" minOccurs="0"/>
+        <xs:element name="value" type="boolean"/>
+        <xs:element name="then" type="boolean_element-type"/>
+        <xs:element name="else" type="boolean_element-type" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="switch">
+  <xs:element name="boolean_switch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="value" type="string"/>
         <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:all>
-              <xs:element name="then" type="element-type" minOccurs="0"/>
+              <xs:element name="then" type="boolean_element-type" minOccurs="0"/>
             </xs:all>
-            <xs:attribute name="value" type="string:value-type"/>
-            <xs:attribute name="then" type="value-type"/>
+            <xs:attribute name="value" type="string_value-type"/>
+            <xs:attribute name="then" type="boolean_value-type"/>
           </xs:complexType>
         </xs:element>
-        <xs:element name="default" type="element-type"/>
+        <xs:element name="default" type="boolean_element-type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="argument">
+  <xs:element name="boolean_argument">
     <xs:complexType>
-      <xs:group ref="includes-element" minOccurs="0"/>
+      <xs:group ref="boolean" minOccurs="0"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="value" type="value-type"/>
+      <xs:attribute name="value" type="boolean_value-type"/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="pack">
+  <xs:element name="boolean_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" type="element:parameters" minOccurs="0"/>
-        <xs:group ref="includes-element"/>
+        <xs:element name="parameters" type="element_parameters" minOccurs="0"/>
+        <xs:group ref="boolean"/>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="boolean_parameter" type="parameter_type"/>
 </xs:schema>

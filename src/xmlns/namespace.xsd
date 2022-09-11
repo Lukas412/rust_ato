@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/namespace"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.ato.net/xmlns/namespace">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:simpleType name="type-name">
+  <xs:simpleType name="namespace_type-name">
     <xs:restriction base="xs:string">
       <xs:pattern value="[a-z1-9]+(::[a-z1-9]+)*"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="wildcard-type-name">
+  <xs:simpleType name="namespace_wildcard-type-name">
     <xs:restriction base="xs:string">
       <xs:pattern value="[a-z1-9]+(::([a-z1-9]+|\*))+"/>
     </xs:restriction>

@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/action/content"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:path="http://www.ato.net/xmlns/path"
-           xmlns:string="http://www.ato.net/xmlns/string"
-           targetNamespace="http://www.ato.net/xmlns/action/content">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://www.ato.net/xmlns/path"
-             schemaLocation="../path.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/string"
-             schemaLocation="../string.xsd"/>
+  <xs:include schemaLocation="../path.xsd"/>
+  <xs:include schemaLocation="../string.xsd"/>
 
-  <xs:element name="add">
+  <xs:element name="content_add">
     <xs:complexType>
       <xs:all>
-        <xs:element name="path" type="path:includes-element"/>
-        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="path" type="path"/>
+        <xs:element name="value" type="string"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="set">
+  <xs:element name="content_set">
     <xs:complexType>
       <xs:all>
-        <xs:element name="path" type="path:includes-element"/>
-        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="path" type="path"/>
+        <xs:element name="value" type="string"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="clear" type="path:includes-element"/>
+  <xs:element name="content_clear" type="path"/>
 </xs:schema>

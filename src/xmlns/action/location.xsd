@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/action/location"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:action="http://www.ato.net/xmlns/action"
-           xmlns:path="http://www.ato.net/xmlns/path"
-           targetNamespace="http://www.ato.net/xmlns/action/location">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://www.ato.net/xmlns/action"
-             schemaLocation="../action.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/path"
-             schemaLocation="../path.xsd"/>
+  <xs:include schemaLocation="../path.xsd"/>
+  <xs:include schemaLocation="../action.xsd"/>
 
-  <xs:element name="change">
+  <xs:element name="location_change">
     <xs:complexType>
       <xs:sequence>
-        <xs:group ref="path:includes-element" minOccurs="0"/>
+        <xs:group ref="path" minOccurs="0"/>
         <xs:choice>
-          <xs:element ref="action:array"/>
-          <xs:group ref="action:action"/>
+          <xs:element ref="action_array"/>
+          <xs:group ref="action"/>
         </xs:choice>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="pop"/>
-  <xs:element name="push" type="path:includes-element"/>
-  <xs:element name="set" type="path:includes-element"/>
+  <xs:element name="location_pop"/>
+  <xs:element name="location_push" type="path"/>
+  <xs:element name="location_set" type="path"/>
 </xs:schema>

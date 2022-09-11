@@ -1,0 +1,60 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:include schemaLocation="namespace.xsd"/>
+
+  <xs:include schemaLocation="element.xsd"/>
+  <xs:include schemaLocation="action.xsd"/>
+
+  <xs:group name="any-argument">
+    <xs:choice>
+      <xs:element ref="action_argument"/>
+      <xs:group ref="element_argument"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="any-parameters" type="any_parameters-type"/>
+  <xs:complexType name="any_parameters-type">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="action_parameter"/>
+        <xs:group ref="element_parameter"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="any-references">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence maxOccurs="unbounded">
+          <xs:element ref="action_reference" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:group ref="element_reference" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="creation" type="creation-type"/>
+  <xs:complexType name="creation-type">
+    <xs:sequence>
+      <xs:element name="value" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="creation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+          <xs:attribute name="value" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="bundle">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="any-references" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

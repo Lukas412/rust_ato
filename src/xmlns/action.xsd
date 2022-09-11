@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/action"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:general="http://www.ato.net/xmlns/general"
-           xmlns:action_content="http://www.ato.net/xmlns/action/content"
-           xmlns:action_directory="http://www.ato.net/xmlns/action/directory"
-           xmlns:action_expression="http://www.ato.net/xmlns/action/expression"
-           xmlns:action_file="http://www.ato.net/xmlns/action/file"
-           xmlns:action_location="http://www.ato.net/xmlns/action/location"
-           xmlns:action_output="http://www.ato.net/xmlns/action/output"
-           xmlns:element="http://www.ato.net/xmlns/element"
-           targetNamespace="http://www.ato.net/xmlns/action">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:include schemaLocation="parameter.xsd"/>
 
-  <xs:import namespace="http://www.ato.net/xmlns/general"
-             schemaLocation="general.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/parameter"
-             schemaLocation="parameter.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/content"
-             schemaLocation="action/content.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/directory"
-             schemaLocation="action/directory.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/expression"
-             schemaLocation="action/expression.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/file"
-             schemaLocation="action/file.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/location"
-             schemaLocation="action/location.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/action/output"
-             schemaLocation="action/output.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="element.xsd"/>
+  <xs:include schemaLocation="action/command.xsd"/>
+  <xs:include schemaLocation="action/content.xsd"/>
+  <xs:include schemaLocation="action/directory.xsd"/>
+  <xs:include schemaLocation="action/file.xsd"/>
+  <xs:include schemaLocation="action/location.xsd"/>
+  <xs:include schemaLocation="action/output.xsd"/>
 
-  <xs:complexType name="includes-action">
-    <xs:group ref="includes-action"/>
+  <xs:include schemaLocation="any.xsd"/>
+
+  <xs:complexType name="any-action">
+    <xs:group ref="any-action"/>
   </xs:complexType>
-  <xs:group name="includes-action">
+  <xs:group name="any-action">
     <xs:choice>
-      <xs:element ref="array"/>
+      <xs:element ref="action_array"/>
       <xs:group ref="action"/>
     </xs:choice>
   </xs:group>
 
-  <xs:element name="array">
+  <xs:element name="action_array">
     <xs:complexType>
       <xs:sequence>
         <xs:group ref="action" minOccurs="0" maxOccurs="unbounded"/>
@@ -55,55 +32,56 @@
   </xs:element>
   <xs:group name="action">
     <xs:choice>
-      <xs:element ref="reference"/>
+      <xs:element ref="action_reference"/>
 
-      <xs:element ref="action_content:add"/>
-      <xs:element ref="action_content:set"/>
-      <xs:element ref="action_content:clear"/>
+      <xs:element ref="command_invoke"/>
 
-      <xs:element ref="action_directory:copy"/>
-      <xs:element ref="action_directory:new"/>
-      <xs:element ref="action_directory:remove"/>
+      <xs:element ref="content_add"/>
+      <xs:element ref="content_set"/>
+      <xs:element ref="content_clear"/>
 
-      <xs:element ref="action_expression:invoke"/>
+      <xs:element ref="directory_copy"/>
+      <xs:element ref="directory_new"/>
+      <xs:element ref="directory_remove"/>
 
-      <xs:element ref="action_file:copy"/>
-      <xs:element ref="action_file:new"/>
-      <xs:element ref="action_file:remove"/>
+      <xs:element ref="file_copy"/>
+      <xs:element ref="file_new"/>
+      <xs:element ref="file_remove"/>
 
-      <xs:element ref="action_location:change"/>
-      <xs:element ref="action_location:pop"/>
-      <xs:element ref="action_location:push"/>
-      <xs:element ref="action_location:set"/>
+      <xs:element ref="location_change"/>
+      <xs:element ref="location_pop"/>
+      <xs:element ref="location_push"/>
+      <xs:element ref="location_set"/>
 
-      <xs:element ref="action_output:write"/>
+      <xs:element ref="output_write"/>
     </xs:choice>
   </xs:group>
 
-  <xs:element name="reference">
+  <xs:element name="action_reference">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="argument" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:group ref="element:argument" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:group ref="any-argument" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="argument">
+  <xs:element name="action_argument">
     <xs:complexType>
-      <xs:group ref="includes-action"/>
+      <xs:group ref="any-action"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="pack">
+  <xs:element name="action_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="general:parameters" minOccurs="0"/>
-        <xs:group ref="includes-action"/>
+        <xs:element ref="any-parameters" minOccurs="0"/>
+        <xs:group ref="any-action"/>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="action_parameter" type="parameter_type"/>
 </xs:schema>

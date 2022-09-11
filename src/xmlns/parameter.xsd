@@ -1,9 +1,9 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="parameter" type="type"/>
-  <xs:complexType name="type">
+  <xs:include schemaLocation="namespace.xsd"/>
+
+  <xs:complexType name="parameter_type">
     <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="namespace" type="namespace:wildcard-type-name"/>
+    <xs:attribute name="namespace" type="namespace_wildcard-type-name"/>
   </xs:complexType>
 </xs:schema>

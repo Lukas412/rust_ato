@@ -1,102 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/number"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:element="http://www.ato.net/xmlns/element"
-           xmlns:boolean="http://www.ato.net/xmlns/boolean"
-           xmlns:string="http://www.ato.net/xmlns/string"
-           targetNamespace="http://www.ato.net/xmlns/number">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:include schemaLocation="parameter.xsd"/>
+  <xs:include schemaLocation="boolean.xsd"/>
+  <xs:include schemaLocation="string.xsd"/>
+  <xs:include schemaLocation="element.xsd"/>
 
-  <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/parameter"
-             schemaLocation="parameter.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="element.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/boolean"
-             schemaLocation="boolean.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/string"
-             schemaLocation="string.xsd"/>
-
-  <xs:complexType name="includes-element">
-    <xs:group ref="includes-element"/>
+  <xs:complexType name="number">
+    <xs:group ref="number"/>
   </xs:complexType>
-  <xs:group name="includes-element">
+  <xs:group name="number">
     <xs:choice>
-      <xs:element ref="value"/>
-      <xs:element ref="element"/>
-      <xs:element ref="reference"/>
-      <xs:element ref="get_argument"/>
-      <xs:element ref="if"/>
-      <xs:element ref="switch"/>
+      <xs:element ref="number_value"/>
+      <xs:element ref="number_element"/>
+      <xs:element ref="number_reference"/>
+      <xs:element ref="number_get-argument"/>
+      <xs:element ref="number_if"/>
+      <xs:element ref="number_switch"/>
     </xs:choice>
   </xs:group>
 
-  <xs:element name="value" type="value-type"/>
-  <xs:simpleType name="value-type">
+  <xs:element name="number_value" type="number_value-type"/>
+  <xs:simpleType name="number_value-type">
     <xs:union memberTypes="xs:integer xs:decimal"/>
   </xs:simpleType>
 
-  <xs:element name="element" type="element-type"/>
-  <xs:complexType name="element-type">
+  <xs:element name="number_element" type="number_element-type"/>
+  <xs:complexType name="number_element-type">
     <xs:sequence>
-      <xs:group ref="includes-element" minOccurs="0"/>
+      <xs:group ref="number" minOccurs="0"/>
     </xs:sequence>
-    <xs:attribute name="value" type="value-type"/>
+    <xs:attribute name="value" type="path_value-type"/>
   </xs:complexType>
 
-  <xs:element name="reference" type="element:reference-type"/>
-  <xs:element name="get_argument">
+  <xs:element name="number_reference" type="element_reference-type"/>
+  <xs:element name="number_get-argument">
     <xs:complexType>
-      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="namespace" type="namespace_type-name"/>
       <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="if">
+  <xs:element name="number_if">
     <xs:complexType>
       <xs:all>
-        <xs:element name="value" type="boolean:includes-element"/>
-        <xs:element name="then" type="element-type"/>
-        <xs:element name="else" type="element-type" minOccurs="0"/>
+        <xs:element name="value" type="boolean"/>
+        <xs:element name="then" type="number_element-type"/>
+        <xs:element name="else" type="number_element-type" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="switch">
+  <xs:element name="number_switch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="value" type="string"/>
         <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:all>
-              <xs:element name="then" type="element-type" minOccurs="0"/>
+              <xs:element name="then" type="number_element-type" minOccurs="0"/>
             </xs:all>
-            <xs:attribute name="value" type="string:value-type"/>
-            <xs:attribute name="then" type="value-type"/>
+            <xs:attribute name="value" type="string_value-type"/>
+            <xs:attribute name="then" type="number_value-type"/>
           </xs:complexType>
         </xs:element>
-        <xs:element name="default" type="element-type"/>
+        <xs:element name="default" type="number_element-type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="argument">
+  <xs:element name="number_argument">
     <xs:complexType>
-      <xs:group ref="includes-element" minOccurs="0"/>
+      <xs:group ref="number" minOccurs="0"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="value" type="value-type"/>
+      <xs:attribute name="value" type="number_value-type"/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="pack">
+  <xs:element name="number_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" type="element:parameters" minOccurs="0"/>
-        <xs:group ref="includes-element"/>
+        <xs:element name="parameters" type="element_parameters" minOccurs="0"/>
+        <xs:group ref="number"/>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="number_parameter" type="parameter_type"/>
 </xs:schema>

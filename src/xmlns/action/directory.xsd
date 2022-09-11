@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/action/directory"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:path="http://www.ato.net/xmlns/path"
-           targetNamespace="http://www.ato.net/xmlns/action/directory">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://www.ato.net/xmlns/path"
-             schemaLocation="../path.xsd"/>
+  <xs:include schemaLocation="../path.xsd"/>
 
-  <xs:element name="copy">
+  <xs:element name="directory_copy">
     <xs:complexType>
       <xs:all>
-        <xs:element name="from" type="path:includes-element"/>
-        <xs:element name="to" type="path:includes-element"/>
+        <xs:element name="from" type="path"/>
+        <xs:element name="to" type="path"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="new" type="path:includes-element"/>
-  <xs:element name="remove" type="path:includes-element"/>
+  <xs:element name="directory_new" type="path"/>
+  <xs:element name="directory_remove" type="path"/>
 </xs:schema>

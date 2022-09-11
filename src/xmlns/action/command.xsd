@@ -2,7 +2,7 @@
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:include schemaLocation="../element.xsd"/>
+  <xs:include schemaLocation="../string.xsd"/>
 
-  <xs:element name="output_write" type="element"/>
+  <xs:element name="command_invoke" type="string"/>
 </xs:schema>

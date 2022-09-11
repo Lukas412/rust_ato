@@ -1,80 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/element"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:boolean="http://www.ato.net/xmlns/boolean"
-           xmlns:number="http://www.ato.net/xmlns/number"
-           xmlns:string="http://www.ato.net/xmlns/string"
-           xmlns:path="http://www.ato.net/xmlns/path"
-           targetNamespace="http://www.ato.net/xmlns/element">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/boolean"
-             schemaLocation="boolean.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/number"
-             schemaLocation="number.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/string"
-             schemaLocation="string.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/path"
-             schemaLocation="path.xsd"/>
+  <xs:include schemaLocation="boolean.xsd"/>
+  <xs:include schemaLocation="number.xsd"/>
+  <xs:include schemaLocation="path.xsd"/>
+  <xs:include schemaLocation="string.xsd"/>
 
-  <xs:complexType name="includes-element">
-    <xs:group ref="includes-element"/>
+  <xs:complexType name="element">
+    <xs:group ref="element"/>
   </xs:complexType>
-  <xs:group name="includes-element">
+  <xs:group name="element">
     <xs:choice>
-      <xs:group ref="boolean:includes-element"/>
-      <xs:group ref="number:includes-element"/>
-      <xs:group ref="path:includes-element"/>
-      <xs:group ref="string:includes-element"/>
+      <xs:group ref="boolean"/>
+      <xs:group ref="number"/>
+      <xs:group ref="path"/>
+      <xs:group ref="string"/>
     </xs:choice>
   </xs:group>
 
-  <xs:complexType name="parameters">
+  <xs:complexType name="element_parameters">
     <xs:sequence>
-      <xs:group ref="parameter" maxOccurs="unbounded"/>
+      <xs:group ref="element_parameter" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:group name="parameter">
+  <xs:group name="element_parameter">
     <xs:choice>
-      <xs:element ref="boolean:parameter"/>
-      <xs:element ref="number:parameter"/>
-      <xs:element ref="path:parameter"/>
-      <xs:element ref="string:parameter"/>
+      <xs:element ref="boolean_parameter"/>
+      <xs:element ref="number_parameter"/>
+      <xs:element ref="path_parameter"/>
+      <xs:element ref="string_parameter"/>
     </xs:choice>
   </xs:group>
-  <xs:group name="argument">
+  <xs:group name="element_argument">
     <xs:choice>
-      <xs:element ref="boolean:argument"/>
-      <xs:element ref="number:argument"/>
-      <xs:element ref="path:argument"/>
-      <xs:element ref="string:argument"/>
+      <xs:element ref="boolean_argument"/>
+      <xs:element ref="number_argument"/>
+      <xs:element ref="path_argument"/>
+      <xs:element ref="string_argument"/>
     </xs:choice>
   </xs:group>
 
-  <xs:group name="reference">
+  <xs:group name="element_reference">
     <xs:choice>
-      <xs:element ref="boolean:reference"/>
-      <xs:element ref="number:reference"/>
-      <xs:element ref="path:reference"/>
-      <xs:element ref="string:reference"/>
+      <xs:element ref="boolean_reference"/>
+      <xs:element ref="number_reference"/>
+      <xs:element ref="path_reference"/>
+      <xs:element ref="string_reference"/>
     </xs:choice>
   </xs:group>
-  <xs:complexType name="reference-type">
+  <xs:complexType name="element_reference-type">
     <xs:sequence>
-      <xs:group ref="argument" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="element_argument" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-    <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+    <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
   </xs:complexType>
 
-  <xs:group name="pack">
+  <xs:group name="element_pack">
     <xs:choice>
-      <xs:element ref="boolean:pack"/>
-      <xs:element ref="number:pack"/>
-      <xs:element ref="path:pack"/>
-      <xs:element ref="string:pack"/>
+      <xs:element ref="boolean_pack"/>
+      <xs:element ref="number_pack"/>
+      <xs:element ref="path_pack"/>
+      <xs:element ref="string_pack"/>
     </xs:choice>
   </xs:group>
 </xs:schema>

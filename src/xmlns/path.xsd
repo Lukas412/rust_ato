@@ -1,107 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<xs:schema xmlns="http://www.ato.net/xmlns/path"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:namespace="http://www.ato.net/xmlns/namespace"
-           xmlns:element="http://www.ato.net/xmlns/element"
-           xmlns:boolean="http://www.ato.net/xmlns/boolean"
-           xmlns:string="http://www.ato.net/xmlns/string"
-           targetNamespace="http://www.ato.net/xmlns/path">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:include schemaLocation="parameter.xsd"/>
+  <xs:include schemaLocation="boolean.xsd"/>
+  <xs:include schemaLocation="string.xsd"/>
+  <xs:include schemaLocation="element.xsd"/>
 
-  <xs:import namespace="http://www.ato.net/xmlns/namespace"
-             schemaLocation="namespace.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/parameter"
-             schemaLocation="parameter.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/element"
-             schemaLocation="element.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/boolean"
-             schemaLocation="boolean.xsd"/>
-  <xs:import namespace="http://www.ato.net/xmlns/string"
-             schemaLocation="string.xsd"/>
-
-  <xs:complexType name="includes-element">
-    <xs:group ref="includes-element"/>
+  <xs:complexType name="path">
+    <xs:group ref="path"/>
   </xs:complexType>
-  <xs:group name="includes-element">
+  <xs:group name="path">
     <xs:choice>
-      <xs:element ref="value"/>
-      <xs:element ref="element"/>
-      <xs:element ref="reference"/>
-      <xs:element ref="get_argument"/>
-      <xs:element ref="if"/>
-      <xs:element ref="switch"/>
-      <xs:element ref="suffix"/>
-      <xs:element ref="from_string"/>
+      <xs:element ref="path_value"/>
+      <xs:element ref="path_element"/>
+      <xs:element ref="path_reference"/>
+      <xs:element ref="path_get-argument"/>
+      <xs:element ref="path_if"/>
+      <xs:element ref="path_switch"/>
+      <xs:element ref="path_suffix"/>
+      <xs:element ref="path_from-string"/>
     </xs:choice>
   </xs:group>
 
-  <xs:element name="value" type="value-type"/>
-  <xs:simpleType name="value-type">
+  <xs:element name="path_value" type="path_value-type"/>
+  <xs:simpleType name="path_value-type">
     <xs:restriction base="xs:anyURI"/>
   </xs:simpleType>
 
-  <xs:element name="element" type="element-type"/>
-  <xs:complexType name="element-type">
+  <xs:element name="path_element" type="path_element-type"/>
+  <xs:complexType name="path_element-type">
     <xs:sequence>
-      <xs:group ref="includes-element" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:group ref="path" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-    <xs:attribute name="value" type="value-type"/>
+    <xs:attribute name="value" type="path_value-type"/>
   </xs:complexType>
 
-  <xs:element name="reference" type="element:reference-type"/>
-  <xs:element name="get_argument">
+  <xs:element name="path_reference" type="element_reference-type"/>
+  <xs:element name="path_get-argument">
     <xs:complexType>
-      <xs:attribute name="namespace" type="namespace:type-name"/>
+      <xs:attribute name="namespace" type="namespace_type-name"/>
       <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="if">
+  <xs:element name="path_if">
     <xs:complexType>
       <xs:all>
-        <xs:element name="value" type="boolean:includes-element"/>
-        <xs:element name="then" type="element-type"/>
-        <xs:element name="else" type="element-type" minOccurs="0"/>
+        <xs:element name="value" type="boolean"/>
+        <xs:element name="then" type="path_element-type"/>
+        <xs:element name="else" type="path_element-type" minOccurs="0"/>
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="switch">
+  <xs:element name="path_switch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="value" type="string:includes-element"/>
+        <xs:element name="value" type="string"/>
         <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
           <xs:complexType>
             <xs:all>
-              <xs:element name="then" type="element-type" minOccurs="0"/>
+              <xs:element name="then" type="path_element-type" minOccurs="0"/>
             </xs:all>
-            <xs:attribute name="value" type="string:value-type"/>
-            <xs:attribute name="then" type="value-type"/>
+            <xs:attribute name="value" type="string_value-type"/>
+            <xs:attribute name="then" type="path_value-type"/>
           </xs:complexType>
         </xs:element>
-        <xs:element name="default" type="element-type"/>
+        <xs:element name="default" type="path_element-type"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="suffix" type="string:includes-element"/>
+  <xs:element name="path_suffix" type="string"/>
 
-  <xs:element name="from_string" type="string:includes-element"/>
+  <xs:element name="path_from-string" type="string"/>
 
-  <xs:element name="argument">
+  <xs:element name="path_argument">
     <xs:complexType>
-      <xs:group ref="includes-element" minOccurs="0"/>
+      <xs:group ref="path" minOccurs="0"/>
       <xs:attribute name="name" type="xs:string" use="required"/>
-      <xs:attribute name="value" type="value-type"/>
+      <xs:attribute name="value" type="path_value-type"/>
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="pack">
+  <xs:element name="path_pack">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="parameters" type="element:parameters" minOccurs="0"/>
-        <xs:group ref="includes-element"/>
+        <xs:element name="parameters" type="element_parameters" minOccurs="0"/>
+        <xs:group ref="path"/>
       </xs:sequence>
-      <xs:attribute name="namespace" type="namespace:type-name" use="required"/>
+      <xs:attribute name="namespace" type="namespace_type-name" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:element name="path_parameter" type="parameter_type"/>
 </xs:schema>
