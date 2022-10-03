@@ -1,61 +1,73 @@
 use std::fmt::{Display, Formatter};
 use std::io::Read;
-use yaserde::__xml::reader::XmlEvent;
-use yaserde::de::Deserializer;
-use yaserde::YaDeserialize;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub(crate) struct Namespace(String);
-
-impl Namespace {
-  pub(crate) const fn new(value: String) -> Self {
-    Self(value)
-  }
+pub(crate) struct Namespace {
+    parts: Vec<Name>,
 }
 
-impl Default for Namespace {
-  fn default() -> Self {
-    Self::new("__default__".to_owned())
-  }
+impl Namespace {
+    pub(crate) fn new(parts: Vec<Name>) -> Self {
+        Self { parts }
+    }
 }
 
 impl Display for Namespace {
-  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-    write!(f, "{}", self.0)
-  }
-}
-
-impl YaDeserialize for Namespace {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let next = reader.next_event()?;
-    if let XmlEvent::Characters(text) = next {
-      Ok(Namespace::new(text))
-    } else {
-      Err(format!("Expected TextEvent: {next:?}"))
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let mut namespace = self.parts.iter();
+        if let Some(part) = namespace.next() {
+            write!(f, "{}", part)?;
+            for part in namespace {
+                write!(f, "::{}", part)?;
+            }
+        }
+        Ok(())
     }
-  }
 }
 
-#[derive(Debug, Clone, Default)]
-pub(crate) struct ParameterName(Namespace, String);
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub(crate) struct Name {
+    value: String,
+}
+
+impl Name {
+    pub(crate) fn new(value: String) -> Self {
+        Self { value }
+    }
+
+    fn inner(&self) -> &str {
+        &self.value
+    }
+}
+
+impl Display for Name {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.value)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct ParameterName {
+    namespace: Namespace,
+    name: Name,
+}
 
 impl ParameterName {
-  pub(crate) fn new(namespace: String, name: String) -> Self {
-    let namespace = Namespace::new(namespace);
-    Self(namespace, name)
-  }
+    pub(crate) fn new(namespace: Namespace, name: Name) -> Self {
+        Self { namespace, name }
+    }
 
-  pub(crate) fn get_namespace(&self) -> &Namespace {
-    &self.0
-  }
+    pub(crate) fn get_namespace(&self) -> &Namespace {
+        &self.namespace
+    }
 
-  pub(crate) fn get_name(&self) -> &String {
-    &self.1
-  }
+    pub(crate) fn get_name(&self) -> &Name {
+        &self.name
+    }
 }
 
 impl Display for ParameterName {
-  fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-    write!(f, "{}.{}", self.0, self.1)
-  }
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}.{}", self.namespace, self.name)
+    }
 }

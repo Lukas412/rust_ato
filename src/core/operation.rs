@@ -1,9 +1,6 @@
 use std::io::Read;
 use std::rc::Rc;
 
-use yaserde::de::Deserializer;
-use yaserde::YaDeserialize;
-
 use crate::{Creation, CreationStack, PackProvider};
 use crate::core::operation::action::OperationAction;
 use crate::core::operation::empty::build_empty;
@@ -13,8 +10,6 @@ use crate::core::value::Value;
 use crate::core::variant::Variant;
 use crate::errors::build::BuildError;
 use crate::errors::build::operation::WrongVariantError;
-use crate::helpers::ser::events::start::peek_start_element;
-use crate::helpers::ser::from::from_deserializer;
 
 pub(crate) mod action;
 pub(crate) mod empty;
@@ -62,14 +57,5 @@ impl Operation {
 
   pub(crate) fn is_variant(&self, variant: &Variant) -> bool {
     &self.variant == variant
-  }
-}
-
-impl YaDeserialize for Operation {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let (name, _, _) = peek_start_element(reader)?;
-    let variant = Variant::from_owned_name(name)?;
-    let action = from_deserializer(reader)?;
-    Ok(Self::new(action, variant))
   }
 }

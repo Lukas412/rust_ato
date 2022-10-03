@@ -2,9 +2,7 @@
 
 extern crate rust_decimal;
 extern crate walkdir;
-extern crate yaserde;
-#[macro_use]
-extern crate yaserde_derive;
+extern crate serde_xml_rs;
 
 use error_stack::ResultExt;
 use crate::core::build::Build;

@@ -1,11 +1,10 @@
 use std::io::Read;
 use std::rc::Rc;
-use yaserde::de::Deserializer;
-use yaserde::YaDeserialize;
+
+use serde::Deserialize;
+
 use crate::core::namespace::ParameterName;
 use crate::Creation;
-use crate::helpers::ser::events::start::peek_start_element;
-use crate::helpers::ser::from::from_deserializer;
 
 #[derive(Debug)]
 pub(crate) enum OperationAction {
@@ -33,50 +32,20 @@ impl OperationAction {
   }
 }
 
-impl OperationAction {
-  fn new_value_from_reader<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner: InnerValueOperationAction = from_deserializer(reader)?;
-    Ok(Self::new_value(inner.text))
-  }
-
-  fn new_get_argument_from_reader<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner: InnerGetArgumentOperationAction = from_deserializer(reader)?;
-    let name = inner.to_parameter_name();
-    Ok(Self::new_get_argument(name))
-  }
-}
-
-impl YaDeserialize for OperationAction {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let (name, _, _) = peek_start_element(reader)?;
-    match name.local_name.as_str() {
-      "empty" => Ok(Self::new_empty()),
-      "value" => Self::new_value_from_reader(reader),
-      "get_argument" => Self::new_get_argument_from_reader(reader),
-      name => Err(format!("No OperationAction named: {name}"))
-    }
-  }
-}
-
 impl Default for OperationAction {
   fn default() -> Self {
     Self::Empty
   }
 }
 
-#[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "value")]
+#[derive(Debug, Deserialize)]
 struct InnerValueOperationAction {
-  #[yaserde(text)]
   text: String,
 }
 
-#[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "get_argument")]
+#[derive(Debug, Deserialize)]
 struct InnerGetArgumentOperationAction {
-  #[yaserde(attribute)]
   namespace: String,
-  #[yaserde(attribute)]
   name: String,
 }
 

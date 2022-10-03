@@ -1,11 +1,14 @@
 use std::fmt::{Debug, Display};
+use std::fs::File;
 use std::io;
 use std::path::Path;
 use std::rc::Rc;
-use error_stack::ResultExt;
+
+use error_stack::{IntoReport, ResultExt};
+use serde_xml_rs::from_reader;
+
 use crate::{Build, Creation, PackProvider};
 use crate::errors::build::BuildError;
-use crate::helpers::ser::from::from_file;
 
 pub(crate) struct Builder {
   pack_provider: Rc<PackProvider>,
@@ -24,8 +27,11 @@ impl Builder {
   pub(crate) fn create_build<P: AsRef<Path> + ?Sized>(self, path: &P) -> error_stack::Result<Build, BuildError> {
     let pack_provider = self.pack_provider.clone();
 
-    let creation = from_file(path)
-      .change_context(BuildError::default())?;
+    let reader = File::open(path)
+      .report().change_context(BuildError::default())?;
+
+    let creation = from_reader(reader)
+      .report().change_context(BuildError::default())?;
 
     Ok(Build::new(pack_provider, creation))
   }

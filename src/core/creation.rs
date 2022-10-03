@@ -5,10 +5,9 @@ use std::io::Read;
 use std::iter::FromIterator;
 use std::path::Path;
 use std::rc::Rc;
-use error_stack::{bail, report, ResultExt};
 
-use yaserde::de::Deserializer;
-use yaserde::YaDeserialize;
+use error_stack::{bail, report, ResultExt};
+use serde::Deserialize;
 
 use crate::{CreationStack, PackProvider};
 use crate::core::creation::value::CreationValue;
@@ -18,12 +17,11 @@ use crate::core::value::Value;
 use crate::errors::attachments::NamespaceInformation;
 use crate::errors::build::BuildError;
 use crate::errors::build::operation::OperationNotFoundError;
-use crate::helpers::ser::from::{from_deserializer, from_file};
 
 pub(crate) mod value;
 pub(crate) mod stack;
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Deserialize)]
 pub(crate) struct Creation {
   namespace: Namespace,
   operations: HashMap<String, Rc<Operation>>,
@@ -47,13 +45,6 @@ impl Creation {
   }
 }
 
-impl YaDeserialize for Creation {
-  fn deserialize<R: Read>(reader: &mut Deserializer<R>) -> Result<Self, String> {
-    let inner = from_deserializer(reader)?;
-    Ok(Self::from_inner(inner))
-  }
-}
-
 impl Creation {
   fn from_inner(inner: InnerCreation) -> Creation {
     let namespace = Namespace::new(inner.namespace);
@@ -63,11 +54,8 @@ impl Creation {
   }
 }
 
-#[derive(Debug, Default, YaDeserialize)]
-#[yaserde(rename = "creation")]
+#[derive(Debug, Default, Deserialize)]
 struct InnerCreation {
-  #[yaserde(attribute)]
   namespace: String,
-  #[yaserde(rename = "value")]
   values: Vec<CreationValue>,
 }

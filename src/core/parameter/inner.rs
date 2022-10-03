@@ -1,11 +1,11 @@
+use serde::Deserialize;
+
 use crate::core::namespace::Namespace;
 
-#[derive(Debug, YaDeserialize)]
-#[yaserde(rename = "parameter")]
+#[derive(Debug, Deserialize)]
+#[serde(rename = "parameter")]
 pub(crate) struct InnerParameter {
-  #[yaserde(attribute)]
   name: String,
-  #[yaserde(attribute)]
   namespace: Option<String>,
 }
 
